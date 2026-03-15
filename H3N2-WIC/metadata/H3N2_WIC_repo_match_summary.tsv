@@ -1,0 +1,7 @@
+metric	value
+repo_fasta_sequences	1739
+manifest_rows	16223
+repo_matched_rows	1817
+repo_matched_distinct_strains	1817
+repo_unmatched_rows	14406
+repo_unmatched_distinct_lookup_strains	14353

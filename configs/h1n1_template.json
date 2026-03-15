@@ -1,0 +1,21 @@
+{
+  "subtype": "H1N1",
+  "data_dir": "H1N1",
+  "hi_path": "H1N1/H1N1_HI_data.tsv",
+  "seq_path": "H1N1/H1N1_seq_data.tsv",
+  "gisaid_fasta_path": "H1N1/gisaid_sequences.fasta",
+  "genbank_fasta_path": "H1N1/genbank_sequences.fasta",
+  "output_dir": "H1N1/output",
+  "reference_strain": "REPLACE_WITH_H1_REFERENCE",
+  "signal_peptide_length": 16,
+  "ha1_length": 327,
+  "mature_protein_length": 550,
+  "max_gap_fraction": 0.05,
+  "min_ungapped_length": 500,
+  "max_ambiguous_fraction": 0.02,
+  "homologous_fallback": "max_observed",
+  "comparison_target_column": "standardized_titer",
+  "n_splits": 5,
+  "random_state": 42,
+  "koel_sites": []
+}

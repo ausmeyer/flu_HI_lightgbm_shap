@@ -1,0 +1,108 @@
+Title
+Sequence-based machine learning recovers classical and contemporary determinants of H3N2 antigenic variation from historical HI datasets
+
+Core claim
+Direct sequence-based LightGBM models trained on standardized HI measurements recover a stable canonical antigenic core, substantially overlap both classical H3N2 antigenic-site literature and the WIC Bayesian analysis, and show that passage filtering improves interpretability more than adding phylogenetic-distance covariates.
+
+1. Introduction
+- Motivate antigenic drift as a central problem for vaccine strain selection and mismatch assessment.
+- Frame HI data as one of the main empirical links between viral sequence change and antigenic phenotype.
+- Introduce classical H3N2 antigenic-site work: Koel sites, Neher/Bedford cluster-transition perspective, repeated mutation framework.
+- Introduce the WIC dataset and its Bayesian site-mapping study as a richer modern resource.
+- State the gap: a need for directly predictive, sequence-level models that can be compared across datasets and against prior biological knowledge.
+
+2. Study goals
+- Build a unified, publication-ready modeling workflow for the original H3N2 and WIC H3N2 HI datasets.
+- Compare predictive and interpretive results across site-state and substitution encodings.
+- Test sensitivity to phylogenetic-distance covariates.
+- Test sensitivity to passage filtering in WIC.
+
+3. Data and preprocessing
+- Original H3N2 dataset: sequence matching, alignment, mature-protein numbering, homologous-titer standardization.
+- WIC dataset: finalized sequence/HI inputs, HA1 extraction, assay-context annotation, homologous standardization.
+- Explain mature HA numbering and HA1 restriction for WIC.
+- Explain passage categories and rationale for excluding egg, mixed, and unknown passage measurements in sensitivity analyses.
+
+4. Modeling framework
+- Additive baseline correction.
+- Site-state model:
+  virus amino-acid state, serum amino-acid state, and site-change indicator.
+- Substitution model:
+  explicit serum-to-virus substitution identity features.
+- Cross-validation design:
+  grouped virus holdouts and Neher-style held-out comparisons.
+- SHAP-based site ranking and fold-stability summaries.
+
+5. Sensitivity analyses
+- H3N2 base versus H3N2 plus patristic distance.
+- WIC base versus WIC plus patristic distance.
+- WIC full versus WIC filtered passage data.
+- WIC filtered versus WIC filtered plus patristic distance.
+
+6. Main results: original H3N2
+- Report predictive performance of additive, binary, site-state, and substitution models.
+- Show strong recovery of canonical antigenic positions and Koel sites.
+- Show that patristic distance adds little to the main site-state model and slightly weakens interpretability.
+- Recommended figure set:
+  predicted-vs-actual, CV comparison, site-state site bar, site-state stacked component plot, site stability, substitution site bar.
+
+7. Main results: WIC
+- Report performance for full WIC data.
+- Show substantial overlap with both classical sites and WIC-reported sites.
+- Emphasize that the full WIC model bridges classical and contemporary site sets.
+- Recommended figure set:
+  predicted-vs-actual, CV comparison, site-state site bar, site-state stacked component plot, site stability, substitution site bar.
+
+8. Main results: WIC filtered-passage analysis
+- Report performance improvement after excluding egg, mixed, and unknown passage rows.
+- Show the filtered model yields the cleanest interpretable sequence result.
+- Compare top sites with the full WIC model and discuss which sites persist.
+- Contrast filtered non-patristic and filtered-plus-patristic models:
+  prediction improves slightly with patristic distance, but literature correspondence weakens.
+
+9. Comparison to prior work
+- Compare overlap with Neher/Bedford cluster-transition sites.
+- Compare overlap with Koel sites.
+- Compare overlap with the WIC Bayesian site set.
+- Main interpretation:
+  the ML framework corroborates both the classical antigenic core and the broader WIC site set, but yields a more directly predictive ranking of recurrent antigenic determinants.
+
+10. Discussion
+- Why passage filtering matters more than phylogenetic adjustment for interpretability.
+- Why patristic distance is best treated as a sensitivity covariate rather than a primary control.
+- Why direct predictive sequence models are useful for vaccine mismatch and antigenic risk assessment.
+- Clarify that posterior inclusion and predictive importance answer related but distinct questions.
+
+11. Limitations
+- HI data remain assay-dependent and historically heterogeneous.
+- WIC and original H3N2 are not perfectly matched in design or coverage.
+- SHAP ranks are still model-based importance summaries, not causal proof.
+- Tree-based patristic distances depend on approximate phylogeny and branch-length estimation.
+
+12. Conclusions
+- Sequence-based models robustly recover known antigenic determinants.
+- WIC data expand but do not replace the classical antigenic core.
+- Filtered non-patristic WIC is the preferred interpretable model.
+- Patristic variants are useful sensitivity checks, not primary mechanistic models.
+
+Primary figures
+- H3N2 and WIC model-performance comparison figures.
+- H3N2 and WIC predicted-vs-actual figures.
+- H3N2 and WIC site-state site-importance bar charts.
+- H3N2 and WIC site-state stacked component plots.
+- H3N2 and WIC site-stability plots.
+- Selected substitution-model site-importance figures for comparison.
+
+Primary tables
+- Dataset summary and retained-row counts for each pipeline.
+- CV and holdout performance table for all main models.
+- Top ranked sites with literature overlap annotations.
+- Comparison table showing overlap with Neher/Bedford, Koel, and WIC site sets.
+- Sensitivity table comparing base, patristic, filtered, and filtered-plus-patristic WIC models.
+
+Supplementary material
+- Full ranked site summaries.
+- Full substitution site summaries.
+- QC and alignment metadata.
+- Patristic-tree construction details and branch-length summaries.
+- Additional figures for substitution models and supplementary diagnostics.

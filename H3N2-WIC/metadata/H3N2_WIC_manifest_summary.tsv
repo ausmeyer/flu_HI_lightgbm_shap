@@ -1,0 +1,10 @@
+metric	value
+input_rows	202605
+unique_virus_strains	16213
+unique_reference_strains	381
+unique_union_strains	16223
+virus_only_strains	15842
+reference_only_strains	10
+virus_and_reference_strains	371
+year_inferred_rows	15867
+year_missing_rows	356

@@ -1,0 +1,22 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Sequence and phylogeny artifacts must not be versioned.
+*.fasta
+*.fa
+*.faa
+*.fna
+*.aln
+*.phy
+*.phylip
+*.nwk
+*.tree
+
+# Pipeline outputs are large and fully regenerable.
+/H3N2/output/
+/H3N2-patristic/output/
+/H3N2-WIC/output/
+/H3N2-WIC-no-egg-no-mixed-no-unknown/output/
+/H3N2-WIC-patristic/output/
+/H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/

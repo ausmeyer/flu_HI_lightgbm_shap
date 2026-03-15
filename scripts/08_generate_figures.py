@@ -1,0 +1,631 @@
+#!/usr/bin/env python3
+"""Generate publication-oriented H3N2 comparison figures."""
+
+from __future__ import annotations
+
+import argparse
+import re
+from pathlib import Path
+
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+from matplotlib.colors import Normalize, TwoSlopeNorm
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+from common import append_qc_log, get_prediction_color_feature, humanize_distance_label, load_config
+
+
+sns.set_theme(style="ticks", context="paper")
+matplotlib.rcParams["font.family"] = "sans-serif"
+matplotlib.rcParams["font.sans-serif"] = ["Helvetica", "Arial", "DejaVu Sans"]
+matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["axes.spines.top"] = False
+matplotlib.rcParams["axes.spines.right"] = False
+matplotlib.rcParams["axes.linewidth"] = 0.8
+matplotlib.rcParams["axes.edgecolor"] = "#333333"
+matplotlib.rcParams["grid.color"] = "#d9d9d9"
+matplotlib.rcParams["grid.linewidth"] = 0.6
+matplotlib.rcParams["grid.alpha"] = 0.8
+MONO_FONT = "DejaVu Sans Mono"
+
+
+def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
+    ax.set_facecolor("white")
+    if grid_axis is None:
+        ax.grid(False)
+    else:
+        ax.grid(axis=grid_axis, color="#d9d9d9", linewidth=0.6)
+        other_axis = "x" if grid_axis == "y" else "y"
+        ax.grid(axis=other_axis, visible=False)
+    sns.despine(ax=ax)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--config", default="configs/h3n2.json")
+    return parser.parse_args()
+
+
+def build_reciprocal_pairs(df: pd.DataFrame) -> pd.DataFrame:
+    left = df[
+        [
+            "virus_strain_matched",
+            "serum_strain_matched",
+            "standardized_titer",
+            "corrected_titer",
+        ]
+    ].copy()
+    left = left.rename(
+        columns={
+            "virus_strain_matched": "virus_a",
+            "serum_strain_matched": "virus_b",
+            "standardized_titer": "standardized_ab",
+            "corrected_titer": "corrected_ab",
+        }
+    )
+    right = left.rename(
+        columns={
+            "virus_a": "virus_b",
+            "virus_b": "virus_a",
+            "standardized_ab": "standardized_ba",
+            "corrected_ab": "corrected_ba",
+        }
+    )
+    merged = left.merge(right, on=["virus_a", "virus_b"], how="inner")
+    return merged[merged["virus_a"] < merged["virus_b"]].copy()
+
+
+def humanize_feature_label(feature: str) -> str:
+    if feature.startswith("change_"):
+        site = feature.split("_")[1]
+        return f"{site.rjust(3)} "
+    if feature.startswith("sub_"):
+        _, site, serum_aa, virus_aa = feature.split("_", 3)
+        return f"{site.rjust(3)} {serum_aa}->{virus_aa}"
+    if re.fullmatch(r"[A-Z]\d+", feature):
+        aa = feature[0]
+        site = feature[1:]
+        return f"{aa}{site.rjust(3)} "
+    if re.fullmatch(r"\d+[A-Z]", feature):
+        site = feature[:-1]
+        aa = feature[-1]
+        return f"{site.rjust(3)}{aa}"
+    return {
+        "temporal_distance": "temporal distance ",
+        "patristic_distance": "patristic distance ",
+        "lab": "lab ",
+    }.get(feature, feature.replace("_", " ").lower() + " ")
+
+
+def humanize_model_label(model_type: str) -> str:
+    mapping = {
+        "additive_only": "potency + avidity only",
+        "temporal_only": "temporal distance only",
+        "randomized_binary": "randomized site changes",
+        "binary_site": "site changed + time",
+        "site_state": "site aa state + time",
+        "substitution_identity": "substitution identity + time",
+    }
+    return mapping.get(model_type, model_type.replace("_", " "))
+
+
+def humanize_split_label(split_type: str) -> str:
+    mapping = {
+        "random_10pct_measurements": "random 10% measurements",
+        "grouped_10pct_viruses": "all measurements for 10% viruses",
+    }
+    return mapping.get(split_type, split_type.replace("_", " "))
+
+
+def humanize_homologous_source(label: str) -> str:
+    mapping = {
+        "homologous": "measured homologous",
+        "max_observed": "max observed fallback",
+    }
+    return mapping.get(label, label.replace("_", " "))
+
+
+def site_flag_suffix(row: pd.Series) -> str:
+    flags = []
+    if bool(row.get("paper_named", False)):
+        flags.append("Neher")
+    if bool(row.get("is_koel_site", False)):
+        flags.append("Koel")
+    return f" [{', '.join(flags)}]" if flags else ""
+
+
+def save_signed_feature_summary(feature_summary: pd.DataFrame, title: str, out_path: Path) -> None:
+    top_features = feature_summary.head(30).iloc[::-1].copy()
+    top_features["label"] = top_features["feature"].map(humanize_feature_label)
+    vmax = float(np.max(np.abs(top_features["mean_signed_shap"]))) or 1.0
+    norm = TwoSlopeNorm(vmin=-vmax, vcenter=0.0, vmax=vmax)
+    cmap = plt.get_cmap("coolwarm")
+    colors = [cmap(norm(v)) for v in top_features["mean_signed_shap"]]
+
+    fig, ax = plt.subplots(figsize=(10.5, 9))
+    ax.barh(top_features["label"], top_features["mean_abs_shap"], color=colors)
+    ax.set_xlabel("Mean |SHAP|")
+    ax.set_ylabel("")
+    ax.set_title(title)
+    ax.title.set_fontfamily(MONO_FONT)
+    ax.xaxis.label.set_fontfamily(MONO_FONT)
+    for tick in ax.get_yticklabels() + ax.get_xticklabels():
+        tick.set_fontfamily(MONO_FONT)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cb = fig.colorbar(sm, ax=ax, pad=0.02)
+    cb.set_label("Mean signed SHAP")
+    cb.ax.yaxis.label.set_fontfamily(MONO_FONT)
+    for tick in cb.ax.get_yticklabels():
+        tick.set_fontfamily(MONO_FONT)
+    finish_axes(ax=ax, grid_axis="x")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_site_importance_bar(
+    site_importance: pd.DataFrame,
+    title: str,
+    out_path: Path,
+    colors: np.ndarray,
+    x_label: str,
+) -> None:
+    fig, ax = plt.subplots(figsize=(14, 4))
+    ax.bar(site_importance["site"], site_importance["mean_abs_shap"], color=colors, width=1.0)
+    ax.set_xlabel(x_label)
+    ax.set_ylabel("mean |SHAP|")
+    ax.set_title(title)
+    finish_axes(ax=ax, grid_axis="y")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_site_component_plot(site_summary: pd.DataFrame, title: str, out_path: Path) -> None:
+    top_sites = site_summary.nsmallest(30, "rank").sort_values("rank", ascending=False).copy()
+    component_specs = [
+        ("mean_abs_shap_change", "mean_signed_shap_change"),
+        ("mean_abs_shap_virus_aa", "mean_signed_shap_virus_aa"),
+        ("mean_abs_shap_serum_aa", "mean_signed_shap_serum_aa"),
+    ]
+    signed_values = []
+    for _, signed_col in component_specs:
+        signed_values.extend(top_sites[signed_col].tolist())
+    vmax = float(np.max(np.abs(signed_values))) or 1.0
+    norm = TwoSlopeNorm(vmin=-vmax, vcenter=0.0, vmax=vmax)
+    cmap = plt.get_cmap("coolwarm")
+
+    fig, ax = plt.subplots(figsize=(12.6, 9.5))
+    y = np.arange(len(top_sites))
+    left = np.zeros(len(top_sites), dtype=float)
+    for abs_col, signed_col in component_specs:
+        widths = top_sites[abs_col].to_numpy(dtype=float)
+        colors = [cmap(norm(v)) for v in top_sites[signed_col].to_numpy(dtype=float)]
+        ax.barh(y, widths, left=left, color=colors, edgecolor="white", linewidth=0.6)
+        left += widths
+
+    labels = [f"{int(row['site'])}{site_flag_suffix(row)}" for _, row in top_sites.iterrows()]
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels)
+    ax.set_xlabel("mean |SHAP|")
+    ax.set_ylabel("site")
+    ax.set_title(title)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cb = fig.colorbar(sm, ax=ax, pad=0.02)
+    cb.set_label("mean signed SHAP")
+    ax.text(
+        0.985,
+        0.03,
+        "segment width = mean |SHAP|",
+        transform=ax.transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=9,
+        bbox={"facecolor": "white", "edgecolor": "#444444", "alpha": 1.0, "boxstyle": "round,pad=0.35"},
+    )
+    finish_axes(ax=ax, grid_axis="x")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_substitution_site_plot(site_summary: pd.DataFrame, title: str, out_path: Path) -> None:
+    top_sites = site_summary.nsmallest(30, "rank").sort_values("rank", ascending=False).copy()
+    vmax = float(np.max(np.abs(top_sites["mean_signed_shap"]))) or 1.0
+    norm = TwoSlopeNorm(vmin=-vmax, vcenter=0.0, vmax=vmax)
+    cmap = plt.get_cmap("coolwarm")
+    colors = [cmap(norm(v)) for v in top_sites["mean_signed_shap"]]
+
+    labels = []
+    for _, row in top_sites.iterrows():
+        label = f"{int(row['site'])}{site_flag_suffix(row)}"
+        top_terms = row["top_substitution_terms"] if isinstance(row["top_substitution_terms"], str) else ""
+        if top_terms:
+            label = f"{label} | {top_terms}"
+        labels.append(label)
+
+    fig, ax = plt.subplots(figsize=(14.5, 9.5))
+    ax.barh(labels, top_sites["mean_abs_shap"], color=colors)
+    ax.set_xlabel("mean |SHAP|")
+    ax.set_ylabel("site")
+    ax.set_title(title)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cb = fig.colorbar(sm, ax=ax, pad=0.02)
+    cb.set_label("mean signed SHAP")
+    finish_axes(ax=ax, grid_axis="x")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_site_stability(site_stability: pd.DataFrame, title: str, out_path: Path) -> None:
+    top_sites = site_stability.nsmallest(30, "rank").sort_values("mean_rank", ascending=True).copy()
+    freq_norm = Normalize(0.0, 1.0)
+    freq_cmap = plt.get_cmap("viridis")
+    colors = [freq_cmap(freq_norm(v)) for v in top_sites["top30_frequency"].to_numpy(dtype=float)]
+
+    fig, ax = plt.subplots(figsize=(10.5, 9.5))
+    y = np.arange(len(top_sites))
+    ax.hlines(
+        y=y,
+        xmin=top_sites["mean_rank"] - top_sites["sd_rank"],
+        xmax=top_sites["mean_rank"] + top_sites["sd_rank"],
+        color="#9e9e9e",
+        linewidth=2,
+    )
+    ax.scatter(
+        top_sites["mean_rank"],
+        y,
+        c=colors,
+        s=55,
+        edgecolors="black",
+        linewidths=0.4,
+        zorder=3,
+    )
+    ax.set_yticks(y)
+    ax.set_yticklabels([f"{int(row['site'])}{site_flag_suffix(row)}" for _, row in top_sites.iterrows()])
+    ax.set_xlabel("mean fold rank ± SD")
+    ax.set_ylabel("site")
+    ax.set_title(title)
+    ax.invert_yaxis()
+    sm = plt.cm.ScalarMappable(cmap=freq_cmap, norm=freq_norm)
+    sm.set_array([])
+    cb = fig.colorbar(sm, ax=ax, pad=0.02)
+    cb.set_label("top 30 frequency")
+    finish_axes(ax=ax, grid_axis="x")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def save_prediction_scatter(
+    df: pd.DataFrame,
+    pred_col: str,
+    title: str,
+    out_path: Path,
+    color_col: str,
+) -> None:
+    fig, ax = plt.subplots(figsize=(7.5, 6))
+    scatter = ax.scatter(
+        df["standardized_titer"],
+        df[pred_col],
+        c=df[color_col],
+        cmap="viridis",
+        s=10,
+        alpha=0.7,
+    )
+    lo = float(np.nanmin([df["standardized_titer"].min(), df[pred_col].min()]))
+    hi = float(np.nanmax([df["standardized_titer"].max(), df[pred_col].max()]))
+    ax.plot([lo, hi], [lo, hi], color="black", linestyle="--", linewidth=1)
+    ax.set_xlabel("observed standardized titer")
+    ax.set_ylabel("predicted standardized titer")
+    ax.set_title(title)
+    cb = fig.colorbar(scatter, ax=ax, pad=0.02)
+    cb.set_label(humanize_distance_label(color_col))
+    finish_axes(ax=ax, grid_axis=None)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300)
+    plt.close(fig)
+
+
+def save_cv_performance(cv_results: pd.DataFrame, out_path: Path) -> None:
+    cv_plot = cv_results[
+        cv_results["model_type"].isin(
+            ["additive_only", "temporal_only", "randomized_binary", "binary_site", "site_state", "substitution_identity"]
+        )
+    ].copy()
+    order = [
+        "potency + avidity only",
+        "temporal distance only",
+        "randomized site changes",
+        "site changed + time",
+        "site aa state + time",
+        "substitution identity + time",
+    ]
+    fig, ax = plt.subplots(figsize=(3.8, 6.8))
+    sns.boxplot(
+        data=cv_plot,
+        x="model_label",
+        y="rmse",
+        order=order,
+        color="#9ecae1",
+        width=0.55,
+        showfliers=False,
+        linewidth=0.9,
+        ax=ax,
+    )
+    plt.setp(ax.get_xticklabels(), rotation=90, ha="center", va="top")
+    ax.set_ylabel("RMSE")
+    ax.set_xlabel("")
+    ax.set_title("cross-validation RMSE by model")
+    finish_axes(ax=ax, grid_axis="y")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300)
+    plt.close(fig)
+
+
+def save_residualization_diagnostic(titers: pd.DataFrame, out_path: Path) -> None:
+    fig, ax = plt.subplots(figsize=(7, 6))
+    sns.scatterplot(
+        data=titers,
+        x="standardized_titer",
+        y="corrected_titer",
+        hue="homologous_source_label",
+        alpha=0.6,
+        s=16,
+        linewidth=0,
+        ax=ax,
+    )
+    ax.set_title("standardization vs corrected titer")
+    ax.set_xlabel("standardized titer")
+    ax.set_ylabel("corrected titer")
+    legend = ax.legend(title="homologous titer source", frameon=True, framealpha=1.0)
+    if legend is not None:
+        legend.get_frame().set_facecolor("white")
+        legend.get_frame().set_edgecolor("#444444")
+    finish_axes(ax=ax, grid_axis=None)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300)
+    plt.close(fig)
+
+
+def save_neher_analog(neher_pred: pd.DataFrame, out_path: Path) -> None:
+    fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharex=True, sharey=True)
+    panel_map = [
+        ("random_10pct_measurements", "A) random 10% measurements"),
+        ("grouped_10pct_viruses", "B) all measurements for 10% viruses"),
+    ]
+    for ax, (split_name, title) in zip(axes, panel_map):
+        sub = neher_pred[neher_pred["split_type"] == split_name]
+        ax.scatter(
+            sub["standardized_titer"],
+            sub["predicted_standardized_titer_site_state"],
+            s=10,
+            alpha=0.6,
+            color="#2b8cbe",
+            edgecolors="none",
+        )
+        lo = min(sub["standardized_titer"].min(), sub["predicted_standardized_titer_site_state"].min())
+        hi = max(sub["standardized_titer"].max(), sub["predicted_standardized_titer_site_state"].max())
+        ax.plot([lo, hi], [lo, hi], linestyle="--", color="black", linewidth=1)
+        rmse = np.sqrt(np.mean((sub["standardized_titer"] - sub["predicted_standardized_titer_site_state"]) ** 2))
+        ax.set_title(f"{title}\nRMSE={rmse:.3f}, n={len(sub)}", fontsize=10)
+        ax.set_xlabel("observed standardized titer")
+        finish_axes(ax=ax, grid_axis=None)
+    axes[0].set_ylabel("predicted standardized titer")
+    fig.suptitle("Neher and Bedford 2016 figure 2 analog", fontsize=12)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300)
+    plt.close(fig)
+
+
+def save_reciprocal_symmetry(titers: pd.DataFrame, out_path: Path) -> None:
+    reciprocal = build_reciprocal_pairs(titers)
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.scatter(
+        reciprocal["standardized_ab"],
+        reciprocal["standardized_ba"],
+        s=10,
+        alpha=0.5,
+        color="#756bb1",
+    )
+    lo = min(reciprocal["standardized_ab"].min(), reciprocal["standardized_ba"].min())
+    hi = max(reciprocal["standardized_ab"].max(), reciprocal["standardized_ba"].max())
+    ax.plot([lo, hi], [lo, hi], linestyle="--", color="black", linewidth=1)
+    ax.set_xlabel("standardized titer A vs B")
+    ax.set_ylabel("standardized titer B vs A")
+    ax.set_title("reciprocal measurement symmetry")
+    finish_axes(ax=ax, grid_axis=None)
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300)
+    plt.close(fig)
+
+
+def save_heldout_comparison(neher_metrics: pd.DataFrame, out_path: Path) -> None:
+    heldout_plot = neher_metrics[
+        neher_metrics["model_type"].isin(["additive_only", "binary_site", "site_state", "substitution_identity"])
+    ].copy()
+    hue_order = [
+        "potency + avidity only",
+        "site changed + time",
+        "site aa state + time",
+        "substitution identity + time",
+    ]
+    split_order = ["random 10% measurements", "all measurements for 10% viruses"]
+    fig, ax = plt.subplots(figsize=(9.5, 4.8))
+    sns.barplot(
+        data=heldout_plot,
+        x="split_label",
+        y="rmse",
+        hue="model_label",
+        hue_order=hue_order,
+        order=split_order,
+        palette=["#bdbdbd", "#6baed6", "#08519c", "#ef6548"],
+        ax=ax,
+    )
+    ax.set_xlabel("")
+    ax.set_ylabel("RMSE")
+    ax.set_title("held-out prediction comparison")
+    legend = ax.legend(
+        title="model",
+        loc="upper left",
+        bbox_to_anchor=(1.01, 1.0),
+        borderaxespad=0.0,
+        frameon=True,
+        framealpha=1.0,
+    )
+    if legend is not None:
+        legend.get_frame().set_facecolor("white")
+        legend.get_frame().set_edgecolor("#444444")
+    finish_axes(ax=ax, grid_axis="y")
+    fig.tight_layout()
+    fig.savefig(out_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def load_analysis_tables(cfg: dict) -> dict[str, pd.DataFrame]:
+    out_dir = Path(cfg["output_dir"])
+    subtype = cfg["subtype"]
+    tables = {
+        "feature_summary": pd.read_csv(out_dir / f"{subtype}_feature_shap_importance.csv"),
+        "site_importance": pd.read_csv(out_dir / f"{subtype}_site_importance.csv"),
+        "site_summary": pd.read_csv(out_dir / f"{subtype}_site_summary.tsv", sep="\t"),
+        "site_stability": pd.read_csv(out_dir / f"{subtype}_site_stability.tsv", sep="\t"),
+        "sub_feature_summary": pd.read_csv(out_dir / f"{subtype}_substitution_feature_shap_importance.csv"),
+        "sub_site_importance": pd.read_csv(out_dir / f"{subtype}_substitution_site_importance.csv"),
+        "sub_site_summary": pd.read_csv(out_dir / f"{subtype}_substitution_site_summary.tsv", sep="\t"),
+        "sub_site_stability": pd.read_csv(out_dir / f"{subtype}_substitution_site_stability.tsv", sep="\t"),
+        "cv_results": pd.read_csv(out_dir / f"{subtype}_cv_results.csv"),
+        "oof": pd.read_csv(out_dir / f"{subtype}_oof_predictions.csv"),
+        "titers": pd.read_csv(out_dir / f"{subtype}_matched_titers.csv"),
+        "neher_pred": pd.read_csv(out_dir / f"{subtype}_neher_analog_predictions.csv"),
+        "neher_metrics": pd.read_csv(out_dir / f"{subtype}_neher_analog_metrics.csv"),
+    }
+    tables["cv_results"]["model_label"] = tables["cv_results"]["model_type"].map(humanize_model_label)
+    tables["neher_metrics"]["model_label"] = tables["neher_metrics"]["model_type"].map(humanize_model_label)
+    tables["neher_metrics"]["split_label"] = tables["neher_metrics"]["split_type"].map(humanize_split_label)
+    tables["titers"]["homologous_source_label"] = tables["titers"]["homologous_titer_source"].map(humanize_homologous_source)
+    return tables
+
+
+def main() -> None:
+    args = parse_args()
+    cfg = load_config(args.config)
+    figures_dir = Path(cfg["figures_dir"])
+    subtype = cfg["subtype"]
+    color_col = get_prediction_color_feature(cfg)
+    tables = load_analysis_tables(cfg)
+
+    save_signed_feature_summary(
+        feature_summary=tables["feature_summary"],
+        title="Top 30 SHAP Features, Site-State Model",
+        out_path=figures_dir / f"{subtype}_shap_summary_top30.pdf",
+    )
+    site_state_colors = np.where(tables["site_importance"]["is_koel_site"].to_numpy(), "#d7301f", "#9ecae1")
+    save_site_importance_bar(
+        site_importance=tables["site_importance"],
+        title="site-level SHAP importance, site-state model",
+        out_path=figures_dir / f"{subtype}_site_importance_bar.pdf",
+        colors=site_state_colors,
+        x_label="mature HA position",
+    )
+    save_site_component_plot(
+        site_summary=tables["site_summary"],
+        title="top 30 sites by SHAP component, site-state model",
+        out_path=figures_dir / f"{subtype}_site_component_top30.pdf",
+    )
+    save_site_stability(
+        site_stability=tables["site_stability"],
+        title="top 30 site stability across CV folds, site-state model",
+        out_path=figures_dir / f"{subtype}_site_stability_top30.pdf",
+    )
+    save_prediction_scatter(
+        df=tables["oof"],
+        pred_col="predicted_standardized_titer_site_state",
+        title="predicted vs observed out-of-fold, site-state model",
+        out_path=figures_dir / f"{subtype}_predicted_vs_actual.pdf",
+        color_col=color_col,
+    )
+
+    save_signed_feature_summary(
+        feature_summary=tables["sub_feature_summary"],
+        title="Top 30 SHAP Features, Substitution Model",
+        out_path=figures_dir / f"{subtype}_substitution_shap_summary_top30.pdf",
+    )
+    sub_colors = np.where(tables["sub_site_importance"]["is_koel_site"].to_numpy(), "#d7301f", "#9ecae1")
+    save_site_importance_bar(
+        site_importance=tables["sub_site_importance"],
+        title="site-level SHAP importance, substitution model",
+        out_path=figures_dir / f"{subtype}_substitution_site_importance_bar.pdf",
+        colors=sub_colors,
+        x_label="mature HA position",
+    )
+    save_substitution_site_plot(
+        site_summary=tables["sub_site_summary"],
+        title="top 30 sites, substitution model",
+        out_path=figures_dir / f"{subtype}_substitution_site_component_top30.pdf",
+    )
+    save_site_stability(
+        site_stability=tables["sub_site_stability"],
+        title="top 30 site stability across CV folds, substitution model",
+        out_path=figures_dir / f"{subtype}_substitution_site_stability_top30.pdf",
+    )
+    save_prediction_scatter(
+        df=tables["oof"],
+        pred_col="predicted_standardized_titer_substitution",
+        title="predicted vs observed out-of-fold, substitution model",
+        out_path=figures_dir / f"{subtype}_substitution_predicted_vs_actual.pdf",
+        color_col=color_col,
+    )
+
+    save_cv_performance(
+        cv_results=tables["cv_results"],
+        out_path=figures_dir / f"{subtype}_cv_performance_summary.pdf",
+    )
+    save_residualization_diagnostic(
+        titers=tables["titers"],
+        out_path=figures_dir / f"{subtype}_residualization_diagnostic.pdf",
+    )
+    save_neher_analog(
+        neher_pred=tables["neher_pred"],
+        out_path=figures_dir / f"{subtype}_neher2016_fig2_analog.pdf",
+    )
+    save_reciprocal_symmetry(
+        titers=tables["titers"],
+        out_path=figures_dir / f"{subtype}_reciprocal_symmetry.pdf",
+    )
+    save_heldout_comparison(
+        neher_metrics=tables["neher_metrics"],
+        out_path=figures_dir / f"{subtype}_heldout_model_comparison.pdf",
+    )
+
+    lines = [
+        f"Saved SHAP summary figure: {figures_dir / f'{subtype}_shap_summary_top30.pdf'}",
+        f"Saved site importance figure: {figures_dir / f'{subtype}_site_importance_bar.pdf'}",
+        f"Saved site component figure: {figures_dir / f'{subtype}_site_component_top30.pdf'}",
+        f"Saved site stability figure: {figures_dir / f'{subtype}_site_stability_top30.pdf'}",
+        f"Saved predicted-vs-actual figure: {figures_dir / f'{subtype}_predicted_vs_actual.pdf'}",
+        f"Saved substitution SHAP summary figure: {figures_dir / f'{subtype}_substitution_shap_summary_top30.pdf'}",
+        f"Saved substitution site importance figure: {figures_dir / f'{subtype}_substitution_site_importance_bar.pdf'}",
+        f"Saved substitution site summary figure: {figures_dir / f'{subtype}_substitution_site_component_top30.pdf'}",
+        f"Saved substitution site stability figure: {figures_dir / f'{subtype}_substitution_site_stability_top30.pdf'}",
+        f"Saved substitution predicted-vs-actual figure: {figures_dir / f'{subtype}_substitution_predicted_vs_actual.pdf'}",
+        f"Saved CV summary figure: {figures_dir / f'{subtype}_cv_performance_summary.pdf'}",
+        f"Saved standardization diagnostic figure: {figures_dir / f'{subtype}_residualization_diagnostic.pdf'}",
+        f"Saved Neher 2016 analog figure: {figures_dir / f'{subtype}_neher2016_fig2_analog.pdf'}",
+        f"Saved reciprocal symmetry figure: {figures_dir / f'{subtype}_reciprocal_symmetry.pdf'}",
+        f"Saved held-out comparison figure: {figures_dir / f'{subtype}_heldout_model_comparison.pdf'}",
+    ]
+    append_qc_log(cfg, "08_generate_figures", lines)
+    print("\n".join(lines))
+
+
+if __name__ == "__main__":
+    main()

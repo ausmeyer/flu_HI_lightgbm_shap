@@ -1,0 +1,20 @@
+{
+  "subtype": "H3N2_WIC_HA1_PATRISTIC",
+  "data_dir": "H3N2-WIC",
+  "final_hi_path": "H3N2-WIC/data/final/H3N2_WIC_HI_data_final.tsv",
+  "final_seq_path": "H3N2-WIC/data/final/H3N2_WIC_seq_data_final.tsv",
+  "final_fasta_path": "H3N2-WIC/data/final/H3N2_WIC_sequences_final.fasta",
+  "output_dir": "H3N2-WIC-patristic/output/modeling",
+  "bootstrap_alignment_from_output_dir": "H3N2-WIC/output/modeling",
+  "bootstrap_alignment_source_subtype": "H3N2_WIC_HA1",
+  "signal_peptide_length": 16,
+  "ha1_length": 328,
+  "mature_protein_length": 550,
+  "reference_sequence_id": null,
+  "homologous_fallback": "max_observed",
+  "comparison_target_column": "standardized_titer",
+  "n_splits": 5,
+  "random_state": 42,
+  "distance_feature_cols": ["temporal_distance", "patristic_distance"],
+  "prediction_color_feature": "patristic_distance"
+}
