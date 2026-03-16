@@ -21,23 +21,16 @@ Main manuscript should include
 
 Main-text figures
 - Figure 1:
-  overview schematic plus dataset summary
+  `Neher/Bedford H3N2` site-component top-30 plot
 - Figure 2:
-  `Neher/Bedford H3N2` main result panels
+  filtered `Harvey/WIC H3N2` site-component top-30 plot
 - Figure 3:
-  filtered `Harvey/WIC H3N2` main result panels
-- Figure 4:
   cross-study concordance summary
-- Optional Figure 5 only if space allows:
-  paired site-state stacked bar/component panels for `H3N2` and filtered `H3N2-WIC`
 
 Main-text tables
 - Table 1:
-  model performance summary for the primary models and core baselines
-- Table 2:
-  top ranked sites in the two primary models with literature annotations
-- Optional Table 3 only if needed:
-  compact overlap summary across key prior studies
+  dataset/model summary for the three non-patristic analyses with site-state and substitution performance
+- No additional main-text tables are currently needed unless drafting reveals a genuine explanatory gap
 
 Main-text results that should stay concise
 - Patristic distance:
@@ -53,7 +46,7 @@ SI Appendix
 - Additional methods details for SHAP, stability, and cross-study comparison
 - Full WIC model results
 - All patristic model results
-- All substitution model figures and tables
+- Additional substitution-model figures and tables if needed during drafting or revision
 - Full integrated site comparison tables
 - Full literature annotation tables
 - Extended CV tables
@@ -61,19 +54,44 @@ SI Appendix
 - Detailed discussion of the WIC two-cluster structure
 - Tree-building details and patristic-distance construction
 
-Likely SI figure list
-- All substitution-model site importance plots
-- All substitution-model stability plots
-- Full Harvey/WIC versus filtered Harvey/WIC comparison panels
-- Patristic versus non-patristic comparison panels
-- Additional cross-study rank correlation figures
+Current SI figure list
+- Figure S1:
+  Neher/Bedford H3N2 held-out model comparison
+- Figure S2:
+  Neher/Bedford H3N2 predicted versus actual
+- Figure S3:
+  Neher/Bedford H3N2 site stability
+- Figure S4:
+  Neher/Bedford H3N2 Neher analog
+- Figure S5:
+  filtered Harvey/WIC H3N2 held-out model comparison
+- Figure S6:
+  filtered Harvey/WIC H3N2 predicted versus actual
+- Figure S7:
+  filtered Harvey/WIC H3N2 site stability
+- Figure S8:
+  filtered Harvey/WIC H3N2 residualization diagnostic
+- Figure S9:
+  filtered Harvey/WIC H3N2 Neher analog
+- Figure S10:
+  unfiltered Harvey/WIC H3N2 predicted versus actual
+- Figure S11:
+  unfiltered Harvey/WIC H3N2 site-component top 30
+- Figure S12:
+  Neher/Bedford H3N2 patristic site-component top 30
+- Figure S13:
+  Neher/Bedford H3N2 patristic held-out comparison
+- Figure S14:
+  filtered Harvey/WIC H3N2 patristic site-component top 30
+- Figure S15:
+  filtered Harvey/WIC H3N2 patristic held-out comparison
 
-Likely SI table list
-- Full site_model_literature_comparison.tsv
-- Full model_performance_literature_summary.tsv
-- Full ranked site summaries for every local model
-- Full substitution site summaries for every local model
-- Extended overlap/rank summary tables
+Current SI table list
+- Table S1:
+  model performance summary across local analyses
+- Table S2:
+  compact reference-overlap summary for the primary models
+- Additional long-form tables should stay in the project repository and can be cited or migrated later if needed
 
 What to avoid in the main manuscript
 - Full six-model narrative

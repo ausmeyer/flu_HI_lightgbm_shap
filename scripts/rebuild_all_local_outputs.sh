@@ -114,6 +114,12 @@ main() {
   log "Syncing manuscript figures into Overleaf repo"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/40_sync_manuscript_assets.py"
 
+  log "Rebuilding supplement summary tables"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/41_generate_supplement_tables.py"
+
+  log "Syncing supplement assets into Overleaf repo"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/42_sync_supplement_assets.py"
+
   log "Rebuild complete"
 }
 

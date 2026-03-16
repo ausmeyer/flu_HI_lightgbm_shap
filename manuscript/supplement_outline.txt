@@ -1,0 +1,118 @@
+Supplement outline
+
+Working title
+- Supplementary Information for:
+  `Sequence-based machine learning identifies robust determinants of H3N2 antigenic variation across hemagglutination inhibition datasets`
+
+Core purpose of the SI
+- Document exactly how the primary Neher/Bedford H3N2 and filtered Harvey/WIC H3N2 results were constructed.
+- Show that the main claims are robust to broader model grids, including unfiltered Harvey/WIC and patristic-distance sensitivity analyses.
+- Provide the longer methods, diagnostics, and comparison tables that would overload the main manuscript.
+
+Recommended SI structure
+
+1. Supplementary Methods
+
+1.1 Dataset definitions and inclusion criteria
+- Define the Neher/Bedford H3N2 dataset used in the main manuscript.
+- Define the Harvey/WIC H3N2 dataset and the filtered Harvey/WIC subset.
+- State clearly that filtered Harvey/WIC excludes egg-passaged, mixed-passaged, and unknown-passage observations.
+- Clarify that all site numbering uses mature HA numbering and excludes the N-terminal 16-residue signal peptide.
+
+1.2 Sequence matching, alignment, and numbering
+- Briefly describe sequence matching and retained modeled rows.
+- Describe H3 alignment and HA1 extraction for WIC.
+- Describe the mature-numbering map and how it was applied across local and literature-derived comparisons.
+
+1.3 Model families
+- Define site-state encoding.
+- Define substitution encoding.
+- Clarify the additive baseline used in Neher/Bedford H3N2.
+- Clarify the additive correction plus learned context structure used in Harvey/WIC.
+
+1.4 Validation design
+- Describe fold structure, grouped holdouts, and the Neher-style grouped-virus analog evaluation.
+- Define the retained performance metrics.
+
+1.5 SHAP ranking and stability
+- Describe how mean absolute SHAP values were aggregated.
+- Describe site-level collapsing and fold-wise stability summaries.
+
+1.6 Cross-study comparison construction
+- Define Koel, Neher main-text/canonical, Harvey, McWhite, PLoS/Meyer, and LightGBM+SHAP comparison sources.
+- Clarify why the main manuscript uses the compact Neher canonical set rather than the full supplementary substitution list.
+
+1.7 Patristic-distance sensitivity analysis
+- Describe FastTree-based tree building and virus-serum patristic distance calculation.
+- State explicitly that patristic distance was treated as a sensitivity covariate, not as the primary explanatory representation.
+
+2. Supplementary Tables
+
+Table S1
+- Model performance summary across all local analyses.
+- Use this table to document the full six-analysis grid without forcing it into the main text.
+
+Table S2
+- Reference-set overlap summary across the primary models and key external studies.
+- Use this as the compact numerical companion to the main cross-study concordance figure.
+
+Optional Table S3 if useful later
+- Expanded Neher SI-derived site set or full integrated comparison subset.
+- Include only if needed to answer reviewer concerns about benchmark definition.
+
+3. Supplementary Figures
+
+Section A. Primary Neher/Bedford H3N2 diagnostics
+- Figure S1:
+  held-out model-family comparison for Neher/Bedford H3N2
+- Figure S2:
+  observed versus predicted values for the Neher/Bedford H3N2 site-state model
+- Figure S3:
+  fold-wise stability of top Neher/Bedford H3N2 sites
+- Figure S4:
+  Neher-style grouped holdout analog for Neher/Bedford H3N2
+
+Section B. Primary filtered Harvey/WIC diagnostics
+- Figure S5:
+  held-out model-family comparison for filtered Harvey/WIC H3N2
+- Figure S6:
+  observed versus predicted values for the filtered Harvey/WIC H3N2 site-state model
+- Figure S7:
+  fold-wise stability of top filtered Harvey/WIC H3N2 sites
+- Figure S8:
+  residualization diagnostic for filtered Harvey/WIC H3N2
+- Figure S9:
+  Neher-style grouped holdout analog for filtered Harvey/WIC H3N2
+
+Section C. Sensitivity analyses
+- Figure S10:
+  observed versus predicted values for unfiltered Harvey/WIC H3N2
+- Figure S11:
+  top-site decomposition for unfiltered Harvey/WIC H3N2
+- Figure S12:
+  top-site decomposition for Neher/Bedford H3N2 with patristic distance
+- Figure S13:
+  held-out comparison for Neher/Bedford H3N2 with patristic distance
+- Figure S14:
+  top-site decomposition for filtered Harvey/WIC H3N2 with patristic distance
+- Figure S15:
+  held-out comparison for filtered Harvey/WIC H3N2 with patristic distance
+
+4. SI narrative priorities
+- Keep the SI organized around support for the main claims, not as a second full manuscript.
+- Primary-model diagnostics should come first.
+- Unfiltered and patristic analyses should be framed explicitly as sensitivity analyses.
+- If substitution models are later added to the SI text, place them after the current sensitivity sections and describe them as an alternate encoding rather than a new primary result.
+
+5. Key interpretive messages to preserve
+- The Neher/Bedford H3N2 model best reconstructs the classical canonical antigenic signal.
+- The filtered Harvey/WIC H3N2 model provides the clearest modern consensus signal.
+- Passage filtering matters more than adding patristic distance.
+- SHAP-based sequence rankings are more useful than sitewise dN/dS for prioritizing likely antigenically important positions.
+
+6. Drafting order for the SI
+- Write Supplementary Methods first.
+- Then write one short introductory paragraph for each figure section:
+  primary Neher/Bedford H3N2, primary filtered Harvey/WIC H3N2, sensitivity analyses.
+- Then add concise table legends and figure legends.
+- Keep the SI interpretive text short and let the figure legends carry most of the detail.

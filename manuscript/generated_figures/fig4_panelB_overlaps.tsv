@@ -1,0 +1,9 @@
+label	h3n2_overlap	wic_filtered_overlap	ref_size
+Koel	6	5	7
+Neher	11	10	15
+Harvey	11	12	15
+LightGBM+SHAP passage	11	16	30
+LightGBM+SHAP date	11	19	30
+Unpassaged entropy	9	21	30
+Unpassaged dN/dS	7	9	30
+McWhite unpassaged dN/dS	4	6	30

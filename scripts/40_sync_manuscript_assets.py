@@ -38,12 +38,6 @@ def main() -> None:
             figures_dir / "fig3_wic_filtered_site_component_top30.pdf",
         ROOT / "manuscript" / "generated_figures" / "fig4_cross_study_concordance.pdf":
             figures_dir / "fig4_cross_study_concordance.pdf",
-        ROOT / "manuscript" / "generated_figures" / "fig4_cross_study_concordance.png":
-            figures_dir / "fig4_cross_study_concordance.png",
-        ROOT / "manuscript" / "generated_figures" / "fig4_panelA_sites.tsv":
-            figures_dir / "fig4_panelA_sites.tsv",
-        ROOT / "manuscript" / "generated_figures" / "fig4_panelB_overlaps.tsv":
-            figures_dir / "fig4_panelB_overlaps.tsv",
     }
 
     for src, dst in mapping.items():

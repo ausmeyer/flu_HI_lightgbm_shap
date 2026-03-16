@@ -59,21 +59,27 @@ Main-text narrative
 Results subsection 1
 Sequence-based models recover the classical H3N2 antigenic core
 - Introduce the Neher/Bedford H3N2 dataset and modeling setup briefly.
-- Show predictive performance of additive, site-state, and substitution models.
+- Use `Table 1` to summarize the modeled observations and the site-state versus substitution performance for the Neher/Bedford and Harvey/WIC analyses.
 - Emphasize that the Neher/Bedford H3N2 analysis sharply recovers canonical antigenic sites and classical literature overlap.
+- Center the subsection visually on `Figure 1`:
+  `Neher/Bedford H3N2` site-component top-30 plot.
 - Briefly note that patristic distance adds little and does not improve the main mechanistic interpretation.
 
 Results subsection 2
 Passage filtering yields the clearest interpretable model in WIC
 - Introduce the Harvey/WIC dataset and explain passage heterogeneity briefly.
-- Show that filtering egg, mixed, and unknown passage rows improves clarity and performance.
+- Use `Table 1` and one short paragraph to show that filtering egg, mixed, and unknown passage rows yields a cleaner analysis set while retaining strong predictive performance.
 - Present the filtered Harvey/WIC site-state model as the preferred contemporary model.
+- Center the subsection visually on `Figure 2`:
+  filtered `Harvey/WIC H3N2` site-component top-30 plot.
 - Emphasize overlap with both classical sites and Harvey/WIC positions.
 
 Results subsection 3
 Cross-study comparison identifies a robust consensus antigenic signal
 - Compare the two primary models to:
   Koel, Neher/Bedford, Harvey/WIC, McWhite Virus Evolution, PLoS/Meyer, and the review-manuscript LightGBM passage/date/entropy signals.
+- Center the subsection visually on `Figure 3`:
+  cross-study concordance.
 - Main take:
   `Neher/Bedford H3N2` best recovers the sharp classical canonical signal;
   filtered `Harvey/WIC H3N2` provides the best overall cross-study consensus.
@@ -107,26 +113,17 @@ Keep main text to a compact set of graphical elements.
 
 Recommended figure plan
 - Figure 1:
-  study overview schematic plus dataset summary counts
+  `Neher/Bedford H3N2` site-component top-30 plot
 - Figure 2:
-  `Neher/Bedford H3N2` main results
-  panels: predicted vs actual, CV summary, top site-state importance
+  filtered `Harvey/WIC H3N2` site-component top-30 plot
 - Figure 3:
-  filtered `Harvey/WIC H3N2` main results
-  panels: predicted vs actual, CV summary, top site-state importance
-- Figure 4:
-  cross-study comparison
-  compact overlap/concordance summary across Koel, Neher, Harvey, McWhite, and review-manuscript sequence-only models
-- Optional Figure 5 if space allows:
-  side-by-side site-state stacked component plots for `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2`
+  cross-study concordance summary across Koel, Neher, Harvey, McWhite, and the independent sequence-only LightGBM+SHAP analyses
+- No additional main-text figures unless page budget and narrative need clearly justify them
 
 Recommended table plan
 - Table 1:
-  dataset/model summary and predictive performance for the two primary models and the simplest baselines
-- Table 2:
-  top-ranked sites for `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2` with literature annotations
-- Table 3 if space allows:
-  compact cross-study overlap summary
+  dataset/model summary and predictive performance for the three non-patristic analyses
+- Additional ranked-site and overlap tables should go to the SI unless a reviewer-driven revision later requires a compact main-text table
 
 8. What belongs in the SI
 
@@ -134,7 +131,7 @@ Put in SI by default
 - Full model grid:
   full Harvey/WIC, patristic variants, substitution variants, and all additional sensitivity analyses
 - All supplementary figures:
-  substitution-model figures, full stability plots, additional predicted-vs-actual panels, extra CV plots
+  held-out comparisons, predicted-vs-actual plots, stability plots, Neher analog plots, residualization diagnostics, unfiltered Harvey/WIC sensitivity figures, and patristic sensitivity figures
 - Full integrated comparison table and long-form literature annotation table
 - Detailed methods and implementation specifics
 - Alignment, numbering, and QC details
@@ -149,6 +146,7 @@ Keep in main text only if directly necessary
 - Write the main paper around two sentences of logic:
   `Neher/Bedford H3N2` validates the classical core.
   filtered `Harvey/WIC H3N2` extends that core into a better-controlled contemporary dataset and agrees strongly with independent sequence-only models.
+- Use `Table 1` early to orient the reader before the figures.
 - Do not let the full variant grid dominate the main paper.
 - Do not over-explain patristic models in the main text.
 - Mention Bayesian/WIC framing respectfully, but keep the paper centered on biologically actionable site prioritization.
