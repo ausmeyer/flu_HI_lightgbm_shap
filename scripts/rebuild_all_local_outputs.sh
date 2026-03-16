@@ -105,6 +105,15 @@ main() {
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/37_run_wic_ha1_filtered_patristic_pipeline.py" \
     --config "$ROOT_DIR/H3N2-WIC/config/wic_ha1_no_egg_mixed_unknown_patristic.json"
 
+  log "Rebuilding integrated site comparison tables"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/38_build_master_site_model_comparison.py"
+
+  log "Rebuilding manuscript cross-study figure"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/39_generate_cross_study_figure.py"
+
+  log "Syncing manuscript figures into Overleaf repo"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/40_sync_manuscript_assets.py"
+
   log "Rebuild complete"
 }
 

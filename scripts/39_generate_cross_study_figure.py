@@ -1,26 +1,24 @@
 #!/usr/bin/env python3
-"""Build the PNAS Figure 4 cross-study concordance figure."""
+"""Build the manuscript cross-study concordance figure."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
 import matplotlib as mpl
+
 mpl.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.gridspec import GridSpec
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
 TABLE_PATH = ROOT / "site_model_literature_comparison.tsv"
-OUT_DIR = ROOT / "69b778fd3e7b181fe1c2943b" / "figures"
+OUT_DIR = ROOT / "manuscript" / "generated_figures"
 
-# Full union of Neher 2016 and Harvey 2023 H3 site sets.
-# Koel adds no extra sites because all 7 Koel positions are already in Neher 2016.
 PANEL_A_SITES = [53, 62, 121, 126, 131, 135, 137, 140, 144, 145, 155, 156, 157, 158, 159, 160, 173, 186, 189, 193, 196, 276]
 
 PANEL_A_MEMBERSHIP_COLS = [
@@ -56,16 +54,18 @@ def configure_style() -> None:
         {
             "font.family": "sans-serif",
             "font.sans-serif": ["Helvetica", "Arial", "DejaVu Sans"],
-            "font.size": 8,
-            "axes.titlesize": 10,
-            "axes.labelsize": 8,
-            "xtick.labelsize": 8,
-            "ytick.labelsize": 8,
+            "font.size": 12,
+            "axes.titlesize": 14,
+            "axes.labelsize": 12,
+            "xtick.labelsize": 12,
+            "ytick.labelsize": 12,
             "pdf.fonttype": 42,
             "ps.fonttype": 42,
             "axes.spines.top": False,
             "axes.spines.right": False,
             "axes.linewidth": 0.8,
+            "legend.fontsize": 11,
+            "legend.title_fontsize": 11,
         }
     )
 
@@ -91,12 +91,7 @@ def build_panel_a_table(df: pd.DataFrame) -> pd.DataFrame:
 
 def build_panel_b_table(df: pd.DataFrame) -> pd.DataFrame:
     h3_sites = set(df.loc[df["h3n2_site_state_rank"].notna() & (df["h3n2_site_state_rank"] <= 30), "site"])
-    wic_sites = set(
-        df.loc[
-            df["wic_filtered_site_state_rank"].notna() & (df["wic_filtered_site_state_rank"] <= 30),
-            "site",
-        ]
-    )
+    wic_sites = set(df.loc[df["wic_filtered_site_state_rank"].notna() & (df["wic_filtered_site_state_rank"] <= 30), "site"])
 
     rows: list[dict[str, object]] = []
     for label, col, kind in PANEL_B_ROWS:
@@ -116,10 +111,8 @@ def build_panel_b_table(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def save_supporting_tables(panel_a: pd.DataFrame, panel_b: pd.DataFrame) -> None:
-    panel_a_out = OUT_DIR / "fig4_panelA_sites.tsv"
-    panel_b_out = OUT_DIR / "fig4_panelB_overlaps.tsv"
-    panel_a.to_csv(panel_a_out, sep="\t", index=False)
-    panel_b.to_csv(panel_b_out, sep="\t", index=False)
+    panel_a.to_csv(OUT_DIR / "fig4_panelA_sites.tsv", sep="\t", index=False)
+    panel_b.to_csv(OUT_DIR / "fig4_panelB_overlaps.tsv", sep="\t", index=False)
 
 
 def plot_panel_a(ax: plt.Axes, panel_a: pd.DataFrame) -> None:
@@ -130,7 +123,6 @@ def plot_panel_a(ax: plt.Axes, panel_a: pd.DataFrame) -> None:
     rank_mat = panel_a[rank_bin_cols].to_numpy()
 
     membership_cmap = mpl.colors.ListedColormap(["#ffffff", "#1f1f1f"])
-    # Muted, print-friendly palette: strong signal in deep blue, weaker signal fades toward cool gray.
     rank_cmap = mpl.colors.ListedColormap(["#16324f", "#4f6d8a", "#b7c5d3", "#e4e7eb", "#ffffff"])
     membership_x = np.arange(membership_mat.shape[1] + 1) - 0.5
     rank_x = np.arange(rank_mat.shape[1] + 1) + membership_mat.shape[1] - 0.5
@@ -179,6 +171,7 @@ def plot_panel_a(ax: plt.Axes, panel_a: pd.DataFrame) -> None:
     ax.set_yticklabels(panel_a["site"].astype(int).astype(str))
     ax.set_ylabel("HA site")
 
+
 def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
     plot_df = panel_b.iloc[::-1].reset_index(drop=True)
     y = np.arange(len(plot_df))
@@ -209,15 +202,17 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
         Line2D([0], [0], marker="o", linestyle="", color=h3_color, markersize=6, label="H3N2"),
         Line2D([0], [0], marker="o", linestyle="", color=wic_color, markersize=6, label="Filtered WIC"),
     ]
-    legend = ax.legend(handles=handles, frameon=True, loc="lower right", fontsize=7)
+    legend = ax.legend(handles=handles, frameon=True, loc="lower right", fontsize=11)
     legend.get_frame().set_facecolor("white")
     legend.get_frame().set_edgecolor("#d0d0d0")
     legend.get_frame().set_linewidth(0.8)
     legend.get_frame().set_alpha(1.0)
+
+
 def add_legends(fig: plt.Figure, ax_a: plt.Axes) -> None:
     bbox_a = ax_a.get_position()
     panel_a_center_x = (bbox_a.x0 + bbox_a.x1) / 2
-    legend_y = bbox_a.y0 - 0.035
+    legend_y = bbox_a.y0 - 0.095
 
     rank_handles = [
         Patch(facecolor="#16324f", edgecolor="none", label="Top 10"),
@@ -228,12 +223,12 @@ def add_legends(fig: plt.Figure, ax_a: plt.Axes) -> None:
     rank_legend = fig.legend(
         handles=rank_handles,
         loc="lower center",
-        bbox_to_anchor=(panel_a_center_x - 0.02, legend_y),
+        bbox_to_anchor=(panel_a_center_x, legend_y),
         ncol=4,
         frameon=True,
-        fontsize=8,
+        fontsize=11,
         title="Rank bin",
-        title_fontsize=8,
+        title_fontsize=11,
         handlelength=1.3,
         handletextpad=0.5,
         borderpad=0.7,
@@ -248,22 +243,30 @@ def add_legends(fig: plt.Figure, ax_a: plt.Axes) -> None:
 def add_panel_labels(fig: plt.Figure, ax_a: plt.Axes, ax_b: plt.Axes) -> None:
     bbox_a = ax_a.get_position()
     bbox_b = ax_b.get_position()
-    fig.text(bbox_a.x0 - 0.025, bbox_a.y1 + 0.01, "A", fontsize=12, fontweight="bold", va="bottom")
-    # Place B clearly to the left of the panel-B y tick labels, not just the plotting area.
-    fig.text(bbox_b.x0 - 0.135, bbox_b.y1 + 0.01, "B", fontsize=12, fontweight="bold", va="bottom")
+    fig.text(bbox_a.x0 - 0.06, bbox_a.y1 + 0.21, "A", fontsize=16, fontweight="bold", va="bottom")
+    fig.text(bbox_b.x0 - 0.23, bbox_b.y1 + 0.21, "B", fontsize=16, fontweight="bold", va="bottom")
 
 
 def main() -> None:
     configure_style()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(TABLE_PATH, sep="\t")
+    df = pd.read_csv(TABLE_PATH, sep="\t").sort_values("site").reset_index(drop=True)
     panel_a = build_panel_a_table(df)
     panel_b = build_panel_b_table(df)
     save_supporting_tables(panel_a, panel_b)
 
-    fig = plt.figure(figsize=(11.8, 6.0))
-    gs = GridSpec(1, 2, width_ratios=[1.42, 1.0], wspace=0.56, figure=fig)
+    fig = plt.figure(figsize=(14.2, 7.6))
+    gs = fig.add_gridspec(
+        nrows=1,
+        ncols=2,
+        width_ratios=[1.9, 1.05],
+        left=0.08,
+        right=0.98,
+        top=0.88,
+        bottom=0.15,
+        wspace=0.78,
+    )
 
     ax_a = fig.add_subplot(gs[0, 0])
     ax_b = fig.add_subplot(gs[0, 1])
@@ -273,15 +276,11 @@ def main() -> None:
     add_legends(fig, ax_a)
     add_panel_labels(fig, ax_a, ax_b)
 
-    fig.suptitle("Cross-study concordance of primary H3N2 antigenic-site models", x=0.49, y=0.995, fontsize=11)
-    fig.subplots_adjust(bottom=0.16, top=0.76, left=0.08, right=0.97)
-
     pdf_path = OUT_DIR / "fig4_cross_study_concordance.pdf"
     png_path = OUT_DIR / "fig4_cross_study_concordance.png"
-    fig.savefig(pdf_path, bbox_inches="tight")
+    fig.savefig(pdf_path, dpi=300, bbox_inches="tight")
     fig.savefig(png_path, dpi=300, bbox_inches="tight")
-    print(f"Saved {pdf_path}")
-    print(f"Saved {png_path}")
+    plt.close(fig)
 
 
 if __name__ == "__main__":

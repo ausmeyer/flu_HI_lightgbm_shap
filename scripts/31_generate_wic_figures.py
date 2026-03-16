@@ -15,12 +15,19 @@ import pandas as pd
 import seaborn as sns
 
 from common import append_qc_log, get_prediction_color_feature, humanize_distance_label, load_config
+from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
 sns.set_theme(style="ticks", context="paper")
 matplotlib.rcParams["font.family"] = "sans-serif"
 matplotlib.rcParams["font.sans-serif"] = ["Helvetica", "Arial", "DejaVu Sans"]
 matplotlib.rcParams["pdf.fonttype"] = 42
+matplotlib.rcParams["font.size"] = 12
+matplotlib.rcParams["axes.labelsize"] = 12
+matplotlib.rcParams["xtick.labelsize"] = 12
+matplotlib.rcParams["ytick.labelsize"] = 12
+matplotlib.rcParams["legend.fontsize"] = 12
+matplotlib.rcParams["legend.title_fontsize"] = 12
 matplotlib.rcParams["axes.spines.top"] = False
 matplotlib.rcParams["axes.spines.right"] = False
 matplotlib.rcParams["axes.linewidth"] = 0.8
@@ -29,6 +36,11 @@ matplotlib.rcParams["grid.color"] = "#d9d9d9"
 matplotlib.rcParams["grid.linewidth"] = 0.6
 matplotlib.rcParams["grid.alpha"] = 0.8
 MONO_FONT = "DejaVu Sans Mono"
+KOEL_SITES = {145, 155, 156, 158, 159, 189, 193}
+NEHER_SITES = {int(row["site"]) for row in NEHER2016_H3_SITE_ROWS}
+HARVEY_SITES = {int(row["site"]) for row in WIC2023_H3_SITE_ROWS}
+TOP30_TEXT_SIZE = 16
+STACKED_NOTE_SIZE = 14
 
 
 def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
@@ -138,15 +150,22 @@ def humanize_homologous_source(label: str) -> str:
 
 
 def site_flag_suffix(row: pd.Series) -> str:
-    neher = bool(row.get("named_in_neher2016", False))
-    wic = bool(row.get("named_in_wic2023", False))
-    if neher and wic:
-        return " [Neher, Harvey]"
-    if neher:
-        return " [Neher]"
-    if wic:
-        return " [Harvey]"
-    return ""
+    flags = []
+    if bool(row.get("in_koel", False)):
+        flags.append("Koel")
+    if bool(row.get("in_neher2016", row.get("named_in_neher2016", False))):
+        flags.append("Neher")
+    if bool(row.get("in_harvey2023", row.get("named_in_wic2023", False))):
+        flags.append("Harvey")
+    return f" [{', '.join(flags)}]" if flags else ""
+
+
+def add_reference_flags(df: pd.DataFrame) -> pd.DataFrame:
+    merged = df.copy()
+    merged["in_koel"] = merged["site"].astype(int).isin(KOEL_SITES)
+    merged["in_neher2016"] = merged["site"].astype(int).isin(NEHER_SITES)
+    merged["in_harvey2023"] = merged["site"].astype(int).isin(HARVEY_SITES)
+    return merged
 
 
 def main() -> None:
@@ -156,22 +175,20 @@ def main() -> None:
     color_col = get_prediction_color_feature(cfg)
 
     feature_summary = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_feature_shap_importance.csv")
-    site_importance = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_importance.csv")
-    site_summary = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_summary.tsv", sep="\t")
-    site_stability = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_stability.tsv", sep="\t")
+    site_importance = add_reference_flags(pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_importance.csv"))
+    site_summary = add_reference_flags(pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_summary.tsv", sep="\t"))
+    site_stability = add_reference_flags(pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_stability.tsv", sep="\t"))
     substitution_feature_summary = pd.read_csv(
         f"{cfg['output_dir']}/{cfg['subtype']}_substitution_feature_shap_importance.csv"
     )
-    substitution_site_importance = pd.read_csv(
-        f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_importance.csv"
+    substitution_site_importance = add_reference_flags(
+        pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_importance.csv")
     )
-    substitution_site_summary = pd.read_csv(
-        f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_summary.tsv",
-        sep="\t",
+    substitution_site_summary = add_reference_flags(
+        pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_summary.tsv", sep="\t")
     )
-    substitution_site_stability = pd.read_csv(
-        f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_stability.tsv",
-        sep="\t",
+    substitution_site_stability = add_reference_flags(
+        pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_substitution_site_stability.tsv", sep="\t")
     )
     cv_results = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_cv_results.tsv", sep="\t")
     oof = pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_oof_predictions.tsv", sep="\t")
@@ -192,12 +209,10 @@ def main() -> None:
     cmap = plt.get_cmap("coolwarm")
     colors = [cmap(norm(v)) for v in top_feature_summary["mean_signed_shap"]]
 
-    fig, ax = plt.subplots(figsize=(10, 9))
+    fig, ax = plt.subplots(figsize=(11, 10))
     ax.barh(top_feature_summary["label"], top_feature_summary["mean_abs_shap"], color=colors)
     ax.set_xlabel("mean |SHAP|")
     ax.set_ylabel("")
-    ax.set_title("top 30 SHAP features, site-state model")
-    ax.title.set_fontfamily(MONO_FONT)
     ax.xaxis.label.set_fontfamily(MONO_FONT)
     for tick in ax.get_yticklabels():
         tick.set_fontfamily(MONO_FONT)
@@ -229,11 +244,10 @@ def main() -> None:
         else:
             site_colors.append("#bdbdbd")
 
-    fig, ax = plt.subplots(figsize=(14, 4.2))
+    fig, ax = plt.subplots(figsize=(15, 4.8))
     ax.bar(site_importance["site"], site_importance["mean_abs_shap"], color=site_colors, width=1.0)
     ax.set_xlabel("HA1 position")
     ax.set_ylabel("mean |SHAP|")
-    ax.set_title("site-level SHAP importance, site-state model")
     finish_axes(ax=ax, grid_axis="y")
     fig.tight_layout()
     site_bar_path = f"{figures_dir}/{cfg['subtype']}_site_importance_bar.pdf"
@@ -253,7 +267,7 @@ def main() -> None:
     vmax_components = vmax_components or 1.0
     comp_norm = TwoSlopeNorm(vmin=-vmax_components, vcenter=0.0, vmax=vmax_components)
 
-    fig, ax = plt.subplots(figsize=(9.5, 9.5))
+    fig, ax = plt.subplots(figsize=(10.8, 10.6))
     y = np.arange(len(top_sites))
     left = np.zeros(len(top_sites), dtype=float)
     for abs_col, signed_col, _ in component_specs:
@@ -268,11 +282,25 @@ def main() -> None:
     )
     ax.set_xlabel("mean |SHAP|")
     ax.set_ylabel("site")
-    ax.set_title("top 30 sites by SHAP component, site-state model")
+    ax.xaxis.label.set_fontsize(TOP30_TEXT_SIZE)
+    ax.yaxis.label.set_fontsize(TOP30_TEXT_SIZE)
+    ax.tick_params(axis="both", labelsize=TOP30_TEXT_SIZE)
     comp_sm = plt.cm.ScalarMappable(cmap=cmap, norm=comp_norm)
     comp_sm.set_array([])
     cb = fig.colorbar(comp_sm, ax=ax, pad=0.02)
     cb.set_label("mean signed SHAP")
+    cb.ax.yaxis.label.set_size(TOP30_TEXT_SIZE)
+    cb.ax.tick_params(labelsize=TOP30_TEXT_SIZE)
+    ax.text(
+        0.985,
+        0.035,
+        "segment width = mean |SHAP|",
+        transform=ax.transAxes,
+        ha="right",
+        va="bottom",
+        fontsize=STACKED_NOTE_SIZE,
+        bbox={"facecolor": "white", "edgecolor": "#444444", "alpha": 1.0, "boxstyle": "round,pad=0.35"},
+    )
     finish_axes(ax=ax, grid_axis="x")
     fig.tight_layout()
     site_component_path = f"{figures_dir}/{cfg['subtype']}_site_component_top30.pdf"
@@ -283,7 +311,7 @@ def main() -> None:
     freq_norm = plt.Normalize(0.0, 1.0)
     freq_cmap = plt.get_cmap("viridis")
     point_colors = [freq_cmap(freq_norm(v)) for v in stability_top["top30_frequency"].to_numpy(dtype=float)]
-    fig, ax = plt.subplots(figsize=(10.5, 9.5))
+    fig, ax = plt.subplots(figsize=(11.3, 10.3))
     y = np.arange(len(stability_top))
     ax.hlines(
         y=y,
@@ -307,7 +335,6 @@ def main() -> None:
     )
     ax.set_xlabel("mean fold rank +/- SD")
     ax.set_ylabel("site")
-    ax.set_title("top 30 site stability across CV folds, site-state model")
     ax.invert_yaxis()
     freq_sm = plt.cm.ScalarMappable(cmap=freq_cmap, norm=freq_norm)
     freq_sm.set_array([])
@@ -319,7 +346,7 @@ def main() -> None:
     fig.savefig(stability_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(8.2, 6))
+    fig, ax = plt.subplots(figsize=(8.8, 6.8))
     scatter = ax.scatter(
         oof["standardized_titer"],
         oof["predicted_standardized_titer_site_state"],
@@ -334,7 +361,6 @@ def main() -> None:
     ax.plot([lo, hi], [lo, hi], color="black", linestyle="--", linewidth=1)
     ax.set_xlabel("observed standardized titer")
     ax.set_ylabel("predicted standardized titer")
-    ax.set_title("predicted vs observed out-of-fold, site-state model")
     cb = fig.colorbar(scatter, ax=ax, pad=0.02)
     cb.set_label(humanize_distance_label(color_col))
     finish_axes(ax=ax, grid_axis=None)
@@ -350,12 +376,10 @@ def main() -> None:
     sub_norm = TwoSlopeNorm(vmin=-sub_vmax, vcenter=0.0, vmax=sub_vmax)
     sub_colors = [cmap(sub_norm(v)) for v in sub_top_feature_summary["mean_signed_shap"]]
 
-    fig, ax = plt.subplots(figsize=(10.5, 9))
+    fig, ax = plt.subplots(figsize=(11, 10))
     ax.barh(sub_top_feature_summary["label"], sub_top_feature_summary["mean_abs_shap"], color=sub_colors)
     ax.set_xlabel("mean |SHAP|")
     ax.set_ylabel("")
-    ax.set_title("top 30 SHAP features, substitution model")
-    ax.title.set_fontfamily(MONO_FONT)
     ax.xaxis.label.set_fontfamily(MONO_FONT)
     for tick in ax.get_yticklabels():
         tick.set_fontfamily(MONO_FONT)
@@ -387,7 +411,7 @@ def main() -> None:
         else:
             sub_site_colors.append("#bdbdbd")
 
-    fig, ax = plt.subplots(figsize=(14, 4.2))
+    fig, ax = plt.subplots(figsize=(15, 4.8))
     ax.bar(
         substitution_site_importance["site"],
         substitution_site_importance["mean_abs_shap"],
@@ -396,7 +420,6 @@ def main() -> None:
     )
     ax.set_xlabel("HA1 position")
     ax.set_ylabel("mean |SHAP|")
-    ax.set_title("site-level SHAP importance, substitution model")
     finish_axes(ax=ax, grid_axis="y")
     fig.tight_layout()
     sub_site_bar_path = f"{figures_dir}/{cfg['subtype']}_substitution_site_importance_bar.pdf"
@@ -416,15 +439,19 @@ def main() -> None:
             label = f"{label} | {top_terms}"
         sub_labels.append(label)
 
-    fig, ax = plt.subplots(figsize=(14.5, 9.5))
+    fig, ax = plt.subplots(figsize=(15.2, 10.2))
     ax.barh(sub_labels, sub_top_sites["mean_abs_shap"], color=sub_bar_colors)
     ax.set_xlabel("mean |SHAP|")
     ax.set_ylabel("site")
-    ax.set_title("top 30 sites, substitution model")
+    ax.xaxis.label.set_fontsize(TOP30_TEXT_SIZE)
+    ax.yaxis.label.set_fontsize(TOP30_TEXT_SIZE)
+    ax.tick_params(axis="both", labelsize=TOP30_TEXT_SIZE)
     sub_site_sm = plt.cm.ScalarMappable(cmap=cmap, norm=sub_site_norm)
     sub_site_sm.set_array([])
     cb = fig.colorbar(sub_site_sm, ax=ax, pad=0.02)
     cb.set_label("mean signed SHAP")
+    cb.ax.yaxis.label.set_size(TOP30_TEXT_SIZE)
+    cb.ax.tick_params(labelsize=TOP30_TEXT_SIZE)
     finish_axes(ax=ax, grid_axis="x")
     fig.tight_layout()
     sub_site_component_path = f"{figures_dir}/{cfg['subtype']}_substitution_site_component_top30.pdf"
@@ -433,7 +460,7 @@ def main() -> None:
 
     sub_stability_top = substitution_site_stability.nsmallest(30, "rank").sort_values("mean_rank", ascending=True).copy()
     point_colors = [freq_cmap(freq_norm(v)) for v in sub_stability_top["top30_frequency"].to_numpy(dtype=float)]
-    fig, ax = plt.subplots(figsize=(10.5, 9.5))
+    fig, ax = plt.subplots(figsize=(11.3, 10.2))
     y = np.arange(len(sub_stability_top))
     ax.hlines(
         y=y,
@@ -457,7 +484,6 @@ def main() -> None:
     )
     ax.set_xlabel("mean fold rank +/- SD")
     ax.set_ylabel("site")
-    ax.set_title("top 30 site stability across CV folds, substitution model")
     ax.invert_yaxis()
     sub_freq_sm = plt.cm.ScalarMappable(cmap=freq_cmap, norm=freq_norm)
     sub_freq_sm.set_array([])
@@ -469,7 +495,7 @@ def main() -> None:
     fig.savefig(sub_stability_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(8.2, 6))
+    fig, ax = plt.subplots(figsize=(8.8, 6.8))
     scatter = ax.scatter(
         oof["standardized_titer"],
         oof["predicted_standardized_titer_substitution"],
@@ -484,7 +510,6 @@ def main() -> None:
     ax.plot([lo, hi], [lo, hi], color="black", linestyle="--", linewidth=1)
     ax.set_xlabel("observed standardized titer")
     ax.set_ylabel("predicted standardized titer")
-    ax.set_title("predicted vs observed out-of-fold, substitution model")
     cb = fig.colorbar(scatter, ax=ax, pad=0.02)
     cb.set_label(humanize_distance_label(color_col))
     finish_axes(ax=ax, grid_axis=None)
@@ -493,7 +518,7 @@ def main() -> None:
     fig.savefig(sub_scatter_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(3.8, 6.8))
+    fig, ax = plt.subplots(figsize=(4.6, 7.6))
     cv_plot = cv_results[
         cv_results["model_type"].isin(
             [
@@ -528,14 +553,13 @@ def main() -> None:
     plt.setp(ax.get_xticklabels(), rotation=90, ha="center", va="top")
     ax.set_ylabel("RMSE")
     ax.set_xlabel("")
-    ax.set_title("cross-validation RMSE by model")
     finish_axes(ax=ax, grid_axis="y")
     fig.tight_layout()
     cv_fig_path = f"{figures_dir}/{cfg['subtype']}_cv_performance_summary.pdf"
     fig.savefig(cv_fig_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(7, 6))
+    fig, ax = plt.subplots(figsize=(8.0, 6.8))
     sns.scatterplot(
         data=titers,
         x="standardized_titer",
@@ -546,7 +570,6 @@ def main() -> None:
         linewidth=0,
         ax=ax,
     )
-    ax.set_title("standardization vs corrected titer")
     ax.set_xlabel("standardized titer")
     ax.set_ylabel("context corrected titer")
     legend = ax.legend(title="homologous titer source", frameon=True, framealpha=1.0)
@@ -559,12 +582,12 @@ def main() -> None:
     fig.savefig(diag_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharex=True, sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(11.8, 5.8), sharex=True, sharey=True)
     panel_map = [
-        ("random_10pct_measurements", "A) random 10% measurements"),
-        ("grouped_10pct_viruses", "B) all measurements for 10% viruses"),
+        "random_10pct_measurements",
+        "grouped_10pct_viruses",
     ]
-    for ax, (split_name, title) in zip(axes, panel_map):
+    for ax, split_name in zip(axes, panel_map):
         sub = neher_pred[neher_pred["split_type"] == split_name]
         ax.scatter(
             sub["standardized_titer"],
@@ -577,21 +600,16 @@ def main() -> None:
         lo = min(sub["standardized_titer"].min(), sub["predicted_standardized_titer_site_state"].min())
         hi = max(sub["standardized_titer"].max(), sub["predicted_standardized_titer_site_state"].max())
         ax.plot([lo, hi], [lo, hi], linestyle="--", color="black", linewidth=1)
-        rmse = np.sqrt(
-            np.mean((sub["standardized_titer"] - sub["predicted_standardized_titer_site_state"]) ** 2)
-        )
-        ax.set_title(f"{title}\nRMSE={rmse:.3f}, n={len(sub)}", fontsize=10)
         ax.set_xlabel("observed standardized titer")
         finish_axes(ax=ax, grid_axis=None)
     axes[0].set_ylabel("predicted standardized titer")
-    fig.suptitle("Neher and Bedford 2016 figure 2 analog", fontsize=12)
     fig.tight_layout()
     neher_fig_path = f"{figures_dir}/{cfg['subtype']}_neher2016_fig2_analog.pdf"
     fig.savefig(neher_fig_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
     reciprocal = build_reciprocal_pairs(titers)
-    fig, ax = plt.subplots(figsize=(6, 6))
+    fig, ax = plt.subplots(figsize=(6.8, 6.8))
     ax.scatter(
         reciprocal["standardized_ab"],
         reciprocal["standardized_ba"],
@@ -605,14 +623,13 @@ def main() -> None:
     ax.plot([lo, hi], [lo, hi], linestyle="--", color="black", linewidth=1)
     ax.set_xlabel("standardized titer A vs B")
     ax.set_ylabel("standardized titer B vs A")
-    ax.set_title("reciprocal measurement symmetry")
     finish_axes(ax=ax, grid_axis=None)
     fig.tight_layout()
     reciprocal_path = f"{figures_dir}/{cfg['subtype']}_reciprocal_symmetry.pdf"
     fig.savefig(reciprocal_path, dpi=300, bbox_inches="tight")
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(9.5, 4.8))
+    fig, ax = plt.subplots(figsize=(10.4, 5.4))
     heldout_plot = neher_metrics[
         neher_metrics["model_type"].isin(
             [
@@ -642,7 +659,6 @@ def main() -> None:
     )
     ax.set_xlabel("")
     ax.set_ylabel("RMSE")
-    ax.set_title("held-out prediction comparison")
     legend = ax.legend(
         title="model",
         loc="upper left",
