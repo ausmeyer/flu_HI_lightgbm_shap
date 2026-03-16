@@ -20,3 +20,12 @@ __pycache__/
 /H3N2-WIC-no-egg-no-mixed-no-unknown/output/
 /H3N2-WIC-patristic/output/
 /H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/
+
+# Local Overleaf clones
+/69b778fd3e7b181fe1c2943b/
+/69b7797c762f515edcff3ad6/
+
+# Local writing and manuscript assets not for the public repo.
+/my_writing/
+/relevant_literature/*.pdf
+/relevant_literature/*.PDF
