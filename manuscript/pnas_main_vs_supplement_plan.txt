@@ -1,0 +1,100 @@
+PNAS main text versus SI plan
+
+Main manuscript
+- Keep the story centered on two models only:
+  `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2`
+- Keep the main text focused on three questions:
+  1. Can direct sequence models recover the classical H3 antigenic core?
+  2. Does passage filtering improve interpretability in WIC?
+  3. Do the primary models agree with prior literature and independent sequence-only analyses?
+
+Main manuscript should include
+- Title
+- Significance statement
+- Abstract
+- Introduction text
+- Results
+- Discussion
+- Materials and Methods
+- Acknowledgments
+- References
+
+Main-text figures
+- Figure 1:
+  overview schematic plus dataset summary
+- Figure 2:
+  `Neher/Bedford H3N2` main result panels
+- Figure 3:
+  filtered `Harvey/WIC H3N2` main result panels
+- Figure 4:
+  cross-study concordance summary
+- Optional Figure 5 only if space allows:
+  paired site-state stacked bar/component panels for `H3N2` and filtered `H3N2-WIC`
+
+Main-text tables
+- Table 1:
+  model performance summary for the primary models and core baselines
+- Table 2:
+  top ranked sites in the two primary models with literature annotations
+- Optional Table 3 only if needed:
+  compact overlap summary across key prior studies
+
+Main-text results that should stay concise
+- Patristic distance:
+  one short paragraph in main text as a sensitivity result
+- Full WIC model:
+  one short paragraph showing why filtering was adopted
+- Substitution models:
+  mention briefly for interpretability and classical-site recovery, but do not center them
+
+SI Appendix
+- Detailed dataset construction and preprocessing
+- Alignment and numbering details
+- Additional methods details for SHAP, stability, and cross-study comparison
+- Full WIC model results
+- All patristic model results
+- All substitution model figures and tables
+- Full integrated site comparison tables
+- Full literature annotation tables
+- Extended CV tables
+- Extended predicted-versus-actual plots
+- Detailed discussion of the WIC two-cluster structure
+- Tree-building details and patristic-distance construction
+
+Likely SI figure list
+- All substitution-model site importance plots
+- All substitution-model stability plots
+- Full Harvey/WIC versus filtered Harvey/WIC comparison panels
+- Patristic versus non-patristic comparison panels
+- Additional cross-study rank correlation figures
+
+Likely SI table list
+- Full site_model_literature_comparison.tsv
+- Full model_performance_literature_summary.tsv
+- Full ranked site summaries for every local model
+- Full substitution site summaries for every local model
+- Extended overlap/rank summary tables
+
+What to avoid in the main manuscript
+- Full six-model narrative
+- Long methods digressions
+- Multiple nearly redundant figure variants
+- Large tables of all ranked sites
+- Detailed per-study forensic discussion unless it directly sharpens the main conclusion
+
+Main-page-budget mindset
+- Introduction:
+  about 0.75 to 1 page
+- Results:
+  about 4 to 5 pages
+- Discussion:
+  about 1 to 1.5 pages
+- Methods:
+  about 1 to 1.5 pages
+- Figures/tables:
+  compact, multi-panel, and high-yield only
+
+Bottom line
+- Main text should make one clean claim:
+  sequence-based models recover robust H3 antigenic determinants, and the filtered Harvey/WIC site-state model provides the strongest modern consensus signal.
+- Everything else should support that claim without crowding it.

@@ -1,144 +1,163 @@
-Title
-Sequence-based machine learning recovers canonical and contemporary determinants of H3N2 antigenic variation across historical HI datasets
+PNAS framing
+- Article type: `pnasresearcharticle`
+- Main manuscript target:
+  concise Research Report format, ideally near 6 to 8 pages and clearly below the 12-page maximum
+- Required front matter:
+  title, author block, significance statement, abstract, keywords
+- Preferred section order for this paper:
+  opening introduction text without an explicit `Introduction` heading, then `Results`, `Discussion`, `Materials and Methods`, `Acknowledgments`, `References`
 
-Core framing
-- Main model 1: original `H3N2`
-- Main model 2: filtered `H3N2-WIC` excluding egg, mixed, and unknown passage rows
-- Supporting analyses:
-  substitution encodings, patristic-distance variants, full WIC, and cross-study comparison to Koel, Neher, Harvey, McWhite, PLoS/Meyer, and the review-manuscript LightGBM models
+Working title
+Sequence-based machine learning identifies robust determinants of H3N2 antigenic variation across Neher/Bedford and Harvey/WIC hemagglutination inhibition datasets
 
-Main claim
-- Direct sequence-based models recover the classical H3N2 antigenic core.
+Core PNAS message
+- Antigenic drift prediction matters for vaccine update decisions.
+- Direct residue-level sequence models recover the classical H3 antigenic core.
 - Passage filtering in WIC improves interpretability more than adding patristic distance.
-- The filtered WIC site-state model shows the strongest overall cross-study concordance with independent sequence-only models and prior antigenic literature.
+- A filtered Harvey/WIC site-state model shows strong agreement with both classical antigenic literature and large independent sequence-only models.
 
-1. Introduction
-- Antigenic drift is central to vaccine update decisions, mismatch risk, and population immunity.
-- HI data provide one of the main empirical links between HA sequence change and antigenic phenotype.
-- Classical work identified recurrent antigenically important H3 sites:
-  Koel sites, Neher/Bedford cluster-transition sites, and related historical substitution analyses.
-- Recent work from Harvey/WIC used a broader Bayesian framework on a larger H3N2 HI dataset.
-- Remaining gap:
-  a directly predictive, residue-level sequence analysis that can be compared across datasets and across prior methodological frameworks.
+Main-text narrative
+- Primary model 1:
+  `Neher/Bedford H3N2`
+- Primary model 2:
+  filtered `Harvey/WIC H3N2`
+- Everything else:
+  supporting evidence for robustness, interpretability, and convergence across studies
 
-2. Study aims
-- Build reproducible sequence-based modeling pipelines for the original H3N2 and WIC H3N2 HI datasets.
-- Estimate which HA sites repeatedly improve prediction of HI phenotype.
-- Distinguish the effects of passage filtering from the effects of adding phylogenetic-distance covariates.
-- Place the resulting site rankings in the context of prior antigenic, evolutionary, and machine-learning studies.
+1. Significance statement
+- 50 to 120 words.
+- Audience:
+  broad biology readership, not just influenza specialists.
+- Main points to hit:
+  sequence-based models can identify antigenically important H3 sites directly from HI data;
+  filtered Harvey/WIC analysis reduces passage noise;
+  key signals converge with classical antigenic literature and independent large-scale sequence-only analyses;
+  the framework is relevant to antigenic surveillance and vaccine strain evaluation.
 
-3. Data and preprocessing
-- Original H3N2 dataset:
-  sequence matching, alignment, mature HA numbering, homologous-titer standardization.
-- WIC dataset:
-  finalized virus/serum inputs, HA1 extraction, assay-context annotation, homologous standardization, additive context correction.
-- Numbering convention:
-  all reported sites use mature HA protein numbering with the 16-aa signal peptide removed.
-- WIC passage categories and filtered analysis:
-  rationale for excluding egg, mixed, and unknown passage rows from the preferred WIC model.
+2. Abstract
+- Maximum 250 words, one paragraph.
+- Structure:
+  background -> question -> approach -> main results -> interpretation.
+- Must emphasize only the two central models:
+  `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2`.
+- Mention supporting comparison to prior work in one sentence only.
 
-4. Modeling framework
-- Additive context baseline and context-corrected titers.
-- Site-state model:
-  virus residue state, serum residue state, and site-change indicator.
-- Substitution model:
-  explicit serum-to-virus substitution identity features.
-- Cross-validation:
-  grouped holdouts and out-of-fold prediction summaries.
-- Interpretation:
-  SHAP-based site importance and fold-stability summaries.
+3. Opening introduction text
+- Problem:
+  antigenic drift complicates vaccine strain selection and population immunity forecasting.
+- Empirical substrate:
+  HI assays link sequence change to antigenic phenotype.
+- Prior frameworks:
+  Koel, Neher/Bedford, Harvey/WIC, McWhite passaging work, and sequence-only ML approaches.
+- Gap:
+  no unified, directly predictive, residue-level comparison across classical and modern H3N2 datasets.
+- End with explicit study aim:
+  identify robust antigenically relevant HA sites using interpretable sequence-based models and compare them across datasets and prior analytic frameworks.
 
-5. Primary result I: original H3N2 model
-- Report predictive performance of additive, binary, site-state, and substitution models.
-- Emphasize strong recovery of canonical antigenic positions and classical literature overlap.
-- Show that patristic distance adds little predictive value and weakens mechanistic clarity.
-- Main interpretation:
-  the original H3N2 model is the clearest reconstruction of the classical antigenic core.
+4. Results
 
-Recommended main figures
-- `H3N2_predicted_vs_actual.pdf`
-- `H3N2_cv_performance_summary.pdf`
-- `H3N2_site_importance_bar.pdf`
-- `H3N2_site_component_top30.pdf`
-- `H3N2_site_stability_top30.pdf`
+Results subsection 1
+Sequence-based models recover the classical H3N2 antigenic core
+- Introduce the Neher/Bedford H3N2 dataset and modeling setup briefly.
+- Show predictive performance of additive, site-state, and substitution models.
+- Emphasize that the Neher/Bedford H3N2 analysis sharply recovers canonical antigenic sites and classical literature overlap.
+- Briefly note that patristic distance adds little and does not improve the main mechanistic interpretation.
 
-6. Primary result II: filtered WIC model
-- Report the filtered WIC performance and compare briefly to full WIC.
-- Show that passage filtering resolves major assay/passaging heterogeneity and yields the cleanest interpretable WIC result.
-- Emphasize that the filtered WIC site-state model retains the classical core while also recovering broader WIC/Harvey-like positions.
-- Main interpretation:
-  filtered WIC is the preferred contemporary model for biologically interpretable site prioritization.
+Results subsection 2
+Passage filtering yields the clearest interpretable model in WIC
+- Introduce the Harvey/WIC dataset and explain passage heterogeneity briefly.
+- Show that filtering egg, mixed, and unknown passage rows improves clarity and performance.
+- Present the filtered Harvey/WIC site-state model as the preferred contemporary model.
+- Emphasize overlap with both classical sites and Harvey/WIC positions.
 
-Recommended main figures
-- `H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_predicted_vs_actual.pdf`
-- `H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_cv_performance_summary.pdf`
-- `H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_site_importance_bar.pdf`
-- `H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_site_component_top30.pdf`
-- `H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_site_stability_top30.pdf`
+Results subsection 3
+Cross-study comparison identifies a robust consensus antigenic signal
+- Compare the two primary models to:
+  Koel, Neher/Bedford, Harvey/WIC, McWhite Virus Evolution, PLoS/Meyer, and the review-manuscript LightGBM passage/date/entropy signals.
+- Main take:
+  `Neher/Bedford H3N2` best recovers the sharp classical canonical signal;
+  filtered `Harvey/WIC H3N2` provides the best overall cross-study consensus.
+- Explicitly note that SHAP-based sequence rankings outperform dN/dS as a prioritization tool for likely antigenically important sites.
 
-7. Cross-study comparison
-- Use the integrated comparison table to compare the two primary models to:
-  Koel, Neher/Bedford, Harvey/WIC, McWhite Virus Evolution, PLoS/Meyer, and the review-manuscript LightGBM site metrics.
-- Key result:
-  `H3N2` most sharply recovers the classical canonical antigenic literature.
-- Key result:
-  filtered `H3N2-WIC` gives the best overall consensus with classical sites plus the independent sequence-only passage/date LightGBM signals.
-- Key result:
-  SHAP-based sequence rankings outperform dN/dS as a guide to antigenically important positions.
+5. Discussion
+- Interpret why passage filtering matters more than patristic adjustment.
+- Interpret why direct sequence models are more useful for practical antigenic-risk questions than broader latent inclusion summaries alone.
+- Explain the split between two notions of success:
+  sharp classical recovery versus broad cross-study consensus.
+- State preferred models clearly:
+  `Neher/Bedford H3N2` for canonical antigenic reconstruction;
+  filtered `Harvey/WIC H3N2` for consensus modern prioritization.
+- End on broader relevance:
+  sequence-based antigenic site prioritization can support surveillance, candidate-strain interpretation, and mechanistic follow-up.
 
-Suggested main table
-- One compact table summarizing overlap/top-rank performance for:
-  `H3N2`, filtered `H3N2-WIC`, Koel, Neher, Harvey, review passage SHAP, review date SHAP, review entropy, and McWhite passaging summaries.
+6. Materials and Methods
+- Dataset sources and preprocessing.
+- Mature HA numbering convention.
+- H3N2 sequence matching and alignment.
+- WIC HA1 extraction and context correction.
+- Site-state and substitution feature encodings.
+- Cross-validation and grouped holdouts.
+- SHAP ranking and stability analysis.
+- Cross-study comparison table construction.
+- Keep methods concise in the main text and refer to SI for implementation details.
 
-8. Supporting analyses
-- Full WIC model:
-  used to show continuity with the original Harvey/WIC Bayesian analysis and to demonstrate the effect of passage filtering.
-- Substitution models:
-  useful for classical-site recovery and mutation-specific interpretability, but secondary to the site-state framing.
-- Patristic variants:
-  modest effect on prediction, little or negative benefit for mechanistic site attribution.
-- Optional note on two-cluster WIC behavior:
-  likely passage-context related rather than explained by divergence alone.
+7. Main-text figures and tables
 
-9. Discussion
-- Why direct predictive sequence models are useful for antigenic-risk inference.
-- Why passage filtering matters more than patristic adjustment for WIC interpretability.
-- Why patristic distance is best treated as a sensitivity covariate rather than a primary control.
-- Why Bayesian inclusion, SHAP importance, dN/dS, entropy, and passage/date prediction are related but not identical questions.
-- Strongest synthesis:
-  sites that recur across these diverse frameworks are the most credible candidates for biologically meaningful antigenic importance.
+Keep main text to a compact set of graphical elements.
 
-10. Limitations
-- HI datasets remain heterogeneous and assay-dependent.
-- Original H3N2 and WIC datasets differ in design, coverage, and historical scope.
-- SHAP importance is not causal proof.
-- WIC filtered analyses trade sample size for cleaner assay/passaging control.
-- Patristic-distance sensitivities depend on approximate phylogeny construction.
+Recommended figure plan
+- Figure 1:
+  study overview schematic plus dataset summary counts
+- Figure 2:
+  `Neher/Bedford H3N2` main results
+  panels: predicted vs actual, CV summary, top site-state importance
+- Figure 3:
+  filtered `Harvey/WIC H3N2` main results
+  panels: predicted vs actual, CV summary, top site-state importance
+- Figure 4:
+  cross-study comparison
+  compact overlap/concordance summary across Koel, Neher, Harvey, McWhite, and review-manuscript sequence-only models
+- Optional Figure 5 if space allows:
+  side-by-side site-state stacked component plots for `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2`
 
-11. Conclusions
-- Sequence-based models robustly recover known H3 antigenic determinants.
-- The original H3N2 model best recovers the classical canonical antigenic signal.
-- The filtered WIC site-state model provides the strongest cross-study consensus ranking.
-- Cross-study agreement is strongest for SHAP-based sequence models and weaker for dN/dS-only summaries.
+Recommended table plan
+- Table 1:
+  dataset/model summary and predictive performance for the two primary models and the simplest baselines
+- Table 2:
+  top-ranked sites for `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2` with literature annotations
+- Table 3 if space allows:
+  compact cross-study overlap summary
 
-Primary figures
-- Original H3N2:
-  predicted-vs-actual, CV summary, site importance, stacked site-state plot, site stability
-- Filtered WIC:
-  predicted-vs-actual, CV summary, site importance, stacked site-state plot, site stability
-- Optional main-text comparison panel:
-  compact cross-study overlap summary or top-site concordance figure
+8. What belongs in the SI
 
-Primary tables
-- Dataset summary and retained row counts
-- Main model performance table
-- Top ranked sites for the two primary models with literature annotations
-- Cross-study comparison table using the integrated site-comparison framework
+Put in SI by default
+- Full model grid:
+  full Harvey/WIC, patristic variants, substitution variants, and all additional sensitivity analyses
+- All supplementary figures:
+  substitution-model figures, full stability plots, additional predicted-vs-actual panels, extra CV plots
+- Full integrated comparison table and long-form literature annotation table
+- Detailed methods and implementation specifics
+- Alignment, numbering, and QC details
+- Patristic tree construction details
+- Additional discussion of the two-cluster WIC phenomenon
 
-Supplement
-- Full comparison across all local model variants
-- Full substitution-model figures and rankings
-- Full integrated site table
-- Full literature/site annotation table
-- QC, numbering, and alignment metadata
-- Patristic-tree construction and sensitivity details
+Keep in main text only if directly necessary
+- Anything needed to establish:
+  primary biological claim, preferred model choice, and broad cross-study relevance
+
+9. Writing priorities
+- Write the main paper around two sentences of logic:
+  `Neher/Bedford H3N2` validates the classical core.
+  filtered `Harvey/WIC H3N2` extends that core into a better-controlled contemporary dataset and agrees strongly with independent sequence-only models.
+- Do not let the full variant grid dominate the main paper.
+- Do not over-explain patristic models in the main text.
+- Mention Bayesian/WIC framing respectfully, but keep the paper centered on biologically actionable site prioritization.
+
+10. Immediate drafting order
+- Draft significance statement
+- Draft abstract
+- Draft Results subsection 1
+- Draft Results subsection 2
+- Draft cross-study comparison subsection
+- Draft Discussion
+- Draft concise main-text Methods
