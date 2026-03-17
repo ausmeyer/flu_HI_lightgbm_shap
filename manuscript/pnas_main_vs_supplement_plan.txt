@@ -1,118 +1,94 @@
-PNAS main text versus SI plan
+PNAS main text versus supplement plan
 
-Main manuscript
-- Keep the story centered on two models only:
-  `Neher/Bedford H3N2` and filtered `Harvey/WIC H3N2`
-- Keep the main text focused on three questions:
-  1. Can direct sequence models recover the classical H3 antigenic core?
-  2. Does passage filtering improve interpretability in WIC?
-  3. Do the primary models agree with prior literature and independent sequence-only analyses?
+Main-text objective
+- Use the main manuscript to answer one biological question:
+  which H3N2 HA sites are most robustly supported as antigenically informative across HI datasets and prior analytical frameworks?
+- Everything in the main text should serve that question directly.
 
-Main manuscript should include
-- Title
-- Significance statement
-- Abstract
-- Introduction text
+Main-text narrative
+- Primary benchmark analysis:
+  `Neher/Bedford H3N2`
+- Primary modern consensus analysis:
+  filtered `Harvey/WIC H3N2`
+- Supporting synthesis:
+  cross-study concordance across benchmark site sets, passaging analyses, structural-evolution work, and independent sequence-only ML analyses
+
+Main-text structure
+- Opening introduction text
 - Results
 - Discussion
 - Materials and Methods
-- Acknowledgments
-- References
 
-Main-text figures
-- Figure 1:
-  `Neher/Bedford H3N2` site-component top-30 plot
-- Figure 2:
-  filtered `Harvey/WIC H3N2` site-component top-30 plot
-- Figure 3:
-  cross-study concordance summary
-
-Main-text tables
+Main-text graphical elements
 - Table 1:
-  dataset/model summary for the three non-patristic analyses with site-state and substitution performance
-- No additional main-text tables are currently needed unless drafting reveals a genuine explanatory gap
+  overview of the three non-patristic analyses and site-state/substitution performance
+- Figure 1:
+  Neher/Bedford H3N2 site-component top 30
+- Figure 2:
+  filtered Harvey/WIC H3N2 site-component top 30
+- Figure 3:
+  cross-study concordance
 
-Main-text results that should stay concise
-- Patristic distance:
-  one short paragraph in main text as a sensitivity result
-- Full WIC model:
-  one short paragraph showing why filtering was adopted
-- Substitution models:
-  mention briefly for interpretability and classical-site recovery, but do not center them
+Main-text material that should stay in the main manuscript
+- Why antigenic-site prioritization matters biologically and for surveillance
+- Why Neher/Bedford H3N2 is the right benchmark dataset
+- Why Harvey/WIC is the right modern large-scale dataset
+- Why passage filtering matters more than patristic adjustment
+- Why SHAP-based sequence rankings are more useful than dN/dS for this problem
+- The distinction between:
+  the sharpest benchmark recovery,
+  and the broadest modern consensus signal
 
-SI Appendix
-- Detailed dataset construction and preprocessing
-- Alignment and numbering details
-- Additional methods details for SHAP, stability, and cross-study comparison
-- Full WIC model results
-- All patristic model results
-- Additional substitution-model figures and tables if needed during drafting or revision
-- Full integrated site comparison tables
-- Full literature annotation tables
-- Extended CV tables
-- Extended predicted-versus-actual plots
-- Detailed discussion of the WIC two-cluster structure
-- Tree-building details and patristic-distance construction
+Main-text material that should be brief
+- Full WIC analysis without filtering
+- Patristic-distance analyses
+- Substitution models
+- Detailed cross-validation mechanics
+- Extended discussion of the WIC two-cluster phenomenon
 
-Current SI figure list
-- Figure S1:
-  Neher/Bedford H3N2 held-out model comparison
-- Figure S2:
-  Neher/Bedford H3N2 predicted versus actual
-- Figure S3:
-  Neher/Bedford H3N2 site stability
-- Figure S4:
-  Neher/Bedford H3N2 Neher analog
-- Figure S5:
-  filtered Harvey/WIC H3N2 held-out model comparison
-- Figure S6:
-  filtered Harvey/WIC H3N2 predicted versus actual
-- Figure S7:
-  filtered Harvey/WIC H3N2 site stability
-- Figure S8:
-  filtered Harvey/WIC H3N2 residualization diagnostic
-- Figure S9:
-  filtered Harvey/WIC H3N2 Neher analog
-- Figure S10:
-  unfiltered Harvey/WIC H3N2 predicted versus actual
-- Figure S11:
-  unfiltered Harvey/WIC H3N2 site-component top 30
-- Figure S12:
-  Neher/Bedford H3N2 patristic site-component top 30
-- Figure S13:
-  Neher/Bedford H3N2 patristic held-out comparison
-- Figure S14:
-  filtered Harvey/WIC H3N2 patristic site-component top 30
-- Figure S15:
-  filtered Harvey/WIC H3N2 patristic held-out comparison
+Supplement objective
+- Provide enough detail that the main claims are transparent, reproducible, and well-defended without distracting from the main paper.
 
-Current SI table list
+Current supplement contents that support the main story
+- S1-S4:
+  primary Neher/Bedford H3N2 diagnostics
+- S5-S9:
+  primary filtered Harvey/WIC H3N2 diagnostics
+- S10-S15:
+  sensitivity analyses for unfiltered WIC and patristic variants
 - Table S1:
-  model performance summary across local analyses
+  broader model-performance summary
 - Table S2:
-  compact reference-overlap summary for the primary models
-- Additional long-form tables should stay in the project repository and can be cited or migrated later if needed
+  compact reference-overlap summary
 
-What to avoid in the main manuscript
-- Full six-model narrative
-- Long methods digressions
-- Multiple nearly redundant figure variants
-- Large tables of all ranked sites
-- Detailed per-study forensic discussion unless it directly sharpens the main conclusion
+What should remain in the supplement by default
+- Full model-grid results
+- Held-out comparisons
+- Predicted-versus-actual plots
+- Stability analyses
+- Residualization diagnostics
+- Neher-style grouped holdout analog figures
+- Unfiltered Harvey/WIC sensitivity figures
+- Patristic sensitivity figures
+- Expanded methodological detail
+- Extended literature comparison tables
 
-Main-page-budget mindset
-- Introduction:
-  about 0.75 to 1 page
-- Results:
-  about 4 to 5 pages
-- Discussion:
-  about 1 to 1.5 pages
-- Methods:
-  about 1 to 1.5 pages
-- Figures/tables:
-  compact, multi-panel, and high-yield only
+What may later be added to the supplement if drafting or review requires it
+- substitution-model top-site figures for the two primary datasets
+- expanded Neher supplementary-site benchmark analysis
+- additional rank-correlation or overlap panels
+- glycosylation-oriented post hoc analyses if they become part of the manuscript argument
 
-Bottom line
-- Main text should make one clean claim:
-  sequence-based models recover robust H3 antigenic determinants, and the filtered Harvey/WIC site-state model provides the strongest modern consensus signal.
-- Everything else should support that claim without crowding it.
+Page-budget plan for PNAS
+- Aim for:
+  about 10 to 12 pages total
+- Use the extra space for:
+  a stronger introduction,
+  a more developed discussion,
+  and a clear cross-study synthesis
+- Do not spend that space on:
+  extensive methods detail or a full tour of the model grid
+
+Writing rule
+- The main paper should read as a study about antigenic interpretation.
+- The supplement should read as the evidentiary support structure for that interpretation.

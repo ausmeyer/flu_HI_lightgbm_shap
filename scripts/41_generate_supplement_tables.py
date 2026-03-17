@@ -165,7 +165,7 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Top-30 overlap between model-ranked sites and the classical Koel, Neher, and Harvey reference sets. The Neher and Harvey sets each contain 15 sites, and the Koel set contains 7 sites.}",
+        r"\caption{Top-30 overlap between model-ranked sites and the Koel, Neher/Bedford, and Harvey reference sets. The Neher/Bedford and Harvey sets each contain 15 sites, and the Koel set contains 7 sites.}",
         r"\label{tab:si-reference-overlap}",
         r"\small",
         r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llccc}",
