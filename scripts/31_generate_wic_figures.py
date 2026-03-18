@@ -10,6 +10,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import TwoSlopeNorm
+from matplotlib.ticker import MultipleLocator
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -20,7 +21,7 @@ from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 sns.set_theme(style="ticks", context="paper")
 matplotlib.rcParams["font.family"] = "sans-serif"
-matplotlib.rcParams["font.sans-serif"] = ["Helvetica", "Arial", "DejaVu Sans"]
+matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
 matplotlib.rcParams["pdf.fonttype"] = 42
 matplotlib.rcParams["font.size"] = 12
 matplotlib.rcParams["axes.labelsize"] = 12
@@ -41,6 +42,9 @@ NEHER_SITES = {int(row["site"]) for row in NEHER2016_H3_SITE_ROWS}
 HARVEY_SITES = {int(row["site"]) for row in WIC2023_H3_SITE_ROWS}
 TOP30_TEXT_SIZE = 16
 STACKED_NOTE_SIZE = 14
+DIAGNOSTIC_POINT_SIZE = 14
+NEHER_ANALOG_POINT_SIZE = 18
+RESIDUAL_POINT_SIZE = 20
 
 
 def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
@@ -52,6 +56,12 @@ def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
         other_axis = "x" if grid_axis == "y" else "y"
         ax.grid(axis=other_axis, visible=False)
     sns.despine(ax=ax)
+
+
+def maybe_set_component_ticks(ax: plt.Axes, step: float) -> None:
+    xmax = ax.get_xlim()[1]
+    if xmax > 0:
+        ax.xaxis.set_major_locator(MultipleLocator(step))
 
 
 def parse_args() -> argparse.Namespace:
@@ -301,6 +311,7 @@ def main() -> None:
         fontsize=STACKED_NOTE_SIZE,
         bbox={"facecolor": "white", "edgecolor": "#444444", "alpha": 1.0, "boxstyle": "round,pad=0.35"},
     )
+    maybe_set_component_ticks(ax, 0.05)
     finish_axes(ax=ax, grid_axis="x")
     fig.tight_layout()
     site_component_path = f"{figures_dir}/{cfg['subtype']}_site_component_top30.pdf"
@@ -352,7 +363,7 @@ def main() -> None:
         oof["predicted_standardized_titer_site_state"],
         c=oof[color_col],
         cmap="viridis",
-        s=8,
+        s=DIAGNOSTIC_POINT_SIZE,
         alpha=0.6,
         linewidths=0,
     )
@@ -452,6 +463,7 @@ def main() -> None:
     cb.set_label("mean signed SHAP")
     cb.ax.yaxis.label.set_size(TOP30_TEXT_SIZE)
     cb.ax.tick_params(labelsize=TOP30_TEXT_SIZE)
+    maybe_set_component_ticks(ax, 0.05)
     finish_axes(ax=ax, grid_axis="x")
     fig.tight_layout()
     sub_site_component_path = f"{figures_dir}/{cfg['subtype']}_substitution_site_component_top30.pdf"
@@ -501,7 +513,7 @@ def main() -> None:
         oof["predicted_standardized_titer_substitution"],
         c=oof[color_col],
         cmap="viridis",
-        s=8,
+        s=DIAGNOSTIC_POINT_SIZE,
         alpha=0.6,
         linewidths=0,
     )
@@ -566,7 +578,7 @@ def main() -> None:
         y="context_corrected_titer",
         hue="homologous_source_label",
         alpha=0.6,
-        s=10,
+        s=RESIDUAL_POINT_SIZE,
         linewidth=0,
         ax=ax,
     )
@@ -592,7 +604,7 @@ def main() -> None:
         ax.scatter(
             sub["standardized_titer"],
             sub["predicted_standardized_titer_site_state"],
-            s=8,
+            s=NEHER_ANALOG_POINT_SIZE,
             alpha=0.6,
             color="#2b8cbe",
             edgecolors="none",
@@ -613,7 +625,7 @@ def main() -> None:
     ax.scatter(
         reciprocal["standardized_ab"],
         reciprocal["standardized_ba"],
-        s=8,
+        s=DIAGNOSTIC_POINT_SIZE,
         alpha=0.45,
         color="#756bb1",
         linewidths=0,

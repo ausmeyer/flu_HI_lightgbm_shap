@@ -12,6 +12,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize, TwoSlopeNorm
+from matplotlib.ticker import MultipleLocator
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -22,7 +23,7 @@ from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 sns.set_theme(style="ticks", context="paper")
 matplotlib.rcParams["font.family"] = "sans-serif"
-matplotlib.rcParams["font.sans-serif"] = ["Helvetica", "Arial", "DejaVu Sans"]
+matplotlib.rcParams["font.sans-serif"] = ["Arial", "Liberation Sans", "DejaVu Sans"]
 matplotlib.rcParams["pdf.fonttype"] = 42
 matplotlib.rcParams["font.size"] = 12
 matplotlib.rcParams["axes.labelsize"] = 12
@@ -43,6 +44,9 @@ NEHER_SITES = {int(row["site"]) for row in NEHER2016_H3_SITE_ROWS}
 HARVEY_SITES = {int(row["site"]) for row in WIC2023_H3_SITE_ROWS}
 TOP30_TEXT_SIZE = 16
 STACKED_NOTE_SIZE = 14
+DIAGNOSTIC_POINT_SIZE = 14
+NEHER_ANALOG_POINT_SIZE = 18
+RESIDUAL_POINT_SIZE = 24
 
 
 def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
@@ -54,6 +58,12 @@ def finish_axes(ax: plt.Axes, grid_axis: str | None = "y") -> None:
         other_axis = "x" if grid_axis == "y" else "y"
         ax.grid(axis=other_axis, visible=False)
     sns.despine(ax=ax)
+
+
+def maybe_set_component_ticks(ax: plt.Axes, step: float) -> None:
+    xmax = ax.get_xlim()[1]
+    if xmax > 0:
+        ax.xaxis.set_major_locator(MultipleLocator(step))
 
 
 def parse_args() -> argparse.Namespace:
@@ -246,6 +256,7 @@ def save_site_component_plot(site_summary: pd.DataFrame, out_path: Path) -> None
         fontsize=STACKED_NOTE_SIZE,
         bbox={"facecolor": "white", "edgecolor": "#444444", "alpha": 1.0, "boxstyle": "round,pad=0.35"},
     )
+    maybe_set_component_ticks(ax, 0.05)
     finish_axes(ax=ax, grid_axis="x")
     fig.tight_layout()
     fig.savefig(out_path, dpi=300, bbox_inches="tight")
@@ -332,7 +343,7 @@ def save_prediction_scatter(df: pd.DataFrame, pred_col: str, out_path: Path, col
         df[pred_col],
         c=df[color_col],
         cmap="viridis",
-        s=10,
+        s=DIAGNOSTIC_POINT_SIZE,
         alpha=0.7,
     )
     lo = float(np.nanmin([df["standardized_titer"].min(), df[pred_col].min()]))
@@ -391,7 +402,7 @@ def save_residualization_diagnostic(titers: pd.DataFrame, out_path: Path) -> Non
         y="corrected_titer",
         hue="homologous_source_label",
         alpha=0.6,
-        s=16,
+        s=RESIDUAL_POINT_SIZE,
         linewidth=0,
         ax=ax,
     )
@@ -418,7 +429,7 @@ def save_neher_analog(neher_pred: pd.DataFrame, out_path: Path) -> None:
         ax.scatter(
             sub["standardized_titer"],
             sub["predicted_standardized_titer_site_state"],
-            s=10,
+            s=NEHER_ANALOG_POINT_SIZE,
             alpha=0.6,
             color="#2b8cbe",
             edgecolors="none",
@@ -440,7 +451,7 @@ def save_reciprocal_symmetry(titers: pd.DataFrame, out_path: Path) -> None:
     ax.scatter(
         reciprocal["standardized_ab"],
         reciprocal["standardized_ba"],
-        s=10,
+        s=DIAGNOSTIC_POINT_SIZE,
         alpha=0.5,
         color="#756bb1",
     )
