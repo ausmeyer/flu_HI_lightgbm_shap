@@ -15,7 +15,7 @@ MASTER_TABLE = ROOT / "site_model_literature_comparison.tsv"
 
 ANALYSES = [
     {
-        "label": "Neher/Bedford H3N2",
+        "label": "Neher/Bedford data",
         "cv_path": ROOT / "H3N2" / "output" / "H3N2_cv_summary.csv",
         "sep": ",",
         "site_rank_col": "h3n2_site_state_rank",
@@ -24,7 +24,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity",
     },
     {
-        "label": "Neher/Bedford H3N2 + patristic",
+        "label": "Neher/Bedford data + patristic",
         "cv_path": ROOT / "H3N2-patristic" / "output" / "H3N2_PATRISTIC_cv_summary.csv",
         "sep": ",",
         "site_rank_col": "h3n2_patristic_site_state_rank",
@@ -33,7 +33,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity",
     },
     {
-        "label": "Harvey/WIC H3N2",
+        "label": "Harvey/WIC data",
         "cv_path": ROOT / "H3N2-WIC" / "output" / "modeling" / "H3N2_WIC_HA1_cv_summary.tsv",
         "sep": "\t",
         "site_rank_col": "wic_full_site_state_rank",
@@ -42,7 +42,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC H3N2 (filtered)",
+        "label": "Harvey/WIC filtered data",
         "cv_path": ROOT
         / "H3N2-WIC-no-egg-no-mixed-no-unknown"
         / "output"
@@ -55,7 +55,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC H3N2 + patristic",
+        "label": "Harvey/WIC data + patristic",
         "cv_path": ROOT / "H3N2-WIC-patristic" / "output" / "modeling" / "H3N2_WIC_HA1_PATRISTIC_cv_summary.tsv",
         "sep": "\t",
         "site_rank_col": "wic_patristic_site_state_rank",
@@ -64,7 +64,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC H3N2 (filtered + patristic)",
+        "label": "Harvey/WIC filtered data + patristic",
         "cv_path": ROOT
         / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown"
         / "output"
@@ -136,6 +136,7 @@ def build_table_s2() -> pd.DataFrame:
                     "koel_top30_overlap": overlap_string(master, rank_col, "in_koel", 7),
                     "neher_top30_overlap": overlap_string(master, rank_col, "in_neher2016", 15),
                     "harvey_top30_overlap": overlap_string(master, rank_col, "in_harvey2023", 15),
+                    "shah_top30_overlap": overlap_string(master, rank_col, "in_shah2024", 30),
                 }
             )
     return pd.DataFrame(rows)
@@ -165,17 +166,17 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Top-30 overlap between model-ranked sites and the Koel, Neher/Bedford, and Harvey reference sets. The Neher/Bedford and Harvey sets each contain 15 sites, and the Koel set contains 7 sites.}",
+        r"\caption{Top-30 overlap between model-ranked sites from each data set and the Koel, Neher/Bedford, Harvey/WIC, and Shah/WIC reference site sets. The Neher/Bedford and Harvey/WIC site sets each contain 15 sites, the Shah/WIC site set contains 30 sites, and the Koel site set contains 7 sites.}",
         r"\label{tab:si-reference-overlap}",
         r"\small",
-        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llccc}",
+        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccc}",
         r"\toprule",
-        r"Analysis & Model & Koel & Neher & Harvey \\",
+        r"Data set & Model & Koel sites & Neher/Bedford sites & Harvey/WIC sites & Shah/WIC sites \\",
         r"\midrule",
     ]
     for row in df.itertuples(index=False):
         lines.append(
-            f"{row.analysis} & {row.model} & {row.koel_top30_overlap} & {row.neher_top30_overlap} & {row.harvey_top30_overlap} \\\\"
+            f"{row.analysis} & {row.model} & {row.koel_top30_overlap} & {row.neher_top30_overlap} & {row.harvey_top30_overlap} & {row.shah_top30_overlap} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{tabular*}", r"\end{table}"])
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")

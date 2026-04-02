@@ -23,7 +23,7 @@ from common import (
     get_lightgbm_params,
     load_config,
 )
-from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
 ADDITIVE_FACTOR_COLS = [
@@ -198,6 +198,7 @@ def build_substitution_outputs(
     all_sites: list[int],
     neher_df: pd.DataFrame,
     wic_df: pd.DataFrame,
+    shah_df: pd.DataFrame,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     sub_feature_summary = feature_summary[feature_summary["feature"].str.startswith("sub_")].copy()
     sub_feature_summary["site"] = sub_feature_summary["feature"].map(parse_substitution_site)
@@ -229,10 +230,11 @@ def build_substitution_outputs(
     site_importance = (
         site_importance.merge(neher_df, on="site", how="left")
         .merge(wic_df, on="site", how="left")
-        .fillna({"named_in_neher2016": False, "named_in_wic2023": False})
+        .merge(shah_df, on="site", how="left")
+        .fillna({"named_in_neher2016": False, "named_in_wic2023": False, "named_in_shah2024": False})
     )
     site_importance["named_in_any_reference"] = (
-        site_importance["named_in_neher2016"] | site_importance["named_in_wic2023"]
+        site_importance["named_in_neher2016"] | site_importance["named_in_wic2023"] | site_importance["named_in_shah2024"]
     )
     site_importance["in_top_30"] = site_importance["rank"] <= 30
 
@@ -295,11 +297,14 @@ def build_substitution_outputs(
                 "top_substitution_terms",
                 "named_in_neher2016",
                 "named_in_wic2023",
+                "named_in_shah2024",
                 "named_in_any_reference",
                 "neher2016_category",
                 "neher2016_note",
                 "wic2023_category",
                 "wic2023_note",
+                "shah2024_category",
+                "shah2024_note",
                 "in_top_30",
             ]
         ],
@@ -495,14 +500,19 @@ def main() -> None:
         columns={"paper_category": "wic2023_category", "paper_note": "wic2023_note"}
     )
     wic_df["named_in_wic2023"] = True
+    shah_df = pd.DataFrame(SHAH2024_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "shah2024_category", "paper_note": "shah2024_note"}
+    )
+    shah_df["named_in_shah2024"] = True
 
     site_importance = (
         site_importance.merge(neher_df, on="site", how="left")
         .merge(wic_df, on="site", how="left")
-        .fillna({"named_in_neher2016": False, "named_in_wic2023": False})
+        .merge(shah_df, on="site", how="left")
+        .fillna({"named_in_neher2016": False, "named_in_wic2023": False, "named_in_shah2024": False})
     )
     site_importance["named_in_any_reference"] = (
-        site_importance["named_in_neher2016"] | site_importance["named_in_wic2023"]
+        site_importance["named_in_neher2016"] | site_importance["named_in_wic2023"] | site_importance["named_in_shah2024"]
     )
     site_importance["in_top_30"] = site_importance["rank"] <= 30
 
@@ -558,11 +568,14 @@ def main() -> None:
                 "mean_abs_shap",
                 "named_in_neher2016",
                 "named_in_wic2023",
+                "named_in_shah2024",
                 "named_in_any_reference",
                 "neher2016_category",
                 "neher2016_note",
                 "wic2023_category",
                 "wic2023_note",
+                "shah2024_category",
+                "shah2024_note",
                 "in_top_30",
             ]
         ],
@@ -596,6 +609,9 @@ def main() -> None:
             "named_in_wic2023",
             "wic2023_category",
             "wic2023_note",
+            "named_in_shah2024",
+            "shah2024_category",
+            "shah2024_note",
             "named_in_any_reference",
             "in_top_30",
         ]
@@ -628,6 +644,7 @@ def main() -> None:
             all_sites=list(range(1, len(change_cols) + 1)),
             neher_df=neher_df,
             wic_df=wic_df,
+            shah_df=shah_df,
         )
 
         sub_feature_summary_path = Path(cfg["output_dir"]) / f"{cfg['subtype']}_substitution_feature_shap_importance.csv"
@@ -649,6 +666,9 @@ def main() -> None:
                 "named_in_wic2023",
                 "wic2023_category",
                 "wic2023_note",
+                "named_in_shah2024",
+                "shah2024_category",
+                "shah2024_note",
                 "named_in_any_reference",
                 "in_top_30",
             ]
@@ -669,6 +689,10 @@ def main() -> None:
                 site_importance=sub_site_importance,
                 site_set={int(row["site"]) for row in WIC2023_H3_SITE_ROWS},
             ),
+            "shah2024": summarize_reference_ranks(
+                site_importance=sub_site_importance,
+                site_set={int(row["site"]) for row in SHAH2024_H3_SITE_ROWS},
+            ),
         }
 
     validation = {
@@ -683,6 +707,10 @@ def main() -> None:
         "wic2023": summarize_reference_ranks(
             site_importance=site_importance,
             site_set={int(row["site"]) for row in WIC2023_H3_SITE_ROWS},
+        ),
+        "shah2024": summarize_reference_ranks(
+            site_importance=site_importance,
+            site_set={int(row["site"]) for row in SHAH2024_H3_SITE_ROWS},
         ),
     }
     if substitution_validation is not None:

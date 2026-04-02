@@ -1,13 +1,13 @@
 analysis	model	rmse	spearman
-Neher/Bedford H3N2	site-state	2.0586061344308972	0.7075944004329846
-Neher/Bedford H3N2	substitution	2.127684637008578	0.6945705490124465
-Neher/Bedford H3N2 + patristic	site-state	2.053964153204928	0.7082400524983201
-Neher/Bedford H3N2 + patristic	substitution	2.132452853347407	0.6931725992645703
-Harvey/WIC H3N2	site-state	1.2136876005156192	0.8220400091323572
-Harvey/WIC H3N2	substitution	1.2495544884470058	0.8110719326969086
-Harvey/WIC H3N2 (filtered)	site-state	0.9747374100165633	0.7896711542467775
-Harvey/WIC H3N2 (filtered)	substitution	0.9969470945578897	0.7802957551016474
-Harvey/WIC H3N2 + patristic	site-state	1.2170078106192774	0.8218808926393117
-Harvey/WIC H3N2 + patristic	substitution	1.2403407979895131	0.8144064681803584
-Harvey/WIC H3N2 (filtered + patristic)	site-state	0.9641452978671914	0.7948924549792906
-Harvey/WIC H3N2 (filtered + patristic)	substitution	0.9953708955308365	0.7805437789314221
+Neher/Bedford data	site-state	2.0586061344308972	0.7075944004329846
+Neher/Bedford data	substitution	2.127684637008578	0.6945705490124465
+Neher/Bedford data + patristic	site-state	2.053964153204928	0.7082400524983201
+Neher/Bedford data + patristic	substitution	2.132452853347407	0.6931725992645703
+Harvey/WIC data	site-state	1.2136876005156192	0.8220400091323572
+Harvey/WIC data	substitution	1.2495544884470058	0.8110719326969086
+Harvey/WIC filtered data	site-state	0.9747374100165633	0.7896711542467775
+Harvey/WIC filtered data	substitution	0.9969470945578897	0.7802957551016474
+Harvey/WIC data + patristic	site-state	1.2170078106192774	0.8218808926393117
+Harvey/WIC data + patristic	substitution	1.2403407979895131	0.8144064681803584
+Harvey/WIC filtered data + patristic	site-state	0.9641452978671914	0.7948924549792906
+Harvey/WIC filtered data + patristic	substitution	0.9953708955308365	0.7805437789314221

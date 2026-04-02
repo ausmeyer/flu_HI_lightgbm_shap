@@ -31,6 +31,7 @@ def main() -> None:
         f"{subtype}_ha1_position_map.csv",
         f"{subtype}_matched_titers.tsv",
         f"{subtype}_neher_analog_metrics.tsv",
+        f"{subtype}_neher_site_comparison.tsv",
         f"{subtype}_paper_site_comparison.tsv",
         f"{subtype}_paper_site_validation.json",
         f"{subtype}_patristic_tree.nwk",
@@ -41,6 +42,8 @@ def main() -> None:
         f"{subtype}_site_summary.tsv",
         f"{subtype}_substitution_site_stability.tsv",
         f"{subtype}_substitution_site_summary.tsv",
+        f"{subtype}_wic_paper_site_comparison.tsv",
+        f"{subtype}_shah_wic_site_comparison.tsv",
     }
     keep_figures = {
         f"{subtype}_cv_performance_summary.pdf",

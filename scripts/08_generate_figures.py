@@ -18,7 +18,7 @@ import pandas as pd
 import seaborn as sns
 
 from common import append_qc_log, get_prediction_color_feature, humanize_distance_label, load_config
-from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
 sns.set_theme(style="ticks", context="paper")
@@ -42,6 +42,7 @@ MONO_FONT = "DejaVu Sans Mono"
 KOEL_SITES = {145, 155, 156, 158, 159, 189, 193}
 NEHER_SITES = {int(row["site"]) for row in NEHER2016_H3_SITE_ROWS}
 HARVEY_SITES = {int(row["site"]) for row in WIC2023_H3_SITE_ROWS}
+SHAH_SITES = {int(row["site"]) for row in SHAH2024_H3_SITE_ROWS}
 TOP30_TEXT_SIZE = 16
 STACKED_NOTE_SIZE = 14
 DIAGNOSTIC_POINT_SIZE = 14
@@ -154,11 +155,13 @@ def humanize_homologous_source(label: str) -> str:
 def site_flag_suffix(row: pd.Series) -> str:
     flags = []
     if bool(row.get("is_koel_site", False)):
-        flags.append("Koel")
+        flags.append("K")
     if bool(row.get("in_neher2016", row.get("paper_named", False))):
-        flags.append("Neher")
+        flags.append("NB")
     if bool(row.get("in_harvey2023", False)):
-        flags.append("Harvey")
+        flags.append("HW")
+    if bool(row.get("in_shah2024", row.get("named_in_shah2024", False))):
+        flags.append("SW")
     return f" [{', '.join(flags)}]" if flags else ""
 
 
@@ -167,7 +170,17 @@ def add_reference_flags(df: pd.DataFrame) -> pd.DataFrame:
     merged["in_koel"] = merged["site"].astype(int).isin(KOEL_SITES)
     merged["in_neher2016"] = merged["site"].astype(int).isin(NEHER_SITES)
     merged["in_harvey2023"] = merged["site"].astype(int).isin(HARVEY_SITES)
+    merged["in_shah2024"] = merged["site"].astype(int).isin(SHAH_SITES)
     return merged
+
+
+def read_optional_table(path: Path, sep: str = ",") -> pd.DataFrame | None:
+    if not path.exists():
+        return None
+    try:
+        return pd.read_csv(path, sep=sep)
+    except pd.errors.EmptyDataError:
+        return None
 
 
 def save_signed_feature_summary(feature_summary: pd.DataFrame, out_path: Path) -> None:
@@ -510,31 +523,38 @@ def save_heldout_comparison(neher_metrics: pd.DataFrame, out_path: Path) -> None
 def load_analysis_tables(cfg: dict) -> dict[str, pd.DataFrame]:
     out_dir = Path(cfg["output_dir"])
     subtype = cfg["subtype"]
+    site_summary = add_reference_flags(pd.read_csv(out_dir / f"{subtype}_site_summary.tsv", sep="\t"))
+    sub_site_summary = add_reference_flags(pd.read_csv(out_dir / f"{subtype}_substitution_site_summary.tsv", sep="\t"))
+    site_importance = read_optional_table(out_dir / f"{subtype}_site_importance.csv")
+    sub_site_importance = read_optional_table(out_dir / f"{subtype}_substitution_site_importance.csv")
     tables = {
-        "feature_summary": pd.read_csv(out_dir / f"{subtype}_feature_shap_importance.csv"),
-        "site_importance": add_reference_flags(pd.read_csv(out_dir / f"{subtype}_site_importance.csv")),
-        "site_summary": add_reference_flags(pd.read_csv(out_dir / f"{subtype}_site_summary.tsv", sep="\t")),
+        "feature_summary": read_optional_table(out_dir / f"{subtype}_feature_shap_importance.csv"),
+        "site_importance": add_reference_flags(site_importance) if site_importance is not None else site_summary.copy(),
+        "site_summary": site_summary,
         "site_stability": add_reference_flags(pd.read_csv(out_dir / f"{subtype}_site_stability.tsv", sep="\t")),
-        "sub_feature_summary": pd.read_csv(out_dir / f"{subtype}_substitution_feature_shap_importance.csv"),
-        "sub_site_importance": add_reference_flags(
-            pd.read_csv(out_dir / f"{subtype}_substitution_site_importance.csv")
+        "sub_feature_summary": read_optional_table(out_dir / f"{subtype}_substitution_feature_shap_importance.csv"),
+        "sub_site_importance": (
+            add_reference_flags(sub_site_importance) if sub_site_importance is not None else sub_site_summary.copy()
         ),
-        "sub_site_summary": add_reference_flags(
-            pd.read_csv(out_dir / f"{subtype}_substitution_site_summary.tsv", sep="\t")
-        ),
+        "sub_site_summary": sub_site_summary,
         "sub_site_stability": add_reference_flags(
             pd.read_csv(out_dir / f"{subtype}_substitution_site_stability.tsv", sep="\t")
         ),
-        "cv_results": pd.read_csv(out_dir / f"{subtype}_cv_results.csv"),
-        "oof": pd.read_csv(out_dir / f"{subtype}_oof_predictions.csv"),
-        "titers": pd.read_csv(out_dir / f"{subtype}_matched_titers.csv"),
-        "neher_pred": pd.read_csv(out_dir / f"{subtype}_neher_analog_predictions.csv"),
-        "neher_metrics": pd.read_csv(out_dir / f"{subtype}_neher_analog_metrics.csv"),
+        "cv_results": read_optional_table(out_dir / f"{subtype}_cv_results.csv"),
+        "oof": read_optional_table(out_dir / f"{subtype}_oof_predictions.csv"),
+        "titers": read_optional_table(out_dir / f"{subtype}_matched_titers.csv"),
+        "neher_pred": read_optional_table(out_dir / f"{subtype}_neher_analog_predictions.csv"),
+        "neher_metrics": read_optional_table(out_dir / f"{subtype}_neher_analog_metrics.csv"),
     }
-    tables["cv_results"]["model_label"] = tables["cv_results"]["model_type"].map(humanize_model_label)
-    tables["neher_metrics"]["model_label"] = tables["neher_metrics"]["model_type"].map(humanize_model_label)
-    tables["neher_metrics"]["split_label"] = tables["neher_metrics"]["split_type"].map(humanize_split_label)
-    tables["titers"]["homologous_source_label"] = tables["titers"]["homologous_titer_source"].map(humanize_homologous_source)
+    if tables["cv_results"] is not None:
+        tables["cv_results"]["model_label"] = tables["cv_results"]["model_type"].map(humanize_model_label)
+    if tables["neher_metrics"] is not None:
+        tables["neher_metrics"]["model_label"] = tables["neher_metrics"]["model_type"].map(humanize_model_label)
+        tables["neher_metrics"]["split_label"] = tables["neher_metrics"]["split_type"].map(humanize_split_label)
+    if tables["titers"] is not None:
+        tables["titers"]["homologous_source_label"] = tables["titers"]["homologous_titer_source"].map(
+            humanize_homologous_source
+        )
     return tables
 
 
@@ -545,11 +565,16 @@ def main() -> None:
     subtype = cfg["subtype"]
     color_col = get_prediction_color_feature(cfg)
     tables = load_analysis_tables(cfg)
+    lines = []
 
-    save_signed_feature_summary(
-        feature_summary=tables["feature_summary"],
-        out_path=figures_dir / f"{subtype}_shap_summary_top30.pdf",
-    )
+    if tables["feature_summary"] is not None:
+        save_signed_feature_summary(
+            feature_summary=tables["feature_summary"],
+            out_path=figures_dir / f"{subtype}_shap_summary_top30.pdf",
+        )
+        lines.append(f"Saved SHAP summary figure: {figures_dir / f'{subtype}_shap_summary_top30.pdf'}")
+    else:
+        lines.append("Skipped SHAP summary figure: missing feature_shap_importance.csv")
     site_state_colors = np.where(tables["site_importance"]["is_koel_site"].to_numpy(), "#d7301f", "#9ecae1")
     save_site_importance_bar(
         site_importance=tables["site_importance"],
@@ -557,25 +582,38 @@ def main() -> None:
         colors=site_state_colors,
         x_label="mature HA position",
     )
+    lines.append(f"Saved site importance figure: {figures_dir / f'{subtype}_site_importance_bar.pdf'}")
     save_site_component_plot(
         site_summary=tables["site_summary"],
         out_path=figures_dir / f"{subtype}_site_component_top30.pdf",
     )
+    lines.append(f"Saved site component figure: {figures_dir / f'{subtype}_site_component_top30.pdf'}")
     save_site_stability(
         site_stability=tables["site_stability"],
         out_path=figures_dir / f"{subtype}_site_stability_top30.pdf",
     )
-    save_prediction_scatter(
-        df=tables["oof"],
-        pred_col="predicted_standardized_titer_site_state",
-        out_path=figures_dir / f"{subtype}_predicted_vs_actual.pdf",
-        color_col=color_col,
-    )
+    lines.append(f"Saved site stability figure: {figures_dir / f'{subtype}_site_stability_top30.pdf'}")
+    if tables["oof"] is not None:
+        save_prediction_scatter(
+            df=tables["oof"],
+            pred_col="predicted_standardized_titer_site_state",
+            out_path=figures_dir / f"{subtype}_predicted_vs_actual.pdf",
+            color_col=color_col,
+        )
+        lines.append(f"Saved predicted-vs-actual figure: {figures_dir / f'{subtype}_predicted_vs_actual.pdf'}")
+    else:
+        lines.append("Skipped predicted-vs-actual figure: missing oof_predictions.csv")
 
-    save_signed_feature_summary(
-        feature_summary=tables["sub_feature_summary"],
-        out_path=figures_dir / f"{subtype}_substitution_shap_summary_top30.pdf",
-    )
+    if tables["sub_feature_summary"] is not None:
+        save_signed_feature_summary(
+            feature_summary=tables["sub_feature_summary"],
+            out_path=figures_dir / f"{subtype}_substitution_shap_summary_top30.pdf",
+        )
+        lines.append(
+            f"Saved substitution SHAP summary figure: {figures_dir / f'{subtype}_substitution_shap_summary_top30.pdf'}"
+        )
+    else:
+        lines.append("Skipped substitution SHAP summary figure: missing substitution_feature_shap_importance.csv")
     sub_colors = np.where(tables["sub_site_importance"]["is_koel_site"].to_numpy(), "#d7301f", "#9ecae1")
     save_site_importance_bar(
         site_importance=tables["sub_site_importance"],
@@ -583,59 +621,74 @@ def main() -> None:
         colors=sub_colors,
         x_label="mature HA position",
     )
+    lines.append(
+        f"Saved substitution site importance figure: {figures_dir / f'{subtype}_substitution_site_importance_bar.pdf'}"
+    )
     save_substitution_site_plot(
         site_summary=tables["sub_site_summary"],
         out_path=figures_dir / f"{subtype}_substitution_site_component_top30.pdf",
+    )
+    lines.append(
+        f"Saved substitution site summary figure: {figures_dir / f'{subtype}_substitution_site_component_top30.pdf'}"
     )
     save_site_stability(
         site_stability=tables["sub_site_stability"],
         out_path=figures_dir / f"{subtype}_substitution_site_stability_top30.pdf",
     )
-    save_prediction_scatter(
-        df=tables["oof"],
-        pred_col="predicted_standardized_titer_substitution",
-        out_path=figures_dir / f"{subtype}_substitution_predicted_vs_actual.pdf",
-        color_col=color_col,
+    lines.append(
+        f"Saved substitution site stability figure: {figures_dir / f'{subtype}_substitution_site_stability_top30.pdf'}"
     )
+    if tables["oof"] is not None:
+        save_prediction_scatter(
+            df=tables["oof"],
+            pred_col="predicted_standardized_titer_substitution",
+            out_path=figures_dir / f"{subtype}_substitution_predicted_vs_actual.pdf",
+            color_col=color_col,
+        )
+        lines.append(
+            f"Saved substitution predicted-vs-actual figure: {figures_dir / f'{subtype}_substitution_predicted_vs_actual.pdf'}"
+        )
+    else:
+        lines.append("Skipped substitution predicted-vs-actual figure: missing oof_predictions.csv")
 
-    save_cv_performance(
-        cv_results=tables["cv_results"],
-        out_path=figures_dir / f"{subtype}_cv_performance_summary.pdf",
-    )
-    save_residualization_diagnostic(
-        titers=tables["titers"],
-        out_path=figures_dir / f"{subtype}_residualization_diagnostic.pdf",
-    )
-    save_neher_analog(
-        neher_pred=tables["neher_pred"],
-        out_path=figures_dir / f"{subtype}_neher2016_fig2_analog.pdf",
-    )
-    save_reciprocal_symmetry(
-        titers=tables["titers"],
-        out_path=figures_dir / f"{subtype}_reciprocal_symmetry.pdf",
-    )
-    save_heldout_comparison(
-        neher_metrics=tables["neher_metrics"],
-        out_path=figures_dir / f"{subtype}_heldout_model_comparison.pdf",
-    )
-
-    lines = [
-        f"Saved SHAP summary figure: {figures_dir / f'{subtype}_shap_summary_top30.pdf'}",
-        f"Saved site importance figure: {figures_dir / f'{subtype}_site_importance_bar.pdf'}",
-        f"Saved site component figure: {figures_dir / f'{subtype}_site_component_top30.pdf'}",
-        f"Saved site stability figure: {figures_dir / f'{subtype}_site_stability_top30.pdf'}",
-        f"Saved predicted-vs-actual figure: {figures_dir / f'{subtype}_predicted_vs_actual.pdf'}",
-        f"Saved substitution SHAP summary figure: {figures_dir / f'{subtype}_substitution_shap_summary_top30.pdf'}",
-        f"Saved substitution site importance figure: {figures_dir / f'{subtype}_substitution_site_importance_bar.pdf'}",
-        f"Saved substitution site summary figure: {figures_dir / f'{subtype}_substitution_site_component_top30.pdf'}",
-        f"Saved substitution site stability figure: {figures_dir / f'{subtype}_substitution_site_stability_top30.pdf'}",
-        f"Saved substitution predicted-vs-actual figure: {figures_dir / f'{subtype}_substitution_predicted_vs_actual.pdf'}",
-        f"Saved CV summary figure: {figures_dir / f'{subtype}_cv_performance_summary.pdf'}",
-        f"Saved standardization diagnostic figure: {figures_dir / f'{subtype}_residualization_diagnostic.pdf'}",
-        f"Saved Neher 2016 analog figure: {figures_dir / f'{subtype}_neher2016_fig2_analog.pdf'}",
-        f"Saved reciprocal symmetry figure: {figures_dir / f'{subtype}_reciprocal_symmetry.pdf'}",
-        f"Saved held-out comparison figure: {figures_dir / f'{subtype}_heldout_model_comparison.pdf'}",
-    ]
+    if tables["cv_results"] is not None:
+        save_cv_performance(
+            cv_results=tables["cv_results"],
+            out_path=figures_dir / f"{subtype}_cv_performance_summary.pdf",
+        )
+        lines.append(f"Saved CV summary figure: {figures_dir / f'{subtype}_cv_performance_summary.pdf'}")
+    else:
+        lines.append("Skipped CV summary figure: missing cv_results.csv")
+    if tables["titers"] is not None:
+        save_residualization_diagnostic(
+            titers=tables["titers"],
+            out_path=figures_dir / f"{subtype}_residualization_diagnostic.pdf",
+        )
+        save_reciprocal_symmetry(
+            titers=tables["titers"],
+            out_path=figures_dir / f"{subtype}_reciprocal_symmetry.pdf",
+        )
+        lines.append(f"Saved standardization diagnostic figure: {figures_dir / f'{subtype}_residualization_diagnostic.pdf'}")
+        lines.append(f"Saved reciprocal symmetry figure: {figures_dir / f'{subtype}_reciprocal_symmetry.pdf'}")
+    else:
+        lines.append("Skipped standardization diagnostic figure: missing matched_titers.csv")
+        lines.append("Skipped reciprocal symmetry figure: missing matched_titers.csv")
+    if tables["neher_pred"] is not None:
+        save_neher_analog(
+            neher_pred=tables["neher_pred"],
+            out_path=figures_dir / f"{subtype}_neher2016_fig2_analog.pdf",
+        )
+        lines.append(f"Saved Neher 2016 analog figure: {figures_dir / f'{subtype}_neher2016_fig2_analog.pdf'}")
+    else:
+        lines.append("Skipped Neher 2016 analog figure: missing neher_analog_predictions.csv")
+    if tables["neher_metrics"] is not None:
+        save_heldout_comparison(
+            neher_metrics=tables["neher_metrics"],
+            out_path=figures_dir / f"{subtype}_heldout_model_comparison.pdf",
+        )
+        lines.append(f"Saved held-out comparison figure: {figures_dir / f'{subtype}_heldout_model_comparison.pdf'}")
+    else:
+        lines.append("Skipped held-out comparison figure: missing neher_analog_metrics.csv")
     append_qc_log(cfg, "08_generate_figures", lines)
     print("\n".join(lines))
 

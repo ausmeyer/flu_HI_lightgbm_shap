@@ -19,17 +19,16 @@ ROOT = Path(__file__).resolve().parents[1]
 TABLE_PATH = ROOT / "site_model_literature_comparison.tsv"
 OUT_DIR = ROOT / "manuscript" / "generated_figures"
 
-PANEL_A_SITES = [53, 62, 121, 126, 131, 135, 137, 140, 144, 145, 155, 156, 157, 158, 159, 160, 173, 186, 189, 193, 196, 276]
-
 PANEL_A_MEMBERSHIP_COLS = [
-    ("in_koel", "Koel"),
-    ("in_neher2016", "Neher"),
-    ("in_harvey2023", "Harvey"),
+    ("in_koel", "Koel\nsites"),
+    ("in_neher2016", "Neher/Bedford\nsites"),
+    ("in_harvey2023", "Harvey/WIC\nsites"),
+    ("in_shah2024", "Shah/WIC\nsites"),
 ]
 
 PANEL_A_RANK_COLS = [
-    ("h3n2_site_state_rank", "H3N2"),
-    ("wic_filtered_site_state_rank", "WIC filtered"),
+    ("h3n2_site_state_rank", "Neher/Bedford\ndata"),
+    ("wic_filtered_site_state_rank", "Harvey/WIC\nfiltered data"),
     ("lightgbm_review_mean_shap_passage_rank", "LightGBM+SHAP\npassage"),
     ("lightgbm_review_mean_shap_date_rank", "LightGBM+SHAP\ndate"),
     ("lightgbm_review_mean_entropy_rank", "Unpassaged\nentropy"),
@@ -38,9 +37,10 @@ PANEL_A_RANK_COLS = [
 ]
 
 PANEL_B_ROWS = [
-    ("Koel", "in_koel", "set"),
-    ("Neher", "in_neher2016", "set"),
-    ("Harvey", "in_harvey2023", "set"),
+    ("Koel sites", "in_koel", "set"),
+    ("Neher/Bedford sites", "in_neher2016", "set"),
+    ("Harvey/WIC sites", "in_harvey2023", "set"),
+    ("Shah/WIC sites", "in_shah2024", "set"),
     ("LightGBM+SHAP passage", "lightgbm_review_mean_shap_passage_rank", "rank"),
     ("LightGBM+SHAP date", "lightgbm_review_mean_shap_date_rank", "rank"),
     ("Unpassaged entropy", "lightgbm_review_mean_entropy_rank", "rank"),
@@ -83,7 +83,10 @@ def rank_bin(value: float | int | None) -> int:
 
 
 def build_panel_a_table(df: pd.DataFrame) -> pd.DataFrame:
-    sub = df.set_index("site").loc[PANEL_A_SITES].reset_index()
+    mask = np.zeros(len(df), dtype=bool)
+    for col, _ in PANEL_A_MEMBERSHIP_COLS:
+        mask |= df[col].fillna(False).to_numpy(dtype=bool)
+    sub = df.loc[mask].sort_values("site").reset_index(drop=True)
     for col, _ in PANEL_A_RANK_COLS:
         sub[f"{col}_bin"] = sub[col].map(rank_bin)
     return sub
@@ -182,12 +185,26 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
     for i, row in plot_df.iterrows():
         ax.plot([row["h3n2_overlap"], row["wic_filtered_overlap"]], [i, i], color="#d3d3d3", lw=1.5, zorder=1)
 
-    ax.scatter(plot_df["h3n2_overlap"], y, s=42, color=h3_color, label="H3N2 top 30 overlap", zorder=3)
-    ax.scatter(plot_df["wic_filtered_overlap"], y, s=42, color=wic_color, label="Filtered WIC top 30 overlap", zorder=3)
+    ax.scatter(
+        plot_df["h3n2_overlap"],
+        y,
+        s=42,
+        color=h3_color,
+        label="Neher/Bedford data top-30 overlap",
+        zorder=3,
+    )
+    ax.scatter(
+        plot_df["wic_filtered_overlap"],
+        y,
+        s=42,
+        color=wic_color,
+        label="Harvey/WIC filtered data top-30 overlap",
+        zorder=3,
+    )
 
     labels = []
     for _, row in plot_df.iterrows():
-        if row["label"] in {"Koel", "Neher", "Harvey"}:
+        if row["label"] in {"Koel sites", "Neher/Bedford sites", "Harvey/WIC sites", "Shah/WIC sites"}:
             labels.append(f"{row['label']} (n={int(row['ref_size'])})")
         else:
             labels.append(f"{row['label']} (top 30)")
@@ -196,11 +213,19 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
     ax.tick_params(axis="y", labelright=False, labelleft=True, length=0, pad=4)
     ax.set_xlim(0, 30)
     ax.set_xticks([0, 5, 10, 15, 20, 25, 30])
-    ax.set_xlabel("Overlap with top-30 sites")
+    ax.set_xlabel("Overlap between data top-30 sites and reference site sets")
     ax.grid(axis="x", color="#e6e6e6", lw=0.8)
     handles = [
-        Line2D([0], [0], marker="o", linestyle="", color=h3_color, markersize=6, label="H3N2"),
-        Line2D([0], [0], marker="o", linestyle="", color=wic_color, markersize=6, label="Filtered WIC"),
+        Line2D([0], [0], marker="o", linestyle="", color=h3_color, markersize=6, label="Neher/Bedford data"),
+        Line2D(
+            [0],
+            [0],
+            marker="o",
+            linestyle="",
+            color=wic_color,
+            markersize=6,
+            label="Harvey/WIC filtered data",
+        ),
     ]
     legend = ax.legend(handles=handles, frameon=True, loc="lower right", fontsize=11)
     legend.get_frame().set_facecolor("white")
@@ -256,16 +281,16 @@ def main() -> None:
     panel_b = build_panel_b_table(df)
     save_supporting_tables(panel_a, panel_b)
 
-    fig = plt.figure(figsize=(14.2, 7.6))
+    fig = plt.figure(figsize=(16.3, 9.2))
     gs = fig.add_gridspec(
         nrows=1,
         ncols=2,
-        width_ratios=[1.9, 1.05],
+        width_ratios=[1.88, 1.14],
         left=0.08,
-        right=0.98,
+        right=0.988,
         top=0.88,
         bottom=0.15,
-        wspace=0.78,
+        wspace=0.68,
     )
 
     ax_a = fig.add_subplot(gs[0, 0])

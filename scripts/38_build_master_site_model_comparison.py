@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from paper_sites import NEHER2016_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -116,7 +116,7 @@ LIGHTGBM_REVIEW_SITE_TABLE_PATH = LITERATURE_DIR / "lightgbm_review_integrated_s
 MODEL_SPECS = [
     {
         "analysis_id": "h3n2",
-        "analysis_label": "H3N2",
+        "analysis_label": "Neher/Bedford data",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2/output/H3N2_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2/output/H3N2_cv_summary.csv",
@@ -124,7 +124,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "h3n2",
-        "analysis_label": "H3N2",
+        "analysis_label": "Neher/Bedford data",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2/output/H3N2_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2/output/H3N2_cv_summary.csv",
@@ -132,7 +132,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "h3n2_patristic",
-        "analysis_label": "H3N2-patristic",
+        "analysis_label": "Neher/Bedford data + patristic",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2-patristic/output/H3N2_PATRISTIC_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-patristic/output/H3N2_PATRISTIC_cv_summary.csv",
@@ -140,7 +140,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "h3n2_patristic",
-        "analysis_label": "H3N2-patristic",
+        "analysis_label": "Neher/Bedford data + patristic",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2-patristic/output/H3N2_PATRISTIC_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-patristic/output/H3N2_PATRISTIC_cv_summary.csv",
@@ -148,7 +148,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_full",
-        "analysis_label": "H3N2-WIC",
+        "analysis_label": "Harvey/WIC data",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2-WIC/output/modeling/H3N2_WIC_HA1_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC/output/modeling/H3N2_WIC_HA1_cv_summary.tsv",
@@ -156,7 +156,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_full",
-        "analysis_label": "H3N2-WIC",
+        "analysis_label": "Harvey/WIC data",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2-WIC/output/modeling/H3N2_WIC_HA1_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC/output/modeling/H3N2_WIC_HA1_cv_summary.tsv",
@@ -164,7 +164,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_patristic",
-        "analysis_label": "H3N2-WIC-patristic",
+        "analysis_label": "Harvey/WIC data + patristic",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2-WIC-patristic/output/modeling/H3N2_WIC_HA1_PATRISTIC_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-patristic/output/modeling/H3N2_WIC_HA1_PATRISTIC_cv_summary.tsv",
@@ -172,7 +172,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_patristic",
-        "analysis_label": "H3N2-WIC-patristic",
+        "analysis_label": "Harvey/WIC data + patristic",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2-WIC-patristic/output/modeling/H3N2_WIC_HA1_PATRISTIC_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-patristic/output/modeling/H3N2_WIC_HA1_PATRISTIC_cv_summary.tsv",
@@ -180,7 +180,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_filtered",
-        "analysis_label": "H3N2-WIC-no-egg-no-mixed-no-unknown",
+        "analysis_label": "Harvey/WIC filtered data",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_cv_summary.tsv",
@@ -188,7 +188,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_filtered",
-        "analysis_label": "H3N2-WIC-no-egg-no-mixed-no-unknown",
+        "analysis_label": "Harvey/WIC filtered data",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_cv_summary.tsv",
@@ -196,7 +196,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_filtered_patristic",
-        "analysis_label": "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown",
+        "analysis_label": "Harvey/WIC filtered data + patristic",
         "family": "site_state",
         "site_summary_path": ROOT / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_PATRISTIC_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_PATRISTIC_cv_summary.tsv",
@@ -204,7 +204,7 @@ MODEL_SPECS = [
     },
     {
         "analysis_id": "wic_filtered_patristic",
-        "analysis_label": "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown",
+        "analysis_label": "Harvey/WIC filtered data + patristic",
         "family": "substitution",
         "site_summary_path": ROOT / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_PATRISTIC_substitution_site_summary.tsv",
         "cv_summary_path": ROOT / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/modeling/H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_PATRISTIC_cv_summary.tsv",
@@ -297,6 +297,14 @@ def build_literature_frame() -> pd.DataFrame:
     )
     harvey_df["in_harvey2023"] = True
 
+    shah_df = pd.DataFrame(SHAH2024_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={
+            "paper_category": "shah2024_category",
+            "paper_note": "shah2024_note",
+        }
+    )
+    shah_df["in_shah2024"] = True
+
     all_sites = sorted(
         set(KOEL_SITES)
         | set(PLOS2015_GEOMETRIC_DNDS_GT1)
@@ -309,14 +317,17 @@ def build_literature_frame() -> pd.DataFrame:
         | set(lightgbm_review_df["site"].dropna().astype(int))
         | set(neher_df["site"])
         | set(harvey_df["site"])
+        | set(shah_df["site"])
     )
     lit = pd.DataFrame({"site": all_sites})
 
     lit["in_koel"] = lit["site"].isin(KOEL_SITES)
     lit = lit.merge(neher_df, on="site", how="left")
     lit = lit.merge(harvey_df, on="site", how="left")
+    lit = lit.merge(shah_df, on="site", how="left")
     lit["in_neher2016"] = lit["in_neher2016"].fillna(False)
     lit["in_harvey2023"] = lit["in_harvey2023"].fillna(False)
+    lit["in_shah2024"] = lit["in_shah2024"].fillna(False)
 
     lit["plos2015_geometric_predicted_dn_ds_gt1"] = lit["site"].isin(PLOS2015_GEOMETRIC_DNDS_GT1)
     lit["plos2015_note"] = lit["plos2015_geometric_predicted_dn_ds_gt1"].map(
@@ -368,6 +379,7 @@ def build_master_site_table() -> pd.DataFrame:
         "in_koel",
         "in_neher2016",
         "in_harvey2023",
+        "in_shah2024",
         "plos2015_pan11_site",
         "plos2015_meyer14_site",
         "plos2015_koel13_site",

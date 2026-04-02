@@ -9,25 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 from common import append_qc_log, load_config
-
-
-PAPER_SITE_ROWS = [
-    {"site": 62, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 121, "paper_category": "named_substitution", "paper_note": "FU02 cluster change attributed partly to N121T"},
-    {"site": 135, "paper_category": "named_substitution", "paper_note": "Repeated effects include K135E; SI87 to BE89 includes G135N"},
-    {"site": 140, "paper_category": "named_substitution", "paper_note": "Repeated effects include K140E"},
-    {"site": 144, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 145, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; SI87 to BE89 involves N145K"},
-    {"site": 155, "paper_category": "koel7", "paper_note": "Koel 7 site listed in paper"},
-    {"site": 156, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; WU95 to SY97 set includes K156Q; FU02 change includes Q156H"},
-    {"site": 158, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include K158R; WU95 to SY97 set includes E158K"},
-    {"site": 159, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include Y159F; later text discusses position 159"},
-    {"site": 186, "paper_category": "cluster_transition", "paper_note": "SI87 to BE89 includes I186S"},
-    {"site": 189, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include K189N; text notes S189N can be small"},
-    {"site": 193, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; SI87 to BE89 includes N193S"},
-    {"site": 196, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 276, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-]
+from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
 def parse_args() -> argparse.Namespace:
@@ -43,25 +25,44 @@ def main() -> None:
 
     site_path = Path(cfg["output_dir"]) / f"{cfg['subtype']}_site_importance.csv"
     substitution_path = Path(cfg["output_dir"]) / f"{cfg['subtype']}_substitution_site_importance.csv"
-    site_importance = pd.read_csv(site_path)
-    substitution_importance = pd.read_csv(substitution_path)
+    if site_path.exists():
+        site_importance = pd.read_csv(site_path)
+    else:
+        site_importance = pd.read_csv(Path(cfg["output_dir"]) / f"{cfg['subtype']}_site_summary.tsv", sep="\t")
+    if substitution_path.exists():
+        substitution_importance = pd.read_csv(substitution_path)
+    else:
+        substitution_importance = pd.read_csv(
+            Path(cfg["output_dir"]) / f"{cfg['subtype']}_substitution_site_summary.tsv",
+            sep="\t",
+        )
     site_importance["rank"] = site_importance["rank"].astype(int)
     substitution_importance["rank"] = substitution_importance["rank"].astype(int)
 
-    paper_sites = pd.DataFrame(PAPER_SITE_ROWS).drop_duplicates(subset=["site"]).sort_values("site")
+    neher_sites = pd.DataFrame(NEHER2016_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "neher2016_category", "paper_note": "neher2016_note"}
+    )
+    neher_sites["named_in_neher2016"] = True
+    harvey_sites = pd.DataFrame(WIC2023_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "wic2023_category", "paper_note": "wic2023_note"}
+    )
+    harvey_sites["named_in_wic2023"] = True
+    shah_sites = pd.DataFrame(SHAH2024_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "shah2024_category", "paper_note": "shah2024_note"}
+    )
+    shah_sites["named_in_shah2024"] = True
 
     comparison = (
-        paper_sites.assign(named_in_paper=True)
-        .merge(
-            site_importance[["site", "rank", "mean_abs_shap", "is_koel_site"]].rename(
+        site_importance[["site", "rank", "mean_abs_shap", "is_koel_site"]]
+        .rename(
                 columns={
                     "rank": "site_state_rank",
                     "mean_abs_shap": "site_state_mean_abs_shap",
                 }
-            ),
-            on="site",
-            how="outer",
         )
+        .merge(neher_sites, on="site", how="outer")
+        .merge(harvey_sites, on="site", how="outer")
+        .merge(shah_sites, on="site", how="outer")
         .merge(
             substitution_importance[["site", "rank", "mean_abs_shap"]].rename(
                 columns={
@@ -73,8 +74,16 @@ def main() -> None:
             how="outer",
         )
     )
-    comparison["named_in_paper"] = comparison["named_in_paper"].fillna(False)
     comparison["is_koel_site"] = comparison["is_koel_site"].fillna(False)
+    comparison["named_in_neher2016"] = comparison["named_in_neher2016"].fillna(False)
+    comparison["named_in_wic2023"] = comparison["named_in_wic2023"].fillna(False)
+    comparison["named_in_shah2024"] = comparison["named_in_shah2024"].fillna(False)
+    comparison["named_in_any_reference"] = (
+        comparison["named_in_neher2016"] | comparison["named_in_wic2023"] | comparison["named_in_shah2024"]
+    )
+    comparison["paper_named"] = comparison["named_in_neher2016"]
+    comparison["paper_category"] = comparison["neher2016_category"]
+    comparison["paper_note"] = comparison["neher2016_note"]
     comparison["site_state_in_model_top_n"] = comparison["site_state_rank"].le(args.top_n).fillna(False)
     comparison["substitution_in_model_top_n"] = comparison["substitution_rank"].le(args.top_n).fillna(False)
     comparison["sort_rank"] = comparison[["site_state_rank", "substitution_rank"]].min(axis=1, skipna=True)
@@ -88,7 +97,16 @@ def main() -> None:
             "substitution_rank",
             "substitution_mean_abs_shap",
             "substitution_in_model_top_n",
-            "named_in_paper",
+            "named_in_neher2016",
+            "neher2016_category",
+            "neher2016_note",
+            "named_in_wic2023",
+            "wic2023_category",
+            "wic2023_note",
+            "named_in_shah2024",
+            "shah2024_category",
+            "shah2024_note",
+            "named_in_any_reference",
             "is_koel_site",
             "paper_category",
             "paper_note",
@@ -99,15 +117,25 @@ def main() -> None:
     comparison.to_csv(out_path, sep="\t", index=False)
 
     site_state_overlap = comparison[
-        comparison["site_state_in_model_top_n"] & comparison["named_in_paper"]
+        comparison["site_state_in_model_top_n"] & comparison["named_in_neher2016"]
     ]
     substitution_overlap = comparison[
-        comparison["substitution_in_model_top_n"] & comparison["named_in_paper"]
+        comparison["substitution_in_model_top_n"] & comparison["named_in_neher2016"]
+    ]
+    harvey_site_overlap = comparison[
+        comparison["site_state_in_model_top_n"] & comparison["named_in_wic2023"]
+    ]
+    shah_site_overlap = comparison[
+        comparison["site_state_in_model_top_n"] & comparison["named_in_shah2024"]
     ]
     lines = [
-        f"Paper-named sites in reference table: {paper_sites['site'].nunique()}",
-        f"Site-state overlap in model top-{args.top_n}: {len(site_state_overlap)} -> {sorted(site_state_overlap['site'].tolist())}",
-        f"Substitution overlap in model top-{args.top_n}: {len(substitution_overlap)} -> {sorted(substitution_overlap['site'].tolist())}",
+        f"Neher 2016 reference sites: {len(neher_sites)}",
+        f"WIC 2023 reference sites: {len(harvey_sites)}",
+        f"Shah 2024 reference sites: {len(shah_sites)}",
+        f"Site-state overlap with Neher/Bedford in model top-{args.top_n}: {len(site_state_overlap)} -> {sorted(site_state_overlap['site'].tolist())}",
+        f"Substitution overlap with Neher/Bedford in model top-{args.top_n}: {len(substitution_overlap)} -> {sorted(substitution_overlap['site'].tolist())}",
+        f"Site-state overlap with Harvey/WIC in model top-{args.top_n}: {len(harvey_site_overlap)} -> {sorted(harvey_site_overlap['site'].tolist())}",
+        f"Site-state overlap with Shah/WIC in model top-{args.top_n}: {len(shah_site_overlap)} -> {sorted(shah_site_overlap['site'].tolist())}",
         f"Output: {out_path}",
     ]
     append_qc_log(cfg, "11_compare_paper_sites", lines)

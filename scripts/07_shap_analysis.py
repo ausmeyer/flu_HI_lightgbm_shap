@@ -24,25 +24,39 @@ from common import (
     get_lightgbm_params,
     load_config,
 )
+from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
 
 
-PAPER_SITE_ROWS = [
-    {"site": 62, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 121, "paper_category": "named_substitution", "paper_note": "FU02 cluster change attributed partly to N121T"},
-    {"site": 135, "paper_category": "named_substitution", "paper_note": "Repeated effects include K135E; SI87 to BE89 includes G135N"},
-    {"site": 140, "paper_category": "named_substitution", "paper_note": "Repeated effects include K140E"},
-    {"site": 144, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 145, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; SI87 to BE89 involves N145K"},
-    {"site": 155, "paper_category": "koel7", "paper_note": "Koel 7 site listed in paper"},
-    {"site": 156, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; WU95 to SY97 set includes K156Q; FU02 change includes Q156H"},
-    {"site": 158, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include K158R; WU95 to SY97 set includes E158K"},
-    {"site": 159, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include Y159F; later text discusses position 159"},
-    {"site": 186, "paper_category": "cluster_transition", "paper_note": "SI87 to BE89 includes I186S"},
-    {"site": 189, "paper_category": "koel7_and_named_substitution", "paper_note": "Koel 7 site; repeated effects include K189N; text notes S189N can be small"},
-    {"site": 193, "paper_category": "koel7_and_cluster_transition", "paper_note": "Koel 7 site; SI87 to BE89 includes N193S"},
-    {"site": 196, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-    {"site": 276, "paper_category": "cluster_transition", "paper_note": "WU95 to SY97 set K62E/V144I/K156Q/E158K/V196A/N276K"},
-]
+PAPER_SITE_ROWS = NEHER2016_H3_SITE_ROWS
+
+
+def add_reference_membership(df: pd.DataFrame) -> pd.DataFrame:
+    neher_df = pd.DataFrame(NEHER2016_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "neher2016_category", "paper_note": "neher2016_note"}
+    )
+    neher_df["named_in_neher2016"] = True
+    harvey_df = pd.DataFrame(WIC2023_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "wic2023_category", "paper_note": "wic2023_note"}
+    )
+    harvey_df["named_in_wic2023"] = True
+    shah_df = pd.DataFrame(SHAH2024_H3_SITE_ROWS).drop_duplicates(subset=["site"]).rename(
+        columns={"paper_category": "shah2024_category", "paper_note": "shah2024_note"}
+    )
+    shah_df["named_in_shah2024"] = True
+
+    merged = (
+        df.merge(neher_df, on="site", how="left")
+        .merge(harvey_df, on="site", how="left")
+        .merge(shah_df, on="site", how="left")
+        .fillna({"named_in_neher2016": False, "named_in_wic2023": False, "named_in_shah2024": False})
+    )
+    merged["named_in_any_reference"] = (
+        merged["named_in_neher2016"] | merged["named_in_wic2023"] | merged["named_in_shah2024"]
+    )
+    merged["paper_named"] = merged["named_in_neher2016"]
+    merged["paper_category"] = merged["neher2016_category"]
+    merged["paper_note"] = merged["neher2016_note"]
+    return merged
 
 
 @dataclass
@@ -311,8 +325,7 @@ def build_site_state_outputs(
     site_importance["rank"] = np.arange(1, len(site_importance) + 1)
     site_importance["is_koel_site"] = site_importance["site"].isin(koel_sites)
     site_importance["in_top_30"] = site_importance["rank"] <= 30
-    site_importance = site_importance.merge(paper_sites, on="site", how="left")
-    site_importance["paper_named"] = site_importance["paper_category"].notna()
+    site_importance = add_reference_membership(site_importance.merge(paper_sites, on="site", how="left"))
 
     fold_site_df = pd.DataFrame(fold_site_rows).sort_values(
         ["fold", "fold_mean_abs_shap"],
@@ -332,6 +345,10 @@ def build_site_state_outputs(
             "paper_named",
             "paper_category",
             "paper_note",
+            "named_in_neher2016",
+            "named_in_wic2023",
+            "named_in_shah2024",
+            "named_in_any_reference",
             "is_koel_site",
             "in_top_30",
         ],
@@ -399,8 +416,7 @@ def build_substitution_outputs(
     site_importance["rank"] = np.arange(1, len(site_importance) + 1)
     site_importance["is_koel_site"] = site_importance["site"].isin(koel_sites)
     site_importance["in_top_30"] = site_importance["rank"] <= 30
-    site_importance = site_importance.merge(paper_sites, on="site", how="left")
-    site_importance["paper_named"] = site_importance["paper_category"].notna()
+    site_importance = add_reference_membership(site_importance.merge(paper_sites, on="site", how="left"))
 
     fold_feature_abs_df = pd.DataFrame(fold_feature_abs_rows)
     if not fold_feature_abs_df.empty:
@@ -433,6 +449,10 @@ def build_substitution_outputs(
             "paper_named",
             "paper_category",
             "paper_note",
+            "named_in_neher2016",
+            "named_in_wic2023",
+            "named_in_shah2024",
+            "named_in_any_reference",
             "is_koel_site",
             "in_top_30",
         ],
@@ -506,6 +526,16 @@ def save_outputs(
             "paper_named",
             "paper_category",
             "paper_note",
+            "named_in_neher2016",
+            "neher2016_category",
+            "neher2016_note",
+            "named_in_wic2023",
+            "wic2023_category",
+            "wic2023_note",
+            "named_in_shah2024",
+            "shah2024_category",
+            "shah2024_note",
+            "named_in_any_reference",
             "is_koel_site",
             "in_top_30",
         ]
@@ -544,6 +574,16 @@ def save_outputs(
                 "paper_named",
                 "paper_category",
                 "paper_note",
+                "named_in_neher2016",
+                "neher2016_category",
+                "neher2016_note",
+                "named_in_wic2023",
+                "wic2023_category",
+                "wic2023_note",
+                "named_in_shah2024",
+                "shah2024_category",
+                "shah2024_note",
+                "named_in_any_reference",
                 "is_koel_site",
                 "in_top_30",
             ]
