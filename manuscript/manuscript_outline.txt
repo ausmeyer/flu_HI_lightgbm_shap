@@ -19,9 +19,10 @@ Central claim
 - The resulting rankings reconcile multiple literatures that have often been treated separately:
   Koel,
   Neher/Bedford,
-  Harvey/WIC,
-  McWhite/passaging,
-  PLoS/Meyer structural-evolution work,
+  Harvey,
+  Shah,
+  McWhite evolutionary and passaging analyssi,
+  Meyer structural-evolution work,
   and independent sequence-only LightGBM+SHAP analyses.
 
 Why this paper matters
@@ -32,11 +33,11 @@ Why this paper matters
   direct sequence-based models are useful,
   passage filtering matters materially,
   SHAP-style residue-level rankings outperform sitewise dN/dS as a prioritization tool,
-  and the filtered Harvey/WIC model yields the strongest modern consensus signal.
+  and the models build on the filtered WIC dataset yields a modern consensus signal.
 
 Core narrative logic
-- The Neher/Bedford H3N2 analysis validates the approach against the best-established H3 benchmark signal.
-- The filtered Harvey/WIC H3N2 analysis shows that the same framework remains useful in a larger, more heterogeneous modern dataset once passage-related noise is reduced.
+- The analysis of the Neher/Bedford dataset validates the approach against the best-established H3 benchmark signal.
+- The analysis of the filtered WIC data shows that the same framework remains useful in a larger, more heterogeneous modern dataset once passage-related noise is reduced.
 - Cross-study synthesis shows that these are not isolated results but part of a reproducible consensus across multiple independent analytical traditions.
 
 Main-text structure
@@ -55,9 +56,11 @@ Main-text structure
 - Recommended structure:
   problem -> gap -> approach -> two primary results -> cross-study synthesis -> implication
 - Essential content:
-  mention Neher/Bedford H3N2 and filtered Harvey/WIC H3N2 as the two primary analyses;
-  note that patristic distance adds little compared with passage filtering;
+  motivate that a primary issue is that there are several disparate important sites set depending on which data and modeling approach was used and these overlap relatively poorly in some cases;
+  mention modeling of the Neher/Bedford HI dataset and filtered WIC HI dataset as the two primary analyses and our application of two primary models site-state and substitution;
+  note that our LightGBM+SHAP approach to models improve the important site concordance compared to prior analyses of the same datasets;
   note that SHAP-based rankings outperform dN/dS for this application;
+  note that we can offer a more broadly concordant set of important sites;
   close with surveillance/vaccine relevance.
 
 3. Opening introduction text
@@ -81,17 +84,18 @@ Main-text structure
 4. Results
 
 Results section overview
-- Use `Table 1` first to orient the reader to the three non-patristic analyses.
-- Then move quickly into the three main result blocks anchored by the three main figures.
+- Use `Table 1` first to orient the reader to the three primary (non-patristic) analyses.
+- Make sure there is enough (but brief) methods to understand the results as the Methods section will appear after the Results and Discussion; for example, they will not know about the two model types we use (site-state and substitution) or anything about them (what to expect from their intrinsic covariate structure)
+- Then move into the three main result blocks anchored by the three main figures.
 - Keep the model grid in the background; the emphasis should stay on biological interpretation.
 
 Results subsection 1
-Direct sequence models recover the canonical H3 benchmark signal in the Neher/Bedford dataset
+Direct sequence models recover the H3 benchmark signal from the Neher/Bedford dataset
 - Introduce the Neher/Bedford dataset briefly and concretely.
 - Clarify that this analysis functions as the strongest benchmark test because it is closest to the established H3 cluster-transition literature.
 - Use `Table 1` to summarize site-state and substitution performance.
 - Anchor the subsection on `Figure 1`:
-  Neher/Bedford H3N2 site-component top-30 plot.
+  Neher/Bedford dataset site-component top-30 plot.
 - Main points to make:
   the ranked sites recover the dominant benchmark head-region positions;
   the site-state model provides an interpretable decomposition;
@@ -102,17 +106,17 @@ Direct sequence models recover the canonical H3 benchmark signal in the Neher/Be
 
 Results subsection 2
 Passage filtering yields the clearest modern antigenic-site model in Harvey/WIC
-- Introduce Harvey/WIC as the larger and more heterogeneous test case.
+- Introduce the analysis of the WIC dataset as the larger and more heterogeneous test case.
 - Explain briefly why passage matters biologically and analytically.
 - Use `Table 1` to show that the filtered analysis remains strong predictively.
 - Anchor the subsection on `Figure 2`:
-  filtered Harvey/WIC H3N2 site-component top-30 plot.
+  filtered WIC site-component top-30 plot.
 - Main points to make:
-  the filtered model retains the core canonical benchmark positions;
-  it also recovers additional Harvey/WIC-associated sites;
-  filtering clarifies the signal far more than patristic adjustment does.
+  the filtered model retains the core benchmark positions;
+  it also recovers additional Harvey-associated sites;
+  filtering out egg and unknown passaging clarifies the signal significantly.
 - This subsection should make the most important conceptual claim of the paper:
-  better biological control of the data is more valuable than adding a coarse phylogenetic-distance covariate.
+  that we are able to clarify the analysis with filtering and a straightforward non-linear modeling approach to confirm or reject sites in the Harvey manuscript using the same underlying dataset.
 
 Results subsection 3
 Cross-study synthesis identifies a robust consensus set of antigenically informative H3 sites
@@ -127,16 +131,16 @@ Cross-study synthesis identifies a robust consensus set of antigenically informa
   PLoS/Meyer,
   and the independent LightGBM+SHAP sequence-only rankings.
 - Main conclusions to make explicitly:
-  the Neher/Bedford model most sharply recovers the benchmark Koel/Neher signal;
-  the filtered Harvey/WIC model has the strongest broad agreement across otherwise weakly concordant literatures;
-  SHAP-based sequence rankings outperform dN/dS as a practical prioritization tool for likely antigenically important sites.
+  the models built on the Neher/Bedford data most clearly recover the benchmark Koel/Neher signal;
+  the models built on the filtered WIC dataset actually contain broad agreement across otherwise weakly concordant literatures (despite previous analysis of similar data).
+  even SHAP-based sequence-only rankings outperform dN/dS as a practical prioritization tool for likely antigenically important sites.
 - This subsection should make the case that the paper’s value lies in synthesis and adjudication across frameworks.
 
 Results subsection 4
 Sensitivity analyses support the primary interpretation
 - Keep this subsection short in the main text.
 - Main points only:
-  unfiltered Harvey/WIC is harder to interpret and shows the cost of passage heterogeneity;
+  unfiltered WIC analysis is harder to interpret and shows the cost of passage heterogeneity;
   patristic distance changes background prediction more than mechanistic attribution;
   the main conclusions are robust to alternative encodings and sensitivity analyses.
 - Send most details to the supplement.
@@ -148,14 +152,15 @@ Discussion paragraph structure
   restate the core biological result:
   direct sequence-based models can recover robust antigenically informative H3 sites
 - Paragraph 2:
-  interpret why passage filtering matters more than patristic adjustment
+  interpret why flexible non-linear models with control covariates and importance metrics like LightGBM+SHAP might be expected to outperform similar but more constrained linear models, and are simultaneously easier to parameterize and fit than than Bayesian models
 - Paragraph 3:
   explain why this matters scientifically:
   the goal is not just to identify sites under selection, but to prioritize sites that are informative for antigenic phenotype and therefore relevant to vaccine mismatch and immune escape
 - Paragraph 4:
-  explain the two complementary model roles:
-  Neher/Bedford H3N2 as the strongest benchmark reconstruction,
-  filtered Harvey/WIC H3N2 as the strongest modern consensus model
+  explain the two complementary model types including site-state and substitution
+  explain how that matters for the analysis of the Neher/Bedford dataset for benchmark reconstruction,
+  explain how that matters for the analysis of the filtered WIC as a modern consensus,
+  and perhaps how our findings relate to the prior HI analytical studies (Koel, Neher/Bedford, Harvey, Shah).
 - Paragraph 5:
   discuss why SHAP-based rankings outperform dN/dS for this application
 - Paragraph 6:

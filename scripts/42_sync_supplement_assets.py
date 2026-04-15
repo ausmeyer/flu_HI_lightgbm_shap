@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SUPPLEMENT_DIR = ROOT / "69b7797c762f515edcff3ad6"
+DEFAULT_SUPPLEMENT_DIR = ROOT / "69b778fd3e7b181fe1c2943b"
 
 
 def parse_args() -> argparse.Namespace:

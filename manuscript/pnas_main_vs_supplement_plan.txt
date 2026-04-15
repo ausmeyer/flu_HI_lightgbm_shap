@@ -6,11 +6,11 @@ Main-text objective
 - Everything in the main text should serve that question directly.
 
 Main-text narrative
-- Primary benchmark analysis:
-  `Neher/Bedford H3N2`
-- Primary modern consensus analysis:
-  filtered `Harvey/WIC H3N2`
-- Supporting synthesis:
+- Initial analysis:
+  `LightGBM+SHAP analysis of the Neher/Bedford dataset`
+- Parallel analysis:
+  LightGBM+SHAP analysis of the filtered (filtered to remove unknown and egg passaging) WIC data
+- Condordance synthesis:
   cross-study concordance across benchmark site sets, passaging analyses, structural-evolution work, and independent sequence-only ML analyses
 
 Main-text structure
@@ -23,20 +23,19 @@ Main-text graphical elements
 - Table 1:
   overview of the three non-patristic analyses and site-state/substitution performance
 - Figure 1:
-  Neher/Bedford H3N2 site-component top 30
+  LightGBM+SHAP analysis of Neher/Bedford data site-component top 30
 - Figure 2:
-  filtered Harvey/WIC H3N2 site-component top 30
+  LightGBM+SHAP analysis of filtered WIC site-component top 30
 - Figure 3:
   cross-study concordance
 
 Main-text material that should stay in the main manuscript
 - Why antigenic-site prioritization matters biologically and for surveillance
-- Why Neher/Bedford H3N2 is the right benchmark dataset
-- Why Harvey/WIC is the right modern large-scale dataset
-- Why passage filtering matters more than patristic adjustment
+- Why the Neher/Bedford data is the right initial benchmark dataset
+- Why the WIC data is the right modern large-scale dataset
 - Why SHAP-based sequence rankings are more useful than dN/dS for this problem
 - The distinction between:
-  the sharpest benchmark recovery,
+  the clearest benchmark recovery,
   and the broadest modern consensus signal
 
 Main-text material that should be brief
@@ -51,9 +50,9 @@ Supplement objective
 
 Current supplement contents that support the main story
 - S1-S4:
-  primary Neher/Bedford H3N2 diagnostics
+  primary analysis of the Neher/Bedford dataset diagnostics
 - S5-S9:
-  primary filtered Harvey/WIC H3N2 diagnostics
+  primary analysis of the filtered WIC diagnostics
 - S10-S15:
   sensitivity analyses for unfiltered WIC and patristic variants
 - Table S1:
@@ -75,7 +74,7 @@ What should remain in the supplement by default
 
 What may later be added to the supplement if drafting or review requires it
 - substitution-model top-site figures for the two primary datasets
-- expanded Neher supplementary-site benchmark analysis
+- expanded Neher data supplementary-site benchmark analysis
 - additional rank-correlation or overlap panels
 - glycosylation-oriented post hoc analyses if they become part of the manuscript argument
 
