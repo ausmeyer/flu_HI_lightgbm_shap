@@ -29,3 +29,10 @@ __pycache__/
 /my_writing/
 /relevant_literature/*.pdf
 /relevant_literature/*.PDF
+/AGENTS.md
+/PROJECT.md
+/chatgpt_review_v1.txt
+/claude_review_v1.txt
+/kimi_review_v1.txt
+/kimi_review_v2.txt
+/plm_extension_proposal.txt
