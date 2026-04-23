@@ -1,21 +1,35 @@
 # LightGBM HI Antigenic Model Pipeline
 
-End-to-end pipeline for:
-- the original `H3N2` Neher/Bedford-style direct-comparison analysis
-- the `H3N2-WIC` data-assembly workflow
-- the `H3N2-WIC` HA1 modeling and comparison workflow
+This repository contains the full analysis pipeline behind the H3N2 HI manuscript: data assembly, sequence matching and QC, feature construction, LightGBM training, SHAP-based site ranking, benchmark comparisons, and manuscript-facing tables and figures.
 
-The repo now has two publication-facing entry points:
-- [run_full_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/run_full_pipeline.py) for the original `H3N2` pipeline
-- [28_run_wic_ha1_model_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/28_run_wic_ha1_model_pipeline.py) for the `H3N2-WIC` HA1 modeling pipeline
+It supports three main use cases:
+- reproducing the original `H3N2` Neher/Bedford-style direct-comparison analysis
+- assembling and modeling the `H3N2-WIC` WHO Collaborating Centre-derived dataset
+- tracing manuscript results back to concrete pipeline artifacts rather than manuscript prose
 
-Additional parallel analysis entry points:
-- [run_h3n2_patristic_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/run_h3n2_patristic_pipeline.py) for `H3N2` with patristic distance added alongside temporal distance
-- [35_run_wic_ha1_patristic_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/35_run_wic_ha1_patristic_pipeline.py) for `H3N2-WIC` with patristic distance added alongside temporal distance
-- [36_run_wic_ha1_filtered_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/36_run_wic_ha1_filtered_pipeline.py) for `H3N2-WIC` excluding egg, mixed, and unknown passage classes
-- [37_run_wic_ha1_filtered_patristic_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/37_run_wic_ha1_filtered_patristic_pipeline.py) for `H3N2-WIC` excluding egg, mixed, and unknown passage classes while adding patristic distance
+## Start Here
 
-The numbered scripts remain as implementation stages, but the wrappers above should be treated as the main human-facing commands.
+If you are trying to understand or audit the paper rather than rerun every script:
+- read [MANUSCRIPT_REPORT_CONTEXT.md](MANUSCRIPT_REPORT_CONTEXT.md) for the single-file reporting context compiled from inputs, intermediates, outputs, and QC logs
+- use [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv) for site-level ranks, benchmark memberships, and external sequence-only comparisons
+- use [model_performance_literature_summary.tsv](model_performance_literature_summary.tsv) for consolidated model metrics
+- use [table_s1_model_performance.tsv](manuscript/generated_supplement/table_s1_model_performance.tsv), [table_s2_reference_overlap.tsv](manuscript/generated_supplement/table_s2_reference_overlap.tsv), and [fig4_panelB_overlaps.tsv](manuscript/generated_figures/fig4_panelB_overlaps.tsv) for manuscript-facing summary outputs
+
+If you are trying to rerun the primary analyses, use the wrapper scripts below rather than the numbered stage scripts directly.
+
+## Main Entry Points
+
+Primary publication-facing wrappers:
+- [scripts/run_full_pipeline.py](scripts/run_full_pipeline.py) for the original `H3N2` pipeline
+- [scripts/28_run_wic_ha1_model_pipeline.py](scripts/28_run_wic_ha1_model_pipeline.py) for the `H3N2-WIC` HA1 modeling pipeline
+
+Parallel analysis wrappers used for sensitivity and comparison analyses:
+- [scripts/run_h3n2_patristic_pipeline.py](scripts/run_h3n2_patristic_pipeline.py) adds patristic distance to the `H3N2` analysis
+- [scripts/35_run_wic_ha1_patristic_pipeline.py](scripts/35_run_wic_ha1_patristic_pipeline.py) adds patristic distance to the `H3N2-WIC` analysis
+- [scripts/36_run_wic_ha1_filtered_pipeline.py](scripts/36_run_wic_ha1_filtered_pipeline.py) excludes egg, mixed, and unknown passage classes from `H3N2-WIC`
+- [scripts/37_run_wic_ha1_filtered_patristic_pipeline.py](scripts/37_run_wic_ha1_filtered_patristic_pipeline.py) combines passage filtering and patristic distance for `H3N2-WIC`
+
+The numbered scripts remain the implementation stages, but the wrappers above should be treated as the main human-facing commands.
 
 ## Repository layout
 
@@ -33,7 +47,30 @@ The numbered scripts remain as implementation stages, but the wrappers above sho
 - `scripts/wic_name_utils.py`
 - `configs/h3n2.json`
 - `configs/h1n1_template.json`
+- `MANUSCRIPT_REPORT_CONTEXT.md`: single-file manuscript reporting context built from pipeline artifacts
+- `site_model_literature_comparison.tsv`: master site-level comparison table
+- `model_performance_literature_summary.tsv`: master model-metrics table
+- `manuscript/generated_figures/`: manuscript-facing figures and figure-support tables
+- `manuscript/generated_supplement/`: manuscript-facing supplement tables
 - `environment.yml`
+
+## Reporting Artifacts
+
+The repo contains a manuscript-reporting layer in addition to the raw pipeline outputs.
+
+For manuscript assembly or factual checking, the main artifacts are:
+- [MANUSCRIPT_REPORT_CONTEXT.md](MANUSCRIPT_REPORT_CONTEXT.md)
+- [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv)
+- [model_performance_literature_summary.tsv](model_performance_literature_summary.tsv)
+- [manuscript/generated_figures/](manuscript/generated_figures/)
+- [manuscript/generated_supplement/](manuscript/generated_supplement/)
+
+These files are the quickest route to:
+- primary performance metrics
+- benchmark overlap counts
+- top-ranked sites in each model family
+- external sequence-only comparison results
+- provenance for values reported in the manuscript
 
 ## Setup
 
