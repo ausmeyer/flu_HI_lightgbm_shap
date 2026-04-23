@@ -49,6 +49,13 @@ PANEL_B_ROWS = [
 ]
 
 
+def top_sites_from_rank_cols(df: pd.DataFrame, rank_cols: list[str], top_n: int = 30) -> set[int]:
+    mask = np.zeros(len(df), dtype=bool)
+    for col in rank_cols:
+        mask |= df[col].notna() & (df[col] <= top_n)
+    return set(df.loc[mask, "site"])
+
+
 def configure_style() -> None:
     mpl.rcParams.update(
         {
@@ -93,8 +100,9 @@ def build_panel_a_table(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_panel_b_table(df: pd.DataFrame) -> pd.DataFrame:
-    h3_sites = set(df.loc[df["h3n2_site_state_rank"].notna() & (df["h3n2_site_state_rank"] <= 30), "site"])
-    wic_sites = set(df.loc[df["wic_filtered_site_state_rank"].notna() & (df["wic_filtered_site_state_rank"] <= 30), "site"])
+    # Panel B summarizes recovery across the two primary model families for each data set.
+    h3_sites = top_sites_from_rank_cols(df, ["h3n2_site_state_rank", "h3n2_substitution_rank"])
+    wic_sites = top_sites_from_rank_cols(df, ["wic_filtered_site_state_rank", "wic_filtered_substitution_rank"])
 
     rows: list[dict[str, object]] = []
     for label, col, kind in PANEL_B_ROWS:
@@ -190,7 +198,7 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
         y,
         s=42,
         color=h3_color,
-        label="Neher/Bedford data top-30 overlap",
+        label="Neher/Bedford data primary-model top-30 overlap",
         zorder=3,
     )
     ax.scatter(
@@ -198,7 +206,7 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
         y,
         s=42,
         color=wic_color,
-        label="Harvey/WIC filtered data top-30 overlap",
+        label="WIC filtered data primary-model top-30 overlap",
         zorder=3,
     )
 
@@ -213,7 +221,7 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
     ax.tick_params(axis="y", labelright=False, labelleft=True, length=0, pad=4)
     ax.set_xlim(0, 30)
     ax.set_xticks([0, 5, 10, 15, 20, 25, 30])
-    ax.set_xlabel("Overlap between data top-30 sites and reference site sets")
+    ax.set_xlabel("Overlap with primary-model top-30 sites")
     ax.grid(axis="x", color="#e6e6e6", lw=0.8)
     handles = [
         Line2D([0], [0], marker="o", linestyle="", color=h3_color, markersize=6, label="Neher/Bedford data"),
@@ -224,7 +232,7 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
             linestyle="",
             color=wic_color,
             markersize=6,
-            label="Harvey/WIC filtered data",
+            label="WIC filtered data",
         ),
     ]
     legend = ax.legend(handles=handles, frameon=True, loc="lower right", fontsize=11)
