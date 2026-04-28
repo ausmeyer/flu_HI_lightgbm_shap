@@ -33,7 +33,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity",
     },
     {
-        "label": "Harvey/WIC data",
+        "label": "WIC data",
         "cv_path": ROOT / "H3N2-WIC" / "output" / "modeling" / "H3N2_WIC_HA1_cv_summary.tsv",
         "sep": "\t",
         "site_rank_col": "wic_full_site_state_rank",
@@ -42,7 +42,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC filtered data",
+        "label": "WIC filtered data",
         "cv_path": ROOT
         / "H3N2-WIC-no-egg-no-mixed-no-unknown"
         / "output"
@@ -55,7 +55,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC data + patristic",
+        "label": "WIC data + patristic",
         "cv_path": ROOT / "H3N2-WIC-patristic" / "output" / "modeling" / "H3N2_WIC_HA1_PATRISTIC_cv_summary.tsv",
         "sep": "\t",
         "site_rank_col": "wic_patristic_site_state_rank",
@@ -64,7 +64,7 @@ ANALYSES = [
         "sub_model_type": "substitution_identity_context",
     },
     {
-        "label": "Harvey/WIC filtered data + patristic",
+        "label": "WIC filtered data + patristic",
         "cv_path": ROOT
         / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown"
         / "output"
