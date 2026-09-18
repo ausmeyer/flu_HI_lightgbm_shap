@@ -36,3 +36,6 @@ __pycache__/
 /kimi_review_v1.txt
 /kimi_review_v2.txt
 /plm_extension_proposal.txt
+
+# Audit backups and local reruns contain source sequences.
+/audit/

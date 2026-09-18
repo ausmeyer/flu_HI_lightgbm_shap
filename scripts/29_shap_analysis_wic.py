@@ -15,6 +15,8 @@ import shap
 from scipy.stats import mannwhitneyu
 from sklearn.model_selection import GroupKFold
 
+from model_validation import inner_selection, fit_selected_model
+
 from common import (
     append_qc_log,
     apply_additive_effects_multi,
@@ -24,6 +26,12 @@ from common import (
     load_config,
 )
 from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from shap_reuse import (
+    collect_site_state_reuse_stats,
+    collect_substitution_reuse_stats,
+    new_reuse_stats,
+    reuse_stats_to_table,
+)
 
 
 ADDITIVE_FACTOR_COLS = [
@@ -352,6 +360,7 @@ def main() -> None:
     sub_fold_feature_abs_mean_rows: list[dict[str, float | int]] = []
     sub_best_iterations = []
     total_sub_sampled_rows = 0
+    reuse_stats = new_reuse_stats()
 
     for fold, (train_idx, test_idx) in enumerate(gkf.split(df, groups=groups), start=1):
         train_df = df.iloc[train_idx].copy()
@@ -368,18 +377,15 @@ def main() -> None:
         X_train = prepare_frame(train_df, site_state_cols)
         X_test = prepare_frame(test_df, site_state_cols)
         y_train = train_df["standardized_titer"].to_numpy(dtype=float) - train_base
-        y_test = test_df["standardized_titer"].to_numpy(dtype=float) - test_base
+        selection = inner_selection(
+            train_df, "virusStrain",
+            lambda a, b: fit_split_additive(a, b, "standardized_titer"),
+            random_state=params["random_state"],
+        )
         categorical_cols = [c for c in X_train.columns if str(X_train[c].dtype) == "category"]
 
-        model = lgb.LGBMRegressor(**params)
-        model.fit(
-            X_train,
-            y_train,
-            eval_set=[(X_test, y_test)],
-            categorical_feature=categorical_cols,
-            callbacks=[lgb.early_stopping(50, verbose=False)],
-        )
-        best_iterations.append(int(model.best_iteration_ or params["n_estimators"]))
+        model = fit_selected_model(X_train, y_train, params, selection, categorical_cols)
+        best_iterations.append(int(model.n_estimators_))
 
         if args.max_rows_per_fold and len(test_idx) > args.max_rows_per_fold:
             sample_local = np.sort(
@@ -397,6 +403,12 @@ def main() -> None:
         if isinstance(shap_values, list):
             shap_values = shap_values[0]
         shap_block = pd.DataFrame(shap_values, columns=site_state_cols)
+        collect_site_state_reuse_stats(
+            stats=reuse_stats,
+            feature_values=X_shap.reset_index(drop=True),
+            shap_values=shap_block.reset_index(drop=True),
+            feature_cols=site_state_cols,
+        )
 
         feature_abs_sum += shap_block.abs().sum(axis=0)
         feature_signed_sum += shap_block.sum(axis=0)
@@ -412,21 +424,22 @@ def main() -> None:
             X_sub_train = prepare_frame(train_sub, substitution_cols)
             X_sub_test = prepare_frame(test_sub, substitution_cols)
             sub_categorical_cols = [c for c in X_sub_train.columns if str(X_sub_train[c].dtype) == "category"]
-            model_sub = lgb.LGBMRegressor(**params)
-            model_sub.fit(
-                X_sub_train,
-                y_train,
-                eval_set=[(X_sub_test, y_test)],
-                categorical_feature=sub_categorical_cols,
-                callbacks=[lgb.early_stopping(50, verbose=False)],
+            model_sub = fit_selected_model(
+                X_sub_train, y_train, params, selection, sub_categorical_cols,
             )
-            sub_best_iterations.append(int(model_sub.best_iteration_ or params["n_estimators"]))
+            sub_best_iterations.append(int(model_sub.n_estimators_))
 
             X_sub_shap = X_sub_test.iloc[sample_local].copy()
             sub_shap_values = shap.TreeExplainer(model_sub).shap_values(X_sub_shap)
             if isinstance(sub_shap_values, list):
                 sub_shap_values = sub_shap_values[0]
             sub_shap_block = pd.DataFrame(sub_shap_values, columns=substitution_cols)
+            collect_substitution_reuse_stats(
+                stats=reuse_stats,
+                feature_values=X_sub_shap.reset_index(drop=True),
+                shap_values=sub_shap_block.reset_index(drop=True),
+                feature_cols=substitution_cols,
+            )
 
             sub_feature_abs_sum += sub_shap_block.abs().sum(axis=0)
             sub_feature_signed_sum += sub_shap_block.sum(axis=0)
@@ -627,6 +640,7 @@ def main() -> None:
     sub_site_importance_path = None
     sub_site_summary_path = None
     sub_site_stability_path = None
+    sub_feature_summary = None
     substitution_validation = None
     if sub_cols and total_sub_sampled_rows > 0:
         sub_feature_summary = pd.DataFrame(
@@ -695,6 +709,9 @@ def main() -> None:
             ),
         }
 
+    reusable_shap_path = Path(cfg["output_dir"]) / f"{cfg['subtype']}_reusable_shap_values.tsv"
+    reuse_stats_to_table(reuse_stats).to_csv(reusable_shap_path, sep="\t", index=False)
+
     validation = {
         "n_shap_folds": int(n_splits),
         "max_rows_per_fold": int(args.max_rows_per_fold),
@@ -730,6 +747,7 @@ def main() -> None:
         f"Saved site importance: {site_importance_path}",
         f"Saved site summary: {site_summary_path}",
         f"Saved site stability: {site_stability_path}",
+        f"Saved reusable SHAP value table: {reusable_shap_path}",
     ]
     if sub_feature_summary_path is not None:
         lines.extend(

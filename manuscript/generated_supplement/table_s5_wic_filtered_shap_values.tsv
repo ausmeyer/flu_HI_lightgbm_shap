@@ -1,0 +1,3173 @@
+site	model_type	covariate_name	covariate_value	shap_value	n_observations
+1	site-state	change	no	-2.548005461950308e-05	12464
+1	site-state	change	yes	-0.0505349021251878	10
+1	site-state	sera aa	Q	0.0	12500
+1	site-state	virus aa	K	0.0	7
+1	site-state	virus aa	Q	0.0	12464
+1	site-state	virus aa	R	0.0	3
+1	substitution	substitution absent	Q1K	0.0	12493
+1	substitution	substitution absent	Q1R	0.0	12497
+1	substitution	substitution present	Q1K	0.0	7
+1	substitution	substitution present	Q1R	0.0	3
+2	site-state	change	no	0.001327356785083	12326
+2	site-state	change	yes	-0.0990513222683437	148
+2	site-state	sera aa	K	0.0	12500
+2	site-state	virus aa	E	0.0227958578457405	111
+2	site-state	virus aa	K	0.0	12326
+2	site-state	virus aa	N	0.0	10
+2	site-state	virus aa	Q	-0.1404126519287698	26
+2	site-state	virus aa	R	0.0	1
+2	substitution	substitution absent	K2E	0.0001546264659791	12389
+2	substitution	substitution absent	K2N	0.0	12490
+2	substitution	substitution absent	K2Q	0.0008048578024004	12474
+2	substitution	substitution absent	K2R	0.0	12499
+2	substitution	substitution present	K2E	-0.0047164584020269	111
+2	substitution	substitution present	K2N	0.0	10
+2	substitution	substitution present	K2Q	-0.3042713282029331	26
+2	substitution	substitution present	K2R	0.0	1
+3	site-state	change	no	0.0008913279912302	10254
+3	site-state	change	yes	-0.0029894914603095	2224
+3	site-state	sera aa	F	-0.0040074587596836	200
+3	site-state	sera aa	I	-0.0011908398725234	3456
+3	site-state	sera aa	L	0.000376580275908	8844
+3	site-state	virus aa	F	-0.0712647351000856	129
+3	site-state	virus aa	I	0.0056129654952268	4195
+3	site-state	virus aa	L	0.0032620142969399	8153
+3	site-state	virus aa	T	0.0	1
+3	substitution	substitution absent	F3I	0.0	12499
+3	substitution	substitution absent	F3L	0.0013111416042241	12328
+3	substitution	substitution absent	I3F	0.0	12497
+3	substitution	substitution absent	I3L	0.000360213385503	11898
+3	substitution	substitution absent	I3T	0.0	12499
+3	substitution	substitution absent	L3F	0.0004548891681949	12399
+3	substitution	substitution absent	L3I	-0.0039162241986824	11156
+3	substitution	substitution present	F3I	0.0	1
+3	substitution	substitution present	F3L	-0.2234041566548244	172
+3	substitution	substitution present	I3F	0.0	3
+3	substitution	substitution present	I3L	0.0188150814596014	602
+3	substitution	substitution present	I3T	0.0	1
+3	substitution	substitution present	L3F	-0.0121617914418651	101
+3	substitution	substitution present	L3I	0.0343109589912477	1344
+4	site-state	change	no	-0.0002998765734864	12472
+4	site-state	change	yes	0.2725217516554601	6
+4	site-state	sera aa	P	0.0	12500
+4	site-state	virus aa	L	0.0	1
+4	site-state	virus aa	P	0.0	12472
+4	site-state	virus aa	S	0.0	5
+4	substitution	substitution absent	P4L	0.0	12499
+4	substitution	substitution absent	P4S	-7.810358802478919e-05	12495
+4	substitution	substitution present	P4L	0.0	1
+4	substitution	substitution present	P4S	0.0	5
+5	site-state	change	no	0.0002143239637816	12395
+5	site-state	change	yes	0.0015777561088019	88
+5	site-state	sera aa	G	0.0	12490
+5	site-state	sera aa	V	0.0	10
+5	site-state	virus aa	E	-0.0014297130914615	65
+5	site-state	virus aa	G	-1.855797386684365e-05	12401
+5	site-state	virus aa	R	0.0	9
+5	site-state	virus aa	V	0.0	8
+5	substitution	substitution absent	G5E	2.172385431214644e-05	12435
+5	substitution	substitution absent	G5R	0.0	12491
+5	substitution	substitution absent	G5V	0.0	12494
+5	substitution	substitution absent	V5G	0.0	12492
+5	substitution	substitution present	G5E	0.0085114929759345	65
+5	substitution	substitution present	G5R	0.0	9
+5	substitution	substitution present	G5V	0.0	6
+5	substitution	substitution present	V5G	0.0	8
+6	site-state	change	no	-0.0001678364670576	12270
+6	site-state	change	yes	0.0142368548573884	215
+6	site-state	sera aa	D	0.0	2
+6	site-state	sera aa	I	0.0	112
+6	site-state	sera aa	N	2.431385731345445e-05	12386
+6	site-state	virus aa	D	-0.0093859954173415	15
+6	site-state	virus aa	I	0.0249004129448062	140
+6	site-state	virus aa	K	0.0	2
+6	site-state	virus aa	N	-0.0002640406349023	12324
+6	site-state	virus aa	S	0.0	2
+6	site-state	virus aa	T	0.0	2
+6	substitution	substitution absent	D6I	0.0	12500
+6	substitution	substitution absent	D6N	0.0	12498
+6	substitution	substitution absent	I6D	0.0	12500
+6	substitution	substitution absent	I6N	-0.0002648866746995	12418
+6	substitution	substitution absent	N6D	4.20260793473987e-06	12485
+6	substitution	substitution absent	N6I	0.0018865820818598	12390
+6	substitution	substitution absent	N6K	0.0	12498
+6	substitution	substitution absent	N6S	0.0	12498
+6	substitution	substitution absent	N6T	0.0	12498
+6	substitution	substitution present	D6N	0.0	2
+6	substitution	substitution present	I6N	0.0243248978511403	82
+6	substitution	substitution present	N6D	-0.000775149366242	15
+6	substitution	substitution present	N6I	-0.1574016979509339	110
+6	substitution	substitution present	N6K	0.0	2
+6	substitution	substitution present	N6S	0.0	2
+6	substitution	substitution present	N6T	0.0	2
+7	site-state	change	no	-0.0002222798631765	12447
+7	site-state	change	yes	0.1432663385574928	36
+7	site-state	sera aa	D	0.0	12500
+7	site-state	virus aa	D	0.0	12447
+7	site-state	virus aa	E	0.0	13
+7	site-state	virus aa	G	0.0	2
+7	site-state	virus aa	N	0.0	6
+7	site-state	virus aa	Y	0.1252622756056463	15
+7	substitution	substitution absent	D7E	9.416427804556911e-05	12487
+7	substitution	substitution absent	D7G	0.0	12498
+7	substitution	substitution absent	D7N	0.0	12494
+7	substitution	substitution absent	D7Y	-0.000332589405175	12485
+7	substitution	substitution present	D7E	0.0	13
+7	substitution	substitution present	D7G	0.0	2
+7	substitution	substitution present	D7N	0.0	6
+7	substitution	substitution present	D7Y	0.2494873752012889	15
+8	site-state	change	no	-0.0017771221757597	12275
+8	site-state	change	yes	0.1177173954768286	210
+8	site-state	sera aa	N	1.1042299813399608e-05	12411
+8	site-state	sera aa	T	0.0	89
+8	site-state	virus aa	D	-0.0374263365214698	74
+8	site-state	virus aa	H	0.0	3
+8	site-state	virus aa	K	0.0642653402000193	10
+8	site-state	virus aa	N	-7.273945055599809e-05	12335
+8	site-state	virus aa	S	0.0	6
+8	site-state	virus aa	T	0.0	57
+8	substitution	substitution absent	N8D	0.0002519044603014	12426
+8	substitution	substitution absent	N8H	0.0	12497
+8	substitution	substitution absent	N8K	-0.0001776046367448	12490
+8	substitution	substitution absent	N8S	0.0	12494
+8	substitution	substitution absent	N8T	7.5331884893879904e-06	12457
+8	substitution	substitution absent	T8N	-0.0023586016198462	12426
+8	substitution	substitution present	N8D	-0.0294448863650301	74
+8	substitution	substitution present	N8H	0.0	3
+8	substitution	substitution present	N8K	0.1846098623908961	10
+8	substitution	substitution present	N8S	0.0	6
+8	substitution	substitution present	N8T	0.0	43
+8	substitution	substitution present	T8N	0.3262559123840314	74
+9	site-state	change	no	-9.575174124189306e-05	12469
+9	site-state	change	yes	-0.0134903725783464	16
+9	site-state	sera aa	S	0.0	12500
+9	site-state	virus aa	G	0.0	8
+9	site-state	virus aa	N	0.0	7
+9	site-state	virus aa	R	0.0	1
+9	site-state	virus aa	S	0.0	12469
+9	substitution	substitution absent	S9G	0.0	12492
+9	substitution	substitution absent	S9N	-4.74759488150231e-05	12493
+9	substitution	substitution absent	S9R	0.0	12499
+9	substitution	substitution present	S9G	0.0	8
+9	substitution	substitution present	S9N	0.0	7
+9	substitution	substitution present	S9R	0.0	1
+10	site-state	change	no	-0.0001527783222262	12418
+10	site-state	change	yes	0.0266913369879118	57
+10	site-state	sera aa	T	0.0	12500
+10	site-state	virus aa	A	0.0	4
+10	site-state	virus aa	K	0.0	5
+10	site-state	virus aa	M	0.1288146936207343	48
+10	site-state	virus aa	T	0.0	12418
+10	substitution	substitution absent	T10A	0.0	12496
+10	substitution	substitution absent	T10K	0.0	12495
+10	substitution	substitution absent	T10M	-0.0008204634249249	12452
+10	substitution	substitution present	T10A	0.0	4
+10	substitution	substitution present	T10K	0.0	5
+10	substitution	substitution present	T10M	0.2595243286436011	48
+11	site-state	change	no	6.747505025992869e-06	12486
+11	site-state	sera aa	A	0.0	12500
+11	site-state	virus aa	A	0.0	12486
+12	site-state	change	no	-0.000106641507491	12470
+12	site-state	change	yes	0.1780062661846141	16
+12	site-state	sera aa	T	0.0	12500
+12	site-state	virus aa	M	0.0215249686064803	12
+12	site-state	virus aa	T	0.0	12470
+12	site-state	virus aa	V	0.0	4
+12	substitution	substitution absent	T12M	-7.095086767292284e-05	12488
+12	substitution	substitution absent	T12V	0.0	12496
+12	substitution	substitution present	T12M	0.0301603478639291	12
+12	substitution	substitution present	T12V	0.0	4
+13	site-state	change	no	3.179587085173405e-05	12487
+13	site-state	change	yes	0.0	1
+13	site-state	sera aa	L	0.0	12500
+13	site-state	virus aa	L	0.0	12487
+13	site-state	virus aa	M	0.0	1
+13	substitution	substitution absent	L13M	0.0	12499
+13	substitution	substitution present	L13M	0.0	1
+14	site-state	change	no	0.0	12488
+14	site-state	sera aa	C	0.0	12500
+14	site-state	virus aa	C	0.0	12488
+15	site-state	change	no	0.0	12487
+15	site-state	change	yes	0.0	1
+15	site-state	sera aa	L	0.0	12500
+15	site-state	virus aa	F	0.0	1
+15	site-state	virus aa	L	0.0	12487
+15	substitution	substitution absent	L15F	0.0	12499
+15	substitution	substitution present	L15F	0.0	1
+16	site-state	change	no	0.0	12492
+16	site-state	sera aa	G	0.0	12500
+16	site-state	virus aa	G	0.0	12492
+17	site-state	change	no	0.0	12492
+17	site-state	sera aa	H	0.0	12500
+17	site-state	virus aa	H	0.0	12492
+18	site-state	change	no	0.0	12495
+18	site-state	change	yes	0.0	2
+18	site-state	sera aa	H	0.0	12500
+18	site-state	virus aa	H	0.0	12495
+18	site-state	virus aa	Y	0.0	2
+18	substitution	substitution absent	H18Y	0.0	12498
+18	substitution	substitution present	H18Y	0.0	2
+19	site-state	change	no	0.0001299728828928	12467
+19	site-state	change	yes	0.1106759353051447	30
+19	site-state	sera aa	A	-0.0002812510930872	12482
+19	site-state	sera aa	S	0.0	18
+19	site-state	virus aa	A	0.0002854780937299	12481
+19	site-state	virus aa	S	0.0	16
+19	substitution	substitution absent	A19S	0.0004609659850503	12486
+19	substitution	substitution absent	S19A	-0.0006992710886833	12484
+19	substitution	substitution present	A19S	0.0	14
+19	substitution	substitution present	S19A	0.5514695592299262	16
+20	site-state	change	no	1.5842085429616262e-06	12485
+20	site-state	change	yes	-0.0268229863225867	8
+20	site-state	sera aa	V	0.0	12500
+20	site-state	virus aa	I	0.0	8
+20	site-state	virus aa	V	0.0	12485
+20	substitution	substitution absent	V20I	0.0	12492
+20	substitution	substitution present	V20I	0.0	8
+21	site-state	change	no	-0.0008193377741018	12087
+21	site-state	change	yes	-0.0287414701944113	410
+21	site-state	sera aa	P	0.0018507946041804	12182
+21	site-state	sera aa	S	0.0	318
+21	site-state	virus aa	L	0.0	4
+21	site-state	virus aa	P	0.0016321237747631	12344
+21	site-state	virus aa	S	-0.1585427471001812	149
+21	substitution	substitution absent	P21L	0.0	12497
+21	substitution	substitution absent	P21S	0.0012930637907287	12381
+21	substitution	substitution absent	S21L	0.0	12499
+21	substitution	substitution absent	S21P	0.0044419006587416	12213
+21	substitution	substitution present	P21L	0.0	3
+21	substitution	substitution present	P21S	-0.4538420372576882	119
+21	substitution	substitution present	S21L	0.0	1
+21	substitution	substitution present	S21P	-0.2473024466492547	287
+22	site-state	change	no	0.0	12494
+22	site-state	change	yes	0.0	2
+22	site-state	sera aa	N	0.0	12500
+22	site-state	virus aa	K	0.0	2
+22	site-state	virus aa	N	0.0	12494
+22	substitution	substitution absent	N22K	0.0	12498
+22	substitution	substitution present	N22K	0.0	2
+23	site-state	change	no	0.0	12498
+23	site-state	sera aa	G	0.0	12500
+23	site-state	virus aa	G	0.0	12498
+24	site-state	change	no	0.0	12495
+24	site-state	sera aa	T	0.0	12500
+24	site-state	virus aa	T	0.0	12495
+25	site-state	change	no	-9.979718056736932e-05	12332
+25	site-state	change	yes	0.0025404988129505	166
+25	site-state	sera aa	I	-8.409383528336381e-05	12385
+25	site-state	sera aa	L	0.0	15
+25	site-state	sera aa	M	0.0105377574208166	100
+25	site-state	virus aa	I	2.2585110344565843e-05	12394
+25	site-state	virus aa	L	0.2048963036532414	21
+25	site-state	virus aa	M	-2.644262401994787e-06	71
+25	site-state	virus aa	V	-0.0016213582277456	12
+25	substitution	substitution absent	I25L	0.0	12495
+25	substitution	substitution absent	I25M	0.0012302557044598	12440
+25	substitution	substitution absent	I25V	-2.0566226286514503e-06	12488
+25	substitution	substitution absent	M25I	0.000323205718492	12412
+25	substitution	substitution absent	M25L	0.0	12499
+25	substitution	substitution present	I25L	0.0	5
+25	substitution	substitution present	I25M	-0.0148154059853502	60
+25	substitution	substitution present	I25V	0.0023858767915604	12
+25	substitution	substitution present	M25I	-0.0214981315431996	88
+25	substitution	substitution present	M25L	0.0	1
+26	site-state	change	no	0.0	12498
+26	site-state	sera aa	V	0.0	12500
+26	site-state	virus aa	V	0.0	12498
+27	site-state	change	no	-0.0001543553151149	12473
+27	site-state	change	yes	0.0745772530369041	22
+27	site-state	sera aa	K	0.0	12500
+27	site-state	virus aa	K	0.0	12473
+27	site-state	virus aa	R	0.0	22
+27	substitution	substitution absent	K27R	-0.000252387431874	12478
+27	substitution	substitution present	K27R	0.1049036994491443	22
+28	site-state	change	no	0.0	12498
+28	site-state	sera aa	T	0.0	12500
+28	site-state	virus aa	T	0.0	12498
+29	site-state	change	no	0.0	12495
+29	site-state	change	yes	0.0	3
+29	site-state	sera aa	I	0.0	12500
+29	site-state	virus aa	I	0.0	12495
+29	site-state	virus aa	L	0.0	3
+29	substitution	substitution absent	I29L	0.0	12497
+29	substitution	substitution present	I29L	0.0	3
+30	site-state	change	no	-6.849595150335706e-05	12454
+30	site-state	change	yes	0.0301455345296159	44
+30	site-state	sera aa	T	0.0	12500
+30	site-state	virus aa	A	0.0	44
+30	site-state	virus aa	T	0.0	12454
+30	substitution	substitution absent	T30A	-0.0001040504198033	12456
+30	substitution	substitution present	T30A	0.0365481809227557	44
+31	site-state	change	no	-0.0005656262529349	12398
+31	site-state	change	yes	0.0242354179326587	100
+31	site-state	sera aa	N	0.0	12500
+31	site-state	virus aa	D	0.0210318331994674	29
+31	site-state	virus aa	K	0.0	4
+31	site-state	virus aa	N	0.0	12398
+31	site-state	virus aa	S	0.0022353200213217	67
+31	substitution	substitution absent	N31D	-0.000606054534261	12471
+31	substitution	substitution absent	N31K	0.0	12496
+31	substitution	substitution absent	N31S	-1.3923654258400488e-05	12433
+31	substitution	substitution present	N31D	0.0355390604749185	29
+31	substitution	substitution present	N31K	0.0	4
+31	substitution	substitution present	N31S	-0.0343556627847876	67
+32	site-state	change	no	0.0	12490
+32	site-state	change	yes	0.0	5
+32	site-state	sera aa	D	0.0	12500
+32	site-state	virus aa	D	0.0	12490
+32	site-state	virus aa	E	0.0	5
+32	substitution	substitution absent	D32E	0.0	12495
+32	substitution	substitution present	D32E	0.0	5
+33	site-state	change	no	-0.000582459708646	10026
+33	site-state	change	yes	0.0036464723311229	2472
+33	site-state	sera aa	Q	0.0005162895973535	5231
+33	site-state	sera aa	R	0.0	7269
+33	site-state	virus aa	Q	0.0022480091624753	3985
+33	site-state	virus aa	R	0.0	8513
+33	substitution	substitution absent	Q33R	0.0005029775713731	10642
+33	substitution	substitution absent	R33Q	-0.0005077241346779	11886
+33	substitution	substitution present	Q33R	0.0110176477374661	1858
+33	substitution	substitution present	R33Q	0.0216244384137909	614
+34	site-state	change	no	0.0002249150169713	12477
+34	site-state	change	yes	-0.15691655550088	21
+34	site-state	sera aa	I	0.0	12500
+34	site-state	virus aa	I	0.0	12477
+34	site-state	virus aa	V	0.0	21
+34	substitution	substitution absent	I34V	0.0001320632019307	12479
+34	substitution	substitution present	I34V	-0.1255458594147916	21
+35	site-state	change	no	0.0	12498
+35	site-state	change	yes	0.0	2
+35	site-state	sera aa	E	0.0	12500
+35	site-state	virus aa	D	0.0	2
+35	site-state	virus aa	E	0.0	12498
+35	substitution	substitution absent	E35D	0.0	12498
+35	substitution	substitution present	E35D	0.0	2
+36	site-state	change	no	0.0	12500
+36	site-state	sera aa	V	0.0	12500
+36	site-state	virus aa	V	0.0	12500
+37	site-state	change	no	0.0	12498
+37	site-state	sera aa	T	0.0	12500
+37	site-state	virus aa	T	0.0	12498
+38	site-state	change	no	0.0	12498
+38	site-state	sera aa	N	0.0	12500
+38	site-state	virus aa	N	0.0	12498
+39	site-state	change	no	0.0	12498
+39	site-state	sera aa	A	0.0	12500
+39	site-state	virus aa	A	0.0	12498
+40	site-state	change	no	0.0	12494
+40	site-state	change	yes	0.0	4
+40	site-state	sera aa	T	0.0	12500
+40	site-state	virus aa	I	0.0	4
+40	site-state	virus aa	T	0.0	12494
+40	substitution	substitution absent	T40I	0.0	12496
+40	substitution	substitution present	T40I	0.0	4
+41	site-state	change	no	0.0	12498
+41	site-state	sera aa	E	0.0	12500
+41	site-state	virus aa	E	0.0	12498
+42	site-state	change	no	0.0	12495
+42	site-state	change	yes	0.0	1
+42	site-state	sera aa	L	0.0	12500
+42	site-state	virus aa	L	0.0	12495
+42	site-state	virus aa	Q	0.0	1
+42	substitution	substitution absent	L42Q	0.0	12499
+42	substitution	substitution present	L42Q	0.0	1
+43	site-state	change	no	0.0	12494
+43	site-state	change	yes	0.0	4
+43	site-state	sera aa	V	0.0	12500
+43	site-state	virus aa	I	0.0	4
+43	site-state	virus aa	V	0.0	12494
+43	substitution	substitution absent	V43I	0.0	12496
+43	substitution	substitution present	V43I	0.0	4
+44	site-state	change	no	0.0	12497
+44	site-state	change	yes	0.0	1
+44	site-state	sera aa	Q	0.0	12500
+44	site-state	virus aa	Q	0.0	12497
+44	site-state	virus aa	R	0.0	1
+44	substitution	substitution absent	Q44R	0.0	12499
+44	substitution	substitution present	Q44R	0.0	1
+45	site-state	change	no	-0.0050602500190503	9980
+45	site-state	change	yes	0.0184283934523284	2187
+45	site-state	sera aa	N	-0.0045565092010951	8767
+45	site-state	sera aa	S	0.0053872939171988	3482
+45	site-state	virus aa	D	0.0	2
+45	site-state	virus aa	G	0.0	3
+45	site-state	virus aa	N	-0.008400971119231	9323
+45	site-state	virus aa	S	0.0097305332859775	3059
+45	substitution	substitution absent	N45D	0.0	12498
+45	substitution	substitution absent	N45G	0.0	12498
+45	substitution	substitution absent	N45S	-0.0040802499176028	11686
+45	substitution	substitution absent	S45G	0.0	12499
+45	substitution	substitution absent	S45I	0.0	12500
+45	substitution	substitution absent	S45N	0.0033880250938707	11132
+45	substitution	substitution present	N45D	0.0	2
+45	substitution	substitution present	N45G	0.0	2
+45	substitution	substitution present	N45S	0.051717083226356	814
+45	substitution	substitution present	S45G	0.0	1
+45	substitution	substitution present	S45N	0.0005939472798182	1368
+46	site-state	change	no	-0.0002085412879358	12137
+46	site-state	change	yes	0.0594266343851866	30
+46	site-state	sera aa	S	7.369341278635655e-06	12249
+46	site-state	virus aa	F	0.0	6
+46	site-state	virus aa	P	0.0	3
+46	site-state	virus aa	S	-0.0008878024899008	12357
+46	site-state	virus aa	T	0.0	13
+46	site-state	virus aa	Y	0.0	8
+46	substitution	substitution absent	S46F	0.0	12494
+46	substitution	substitution absent	S46P	0.0	12497
+46	substitution	substitution absent	S46T	0.0	12487
+46	substitution	substitution absent	S46Y	0.0	12492
+46	substitution	substitution present	S46F	0.0	6
+46	substitution	substitution present	S46P	0.0	3
+46	substitution	substitution present	S46T	0.0	13
+46	substitution	substitution present	S46Y	0.0	8
+47	site-state	change	no	-3.327130967296425e-05	12155
+47	site-state	change	yes	0.0	12
+47	site-state	sera aa	S	0.0	12249
+47	site-state	virus aa	S	0.0	12375
+47	site-state	virus aa	T	0.0	12
+47	substitution	substitution absent	S47T	-9.508458183138244e-05	12488
+47	substitution	substitution present	S47T	0.0035199749925979	12
+48	site-state	change	no	-0.0070221134021868	9988
+48	site-state	change	yes	0.0294583521380753	2179
+48	site-state	sera aa	A	0.0151293974540808	51
+48	site-state	sera aa	I	-0.0024277817232514	8693
+48	site-state	sera aa	M	0.0	4
+48	site-state	sera aa	T	-0.0005678214893801	3501
+48	site-state	virus aa	A	-0.0034704191578323	16
+48	site-state	virus aa	I	0.0006479662454522	9115
+48	site-state	virus aa	K	0.0	6
+48	site-state	virus aa	M	0.0078145081239476	37
+48	site-state	virus aa	R	0.0	1
+48	site-state	virus aa	T	0.0064055464254038	3209
+48	site-state	virus aa	V	0.0	3
+48	substitution	substitution absent	A48I	-0.0001293443056755	12486
+48	substitution	substitution absent	A48K	0.0	12499
+48	substitution	substitution absent	A48T	-0.0015859675215968	12466
+48	substitution	substitution absent	I48A	0.0	12494
+48	substitution	substitution absent	I48K	0.0	12497
+48	substitution	substitution absent	I48M	-7.496638468153989e-05	12468
+48	substitution	substitution absent	I48R	0.0	12499
+48	substitution	substitution absent	I48T	-0.0024728931763934	11691
+48	substitution	substitution absent	I48V	0.0	12497
+48	substitution	substitution absent	M48I	0.0	12497
+48	substitution	substitution absent	T48A	0.0	12492
+48	substitution	substitution absent	T48I	0.0025414921285737	11241
+48	substitution	substitution absent	T48K	0.0	12498
+48	substitution	substitution absent	T48M	0.0	12496
+48	substitution	substitution present	A48I	0.1344567899336234	14
+48	substitution	substitution present	A48K	0.0	1
+48	substitution	substitution present	A48T	0.5384706976660224	34
+48	substitution	substitution present	I48A	0.0	6
+48	substitution	substitution present	I48K	0.0	3
+48	substitution	substitution present	I48M	0.035262409815496	32
+48	substitution	substitution present	I48R	0.0	1
+48	substitution	substitution present	I48T	0.0338883441679574	809
+48	substitution	substitution present	I48V	0.0	3
+48	substitution	substitution present	M48I	0.0	3
+48	substitution	substitution present	T48A	0.0	8
+48	substitution	substitution present	T48I	-0.0020499932698906	1259
+48	substitution	substitution present	T48K	0.0	2
+48	substitution	substitution present	T48M	0.0	4
+49	site-state	change	no	0.0005807784602489	12135
+49	site-state	change	yes	-0.3138185497654164	32
+49	site-state	sera aa	G	0.0	12249
+49	site-state	virus aa	D	0.0	12
+49	site-state	virus aa	G	2.2897914890640248e-05	12355
+49	site-state	virus aa	S	0.0	20
+49	substitution	substitution absent	G49D	0.0001298168941682	12488
+49	substitution	substitution absent	G49S	0.0005393038772842	12480
+49	substitution	substitution present	G49D	0.0	12
+49	substitution	substitution present	G49S	-0.4598648459281121	20
+50	site-state	change	no	-0.0047054245339653	11846
+50	site-state	change	yes	0.1814715151163612	319
+50	site-state	sera aa	E	-9.288931418197622e-05	11736
+50	site-state	sera aa	G	0.0513590916597523	498
+50	site-state	sera aa	R	0.0	15
+50	site-state	virus aa	D	0.0	2
+50	site-state	virus aa	E	0.0005910729709853	11853
+50	site-state	virus aa	G	-0.038602392593576	448
+50	site-state	virus aa	K	0.3209495787159984	67
+50	site-state	virus aa	R	0.0	15
+50	substitution	substitution absent	E50D	0.0	12498
+50	substitution	substitution absent	E50G	0.0032229703756765	12408
+50	substitution	substitution absent	E50K	-0.0046152268836532	12434
+50	substitution	substitution absent	E50Q	0.0	12500
+50	substitution	substitution absent	G50E	-0.0052445641608302	12341
+50	substitution	substitution present	E50D	0.0	2
+50	substitution	substitution present	E50G	-0.502620954818573	92
+50	substitution	substitution present	E50K	0.6411560697037216	66
+50	substitution	substitution present	G50E	0.413225506532839	159
+51	site-state	change	no	-0.0003218979691332	12151
+51	site-state	change	yes	0.2121886478748365	16
+51	site-state	sera aa	I	0.0	12249
+51	site-state	virus aa	I	-1.702131874402164e-05	12371
+51	site-state	virus aa	L	0.0	3
+51	site-state	virus aa	M	0.0	8
+51	site-state	virus aa	V	0.0	5
+51	substitution	substitution absent	I51L	0.0	12497
+51	substitution	substitution absent	I51M	0.0	12492
+51	substitution	substitution absent	I51V	0.0	12495
+51	substitution	substitution present	I51L	0.0	3
+51	substitution	substitution present	I51M	0.0	8
+51	substitution	substitution present	I51V	0.0	5
+52	site-state	change	no	0.0	12167
+52	site-state	sera aa	C	0.0	12249
+52	site-state	virus aa	C	0.0	12387
+53	site-state	change	no	-0.0175299652296564	10759
+53	site-state	change	yes	0.1673062122378457	1408
+53	site-state	sera aa	D	0.0006072857552632	11407
+53	site-state	sera aa	N	0.0008404331870969	842
+53	site-state	virus aa	D	-0.0101309014276337	11379
+53	site-state	virus aa	E	0.0	9
+53	site-state	virus aa	G	0.0364110167431858	17
+53	site-state	virus aa	K	0.0	4
+53	site-state	virus aa	N	0.0699496308478306	974
+53	site-state	virus aa	T	0.0	3
+53	site-state	virus aa	Y	0.0	1
+53	substitution	substitution absent	D53E	0.0	12491
+53	substitution	substitution absent	D53G	-7.537812101011699e-05	12489
+53	substitution	substitution absent	D53K	0.0	12496
+53	substitution	substitution absent	D53N	-0.0209682374860731	11744
+53	substitution	substitution absent	D53T	0.0	12498
+53	substitution	substitution absent	D53Y	0.0	12499
+53	substitution	substitution absent	N53D	-0.0050841194304288	11882
+53	substitution	substitution absent	N53G	0.0	12494
+53	substitution	substitution absent	N53T	0.0	12499
+53	substitution	substitution present	D53E	0.0	9
+53	substitution	substitution present	D53G	0.0750428119107634	11
+53	substitution	substitution present	D53K	0.0	4
+53	substitution	substitution present	D53N	0.2949645200475698	756
+53	substitution	substitution present	D53T	0.0	2
+53	substitution	substitution present	D53Y	0.0	1
+53	substitution	substitution present	N53D	0.068610002118948	618
+53	substitution	substitution present	N53G	0.0	6
+53	substitution	substitution present	N53T	0.0	1
+54	site-state	change	no	-0.0013134016147992	11382
+54	site-state	change	yes	0.0211502703772394	785
+54	site-state	sera aa	R	0.0164989216688052	617
+54	site-state	sera aa	S	-8.074159479068004e-05	11632
+54	site-state	virus aa	G	0.0	6
+54	site-state	virus aa	N	0.0	2
+54	site-state	virus aa	R	0.0592499303143349	252
+54	site-state	virus aa	S	0.0007799392503724	12127
+54	substitution	substitution absent	R54S	-0.0136662188637147	11928
+54	substitution	substitution absent	S54G	0.0	12494
+54	substitution	substitution absent	S54N	0.0	12498
+54	substitution	substitution absent	S54R	0.0029472398843014	12295
+54	substitution	substitution present	R54S	0.2315874861376724	572
+54	substitution	substitution present	S54G	0.0	6
+54	substitution	substitution present	S54N	0.0	2
+54	substitution	substitution present	S54R	0.1760073242066963	205
+55	site-state	change	no	0.0	12163
+55	site-state	change	yes	0.0	4
+55	site-state	sera aa	P	0.0	12249
+55	site-state	virus aa	P	-1.2544731613450797e-05	12383
+55	site-state	virus aa	S	0.0	4
+55	substitution	substitution absent	P55S	0.0	12496
+55	substitution	substitution present	P55S	0.0	4
+56	site-state	change	no	-0.0001342621306557	12141
+56	site-state	change	yes	0.0903594302276853	24
+56	site-state	sera aa	H	0.0	12249
+56	site-state	virus aa	H	-0.0002249216915283	12361
+56	site-state	virus aa	Y	0.0	24
+56	substitution	substitution absent	H56Y	-0.0004220693182758	12476
+56	substitution	substitution present	H56Y	0.3654172440077105	24
+57	site-state	change	no	-0.0003812975224951	12130
+57	site-state	change	yes	0.1625216966167493	37
+57	site-state	sera aa	K	0.0	3
+57	site-state	sera aa	Q	0.0	12241
+57	site-state	sera aa	R	0.0	5
+57	site-state	virus aa	H	0.0	6
+57	site-state	virus aa	K	0.0	13
+57	site-state	virus aa	L	0.0	13
+57	site-state	virus aa	Q	-0.0001859251995491	12348
+57	site-state	virus aa	R	0.0	7
+57	substitution	substitution absent	K57Q	0.0	12497
+57	substitution	substitution absent	Q57H	0.0	12494
+57	substitution	substitution absent	Q57K	-8.579427745614153e-05	12487
+57	substitution	substitution absent	Q57L	-0.0001277863644832	12487
+57	substitution	substitution absent	Q57R	0.0	12498
+57	substitution	substitution present	K57Q	0.0	3
+57	substitution	substitution present	Q57H	0.0	6
+57	substitution	substitution present	Q57K	0.0386261018492098	13
+57	substitution	substitution present	Q57L	0.0595915317377215	13
+57	substitution	substitution present	Q57R	0.0	2
+58	site-state	change	no	-0.0002594424050523	12101
+58	site-state	change	yes	0.093408805396864	62
+58	site-state	sera aa	I	0.0	12249
+58	site-state	virus aa	I	-2.190475931254548e-05	12320
+58	site-state	virus aa	T	0.0	2
+58	site-state	virus aa	V	0.0	61
+58	substitution	substitution absent	I58T	0.0	12499
+58	substitution	substitution absent	I58V	-0.0002271002628532	12439
+58	substitution	substitution present	I58T	0.0	1
+58	substitution	substitution present	I58V	0.0536108955557595	61
+59	site-state	change	no	3.550112786917382e-05	12150
+59	site-state	change	yes	-0.0038360819464708	17
+59	site-state	sera aa	L	0.0	12249
+59	site-state	virus aa	I	0.1147995073208099	18
+59	site-state	virus aa	L	-8.06769827719461e-06	12369
+59	substitution	substitution absent	L59I	-0.0002641590518578	12483
+59	substitution	substitution present	L59I	0.109272701462705	17
+60	site-state	change	no	0.0	12165
+60	site-state	change	yes	0.0	2
+60	site-state	sera aa	D	0.0	12249
+60	site-state	virus aa	D	0.0	12385
+60	site-state	virus aa	E	0.0	2
+60	substitution	substitution absent	D60E	0.0	12498
+60	substitution	substitution present	D60E	0.0	2
+61	site-state	change	no	0.0	12167
+61	site-state	sera aa	G	0.0	12249
+61	site-state	virus aa	G	0.0	12387
+62	site-state	change	no	-0.0335033931817113	10577
+62	site-state	change	yes	0.1889279129397755	1590
+62	site-state	sera aa	E	0.0012226409728418	11736
+62	site-state	sera aa	G	-0.0021282714833924	103
+62	site-state	sera aa	K	-0.1970401317383045	410
+62	site-state	virus aa	E	-4.8892346445776925e-05	10960
+62	site-state	virus aa	G	-0.0030332269262334	784
+62	site-state	virus aa	K	0.0036192463589406	638
+62	site-state	virus aa	R	0.0	5
+62	substitution	substitution absent	E62G	-0.0031200840850627	11780
+62	substitution	substitution absent	E62K	-0.0089283564939326	11977
+62	substitution	substitution absent	E62R	0.0	12496
+62	substitution	substitution absent	E62V	0.0	12500
+62	substitution	substitution absent	G62E	-0.0017009280637559	12461
+62	substitution	substitution absent	K62E	-0.0034575523420269	12196
+62	substitution	substitution present	E62G	0.0556055098228133	720
+62	substitution	substitution present	E62K	0.2134080458914822	523
+62	substitution	substitution present	E62R	0.0	4
+62	substitution	substitution present	G62E	0.4752015492932313	39
+62	substitution	substitution present	K62E	0.1711821314580078	304
+63	site-state	change	no	0.0	12157
+63	site-state	change	yes	0.0	10
+63	site-state	sera aa	N	0.0	12249
+63	site-state	virus aa	H	0.0	4
+63	site-state	virus aa	K	0.0	4
+63	site-state	virus aa	N	0.0	12377
+63	site-state	virus aa	S	0.0	2
+63	substitution	substitution absent	N63H	0.0	12496
+63	substitution	substitution absent	N63K	0.0	12496
+63	substitution	substitution absent	N63S	0.0	12498
+63	substitution	substitution present	N63H	0.0	4
+63	substitution	substitution present	N63K	0.0	4
+63	substitution	substitution present	N63S	0.0	2
+64	site-state	change	no	0.0	12167
+64	site-state	sera aa	C	0.0	12249
+64	site-state	virus aa	C	0.0	12387
+65	site-state	change	no	0.0	12167
+65	site-state	sera aa	T	0.0	12249
+65	site-state	virus aa	T	0.0	12387
+66	site-state	change	no	0.0	12166
+66	site-state	change	yes	0.0	1
+66	site-state	sera aa	L	0.0	12249
+66	site-state	virus aa	I	0.0	1
+66	site-state	virus aa	L	0.0	12386
+66	substitution	substitution absent	L66I	0.0	12499
+66	substitution	substitution present	L66I	0.0	1
+67	site-state	change	no	-0.0004288647472657	12150
+67	site-state	change	yes	0.1261859535857633	17
+67	site-state	sera aa	I	0.0	12249
+67	site-state	virus aa	I	3.928352969369971e-05	12370
+67	site-state	virus aa	M	0.0	3
+67	site-state	virus aa	V	0.0127356605384991	14
+67	substitution	substitution absent	I67M	0.0	12497
+67	substitution	substitution absent	I67V	-0.0005062298737438	12486
+67	substitution	substitution present	I67M	0.0	3
+67	substitution	substitution present	I67V	0.1504470059595441	14
+68	site-state	change	no	0.0	12167
+68	site-state	sera aa	D	0.0	12249
+68	site-state	virus aa	D	0.0	12387
+69	site-state	change	no	5.346031610349995e-05	12166
+69	site-state	change	yes	0.0	1
+69	site-state	sera aa	A	0.0	12249
+69	site-state	virus aa	A	0.0001490570619517	12386
+69	site-state	virus aa	S	0.0	1
+69	substitution	substitution absent	A69S	0.0	12499
+69	substitution	substitution present	A69S	0.0	1
+70	site-state	change	no	0.0	12165
+70	site-state	sera aa	L	0.0	12249
+70	site-state	virus aa	L	0.0	12385
+71	site-state	change	no	0.0	12167
+71	site-state	sera aa	L	0.0	12249
+71	site-state	virus aa	L	0.0	12387
+72	site-state	change	no	0.0	12167
+72	site-state	sera aa	G	0.0	12249
+72	site-state	virus aa	G	0.0	12387
+73	site-state	change	no	0.0	12167
+73	site-state	sera aa	D	0.0	12249
+73	site-state	virus aa	D	0.0	12387
+74	site-state	change	no	0.0	12167
+74	site-state	sera aa	P	0.0	12249
+74	site-state	virus aa	P	0.0	12387
+75	site-state	change	no	-0.0001771879414178	12114
+75	site-state	change	yes	0.0792629418765244	53
+75	site-state	sera aa	H	0.0	15
+75	site-state	sera aa	Q	-1.7157056820852773e-05	12234
+75	site-state	virus aa	H	0.0047896240645043	68
+75	site-state	virus aa	Q	-0.0001853612653291	12319
+75	substitution	substitution absent	Q75H	-0.0008439771662295	12447
+75	substitution	substitution present	Q75H	0.1920644555821259	53
+76	site-state	change	no	0.0	12167
+76	site-state	sera aa	C	0.0	12249
+76	site-state	virus aa	C	0.0	12387
+77	site-state	change	no	2.0100053054970824e-05	12134
+77	site-state	change	yes	-0.0046569036710477	33
+77	site-state	sera aa	D	0.0	12249
+77	site-state	virus aa	D	0.0	12354
+77	site-state	virus aa	E	0.0	33
+77	substitution	substitution absent	D77E	-0.0002002878527243	12467
+77	substitution	substitution present	D77E	0.1125487044328936	33
+78	site-state	change	no	0.0002367125884901	11945
+78	site-state	change	yes	-0.018685217030165	220
+78	site-state	sera aa	D	-0.000683790962329	152
+78	site-state	sera aa	G	0.0002634601465635	12097
+78	site-state	virus aa	D	-0.0995096582523894	49
+78	site-state	virus aa	G	-1.734267794479186e-05	12313
+78	site-state	virus aa	S	0.0653729033198222	23
+78	substitution	substitution absent	D78G	0.0001607317493458	12351
+78	substitution	substitution absent	D78S	0.0	12498
+78	substitution	substitution absent	G78D	0.0002444424631118	12452
+78	substitution	substitution absent	G78S	-0.0001842354844972	12479
+78	substitution	substitution present	D78G	-0.023470881945301	149
+78	substitution	substitution present	D78S	0.0	2
+78	substitution	substitution present	G78D	-0.052680352039822	48
+78	substitution	substitution present	G78S	0.0524462998618864	21
+79	site-state	change	no	-0.0002802854251513	12089
+79	site-state	change	yes	0.0338047441642742	78
+79	site-state	sera aa	F	0.0002252041118652	12179
+79	site-state	sera aa	L	-0.0149376519296025	70
+79	site-state	virus aa	F	-0.0001180113329558	12326
+79	site-state	virus aa	L	-0.0092742163706108	61
+79	substitution	substitution absent	F79L	-0.0005516435414068	12467
+79	substitution	substitution absent	L79F	0.0010101700376471	12455
+79	substitution	substitution present	F79L	0.0154311308036507	33
+79	substitution	substitution present	L79F	-0.4301003511507927	45
+80	site-state	change	no	0.0	12166
+80	site-state	change	yes	0.0	1
+80	site-state	sera aa	Q	0.0	12249
+80	site-state	virus aa	K	0.0	1
+80	site-state	virus aa	Q	0.0	12386
+80	substitution	substitution absent	Q80K	0.0	12499
+80	substitution	substitution present	Q80K	0.0	1
+81	site-state	change	no	0.0	12160
+81	site-state	change	yes	0.0	4
+81	site-state	sera aa	N	0.0	12249
+81	site-state	virus aa	D	0.0	4
+81	site-state	virus aa	N	0.0	12380
+81	substitution	substitution absent	N81D	0.0	12496
+81	substitution	substitution present	N81D	0.0	4
+82	site-state	change	no	7.866229636783204e-06	12144
+82	site-state	change	yes	-0.0115097281457067	23
+82	site-state	sera aa	K	0.0	12249
+82	site-state	virus aa	K	0.0	12364
+82	site-state	virus aa	N	0.0	2
+82	site-state	virus aa	R	-0.2556419949054101	19
+82	site-state	virus aa	T	0.0	2
+82	substitution	substitution absent	K82N	0.0	12498
+82	substitution	substitution absent	K82R	0.0005890957937531	12481
+82	substitution	substitution absent	K82T	0.0	12498
+82	substitution	substitution present	K82N	0.0	2
+82	substitution	substitution present	K82R	-0.6297326903417013	19
+82	substitution	substitution present	K82T	0.0	2
+83	site-state	change	no	0.0002622195306929	11250
+83	site-state	change	yes	0.0010486284087673	917
+83	site-state	sera aa	E	0.0025518326509959	76
+83	site-state	sera aa	K	-0.0001038393720409	11748
+83	site-state	sera aa	N	0.0	200
+83	site-state	sera aa	R	0.0	225
+83	site-state	virus aa	E	0.0243727508991822	153
+83	site-state	virus aa	K	0.0010249699160137	11744
+83	site-state	virus aa	N	-0.0003231400088263	104
+83	site-state	virus aa	R	0.0024092341502702	386
+83	substitution	substitution absent	E83K	0.0	12466
+83	substitution	substitution absent	K83E	-0.0009810211884087	12389
+83	substitution	substitution absent	K83N	0.0003562394509209	12449
+83	substitution	substitution absent	K83R	0.0016579789082875	12139
+83	substitution	substitution absent	N83K	-0.0005698127524835	12340
+83	substitution	substitution absent	R83K	-0.0002959621342244	12300
+83	substitution	substitution present	E83K	0.0	34
+83	substitution	substitution present	K83E	0.0464585230821724	111
+83	substitution	substitution present	K83N	0.0	51
+83	substitution	substitution present	K83R	-0.0034811158300487	361
+83	substitution	substitution present	N83K	0.0228750281931709	160
+83	substitution	substitution present	R83K	0.0222424996695117	200
+84	site-state	change	no	0.0	12167
+84	site-state	sera aa	W	0.0	12249
+84	site-state	virus aa	W	0.0	12387
+85	site-state	change	no	-5.635438335191964e-06	12150
+85	site-state	change	yes	0.0001827176453921	17
+85	site-state	sera aa	D	-3.367876511585416e-05	12235
+85	site-state	sera aa	N	-0.0089698434534439	14
+85	site-state	virus aa	D	-2.141237879902851e-05	12378
+85	site-state	virus aa	E	0.0	2
+85	site-state	virus aa	N	0.0	7
+85	substitution	substitution absent	D85E	0.0	12498
+85	substitution	substitution absent	D85N	0.0	12496
+85	substitution	substitution absent	N85D	0.0	12489
+85	substitution	substitution present	D85E	0.0	2
+85	substitution	substitution present	D85N	0.0	4
+85	substitution	substitution present	N85D	0.0	11
+86	site-state	change	no	0.0	12167
+86	site-state	sera aa	L	0.0	12249
+86	site-state	virus aa	L	0.0	12387
+87	site-state	change	no	0.0	12160
+87	site-state	change	yes	0.0	7
+87	site-state	sera aa	F	0.0	12249
+87	site-state	virus aa	F	0.0	12380
+87	site-state	virus aa	Y	0.0	7
+87	substitution	substitution absent	F87Y	0.0	12493
+87	substitution	substitution present	F87Y	0.0	7
+88	site-state	change	no	-1.5175567865994883e-05	12131
+88	site-state	change	yes	0.0074887695141473	36
+88	site-state	sera aa	V	0.0	12249
+88	site-state	virus aa	I	0.4587750681060341	36
+88	site-state	virus aa	L	0.0	1
+88	site-state	virus aa	V	-0.0004580185819561	12350
+88	substitution	substitution absent	V88I	-0.0006674828914934	12465
+88	substitution	substitution absent	V88L	0.0	12499
+88	substitution	substitution present	V88I	0.4269202486365287	35
+88	substitution	substitution present	V88L	0.0	1
+89	site-state	change	no	0.0	12165
+89	site-state	sera aa	E	0.0	12249
+89	site-state	virus aa	E	0.0	12385
+90	site-state	change	no	0.0	12167
+90	site-state	sera aa	R	0.0	12249
+90	site-state	virus aa	R	0.0	12387
+91	site-state	change	no	-0.0023638006944615	11425
+91	site-state	change	yes	0.0702976402069539	742
+91	site-state	sera aa	N	-0.0290958019936644	664
+91	site-state	sera aa	S	0.0003890320941466	11585
+91	site-state	virus aa	G	0.0	2
+91	site-state	virus aa	N	0.0674316163387555	642
+91	site-state	virus aa	R	0.0	3
+91	site-state	virus aa	S	-0.0001594676689382	11740
+91	substitution	substitution absent	N91R	0.0	12499
+91	substitution	substitution absent	N91S	-0.0023269211507484	12121
+91	substitution	substitution absent	S91G	0.0	12498
+91	substitution	substitution absent	S91N	-0.0099289797244419	12142
+91	substitution	substitution absent	S91R	0.0	12498
+91	substitution	substitution present	N91R	0.0	1
+91	substitution	substitution present	N91S	0.0808432604413758	379
+91	substitution	substitution present	S91G	0.0	2
+91	substitution	substitution present	S91N	0.3275131774823146	358
+91	substitution	substitution present	S91R	0.0	2
+92	site-state	change	no	0.0003293599677289	11091
+92	site-state	change	yes	0.0035477965216891	1076
+92	site-state	sera aa	K	0.0007773602130399	11828
+92	site-state	sera aa	R	-0.0368317989202842	421
+92	site-state	virus aa	E	0.0	1
+92	site-state	virus aa	K	-0.0008434790547591	11302
+92	site-state	virus aa	R	-0.0006166594229571	1073
+92	site-state	virus aa	T	0.0	11
+92	substitution	substitution absent	K92E	0.0	12499
+92	substitution	substitution absent	K92R	-0.0039760411414629	11642
+92	substitution	substitution absent	K92T	-0.0001895810529827	12489
+92	substitution	substitution absent	R92K	0.001126134875459	12294
+92	substitution	substitution present	K92E	0.0	1
+92	substitution	substitution present	K92R	0.0669310148277353	858
+92	substitution	substitution present	K92T	0.1714417761906337	11
+92	substitution	substitution present	R92K	-0.0725219258913613	206
+93	site-state	change	no	0.0	12165
+93	site-state	change	yes	0.0	2
+93	site-state	sera aa	A	0.0	12249
+93	site-state	virus aa	A	0.0	12385
+93	site-state	virus aa	S	0.0	2
+93	substitution	substitution absent	A93S	0.0	12498
+93	substitution	substitution present	A93S	0.0	2
+94	site-state	change	no	-0.001018400043277	10645
+94	site-state	change	yes	0.0036130615739779	1518
+94	site-state	sera aa	H	-0.0008518467763613	813
+94	site-state	sera aa	N	0.0046947435559106	61
+94	site-state	sera aa	Y	0.0030802191843381	11375
+94	site-state	virus aa	C	0.0	4
+94	site-state	virus aa	H	-0.0373175073839874	925
+94	site-state	virus aa	N	0.0033973432863396	116
+94	site-state	virus aa	S	0.0	3
+94	site-state	virus aa	Y	-0.0001080845385086	11335
+94	substitution	substitution absent	H94N	0.0	12499
+94	substitution	substitution absent	H94Y	-6.173436880265919e-05	11861
+94	substitution	substitution absent	N94Y	0.0	12466
+94	substitution	substitution absent	Y94C	0.0	12496
+94	substitution	substitution absent	Y94H	0.0010210035379525	11751
+94	substitution	substitution absent	Y94N	5.857427151195575e-05	12412
+94	substitution	substitution absent	Y94S	0.0	12497
+94	substitution	substitution present	H94N	0.0	1
+94	substitution	substitution present	H94Y	-0.0025223563724176	639
+94	substitution	substitution present	N94Y	0.0	34
+94	substitution	substitution present	Y94C	0.0	4
+94	substitution	substitution present	Y94H	-0.0237929423629003	749
+94	substitution	substitution present	Y94N	0.0066001174760434	88
+94	substitution	substitution present	Y94S	0.0	3
+95	site-state	change	no	0.0	12163
+95	site-state	change	yes	0.0	4
+95	site-state	sera aa	S	0.0	12249
+95	site-state	virus aa	G	0.0	4
+95	site-state	virus aa	S	-0.0001204960093918	12383
+95	substitution	substitution absent	S95G	0.0	12496
+95	substitution	substitution present	S95G	0.0	4
+96	site-state	change	no	-2.329119854781236e-05	12159
+96	site-state	change	yes	0.0079243430265871	6
+96	site-state	sera aa	N	0.0	12249
+96	site-state	virus aa	N	-0.0003166424385962	12379
+96	site-state	virus aa	S	0.0	6
+96	substitution	substitution absent	N96S	0.0	12494
+96	substitution	substitution present	N96S	0.0	6
+97	site-state	change	no	0.0	12167
+97	site-state	sera aa	C	0.0	12249
+97	site-state	virus aa	C	0.0	12387
+98	site-state	change	no	0.0	12167
+98	site-state	sera aa	Y	0.0	12249
+98	site-state	virus aa	Y	0.0	12387
+99	site-state	change	no	9.217391864081854e-05	12167
+99	site-state	sera aa	P	0.0	12249
+99	site-state	virus aa	P	0.0	12387
+100	site-state	change	no	0.0	12167
+100	site-state	sera aa	Y	0.0	12249
+100	site-state	virus aa	Y	0.0	12387
+101	site-state	change	no	0.0	12167
+101	site-state	sera aa	D	0.0	12249
+101	site-state	virus aa	D	0.0	12387
+102	site-state	change	no	0.0	12167
+102	site-state	sera aa	V	0.0	12249
+102	site-state	virus aa	V	0.0	12387
+103	site-state	change	no	0.0	12497
+103	site-state	change	yes	0.0	3
+103	site-state	sera aa	P	0.0	12500
+103	site-state	virus aa	P	0.0	12497
+103	site-state	virus aa	Q	0.0	1
+103	site-state	virus aa	S	0.0	2
+103	substitution	substitution absent	P103Q	0.0	12499
+103	substitution	substitution absent	P103S	0.0	12498
+103	substitution	substitution present	P103Q	0.0	1
+103	substitution	substitution present	P103S	0.0	2
+104	site-state	change	no	0.0	12495
+104	site-state	change	yes	0.0	5
+104	site-state	sera aa	D	0.0	12500
+104	site-state	virus aa	D	0.0	12495
+104	site-state	virus aa	E	0.0	5
+104	substitution	substitution absent	D104E	0.0	12495
+104	substitution	substitution present	D104E	0.0	5
+105	site-state	change	no	0.0	12495
+105	site-state	change	yes	0.0	5
+105	site-state	sera aa	Y	0.0	12500
+105	site-state	virus aa	H	0.0	5
+105	site-state	virus aa	Y	0.0	12495
+105	substitution	substitution absent	Y105H	0.0	12495
+105	substitution	substitution present	Y105H	0.0	5
+106	site-state	change	no	0.0001397508675287	12454
+106	site-state	change	yes	-0.0557249583709996	46
+106	site-state	sera aa	A	0.0	12499
+106	site-state	sera aa	V	0.0	1
+106	site-state	virus aa	A	-2.264105182037916e-05	12455
+106	site-state	virus aa	T	0.0735780144550892	21
+106	site-state	virus aa	V	-0.0366086107630471	24
+106	substitution	substitution absent	A106T	-0.0002488695375011	12479
+106	substitution	substitution absent	A106V	0.0001473819390336	12476
+106	substitution	substitution absent	V106A	0.0	12499
+106	substitution	substitution present	A106T	0.1403497765090744	21
+106	substitution	substitution present	A106V	-0.1295980472101877	24
+106	substitution	substitution present	V106A	0.0	1
+107	site-state	change	no	0.0	12500
+107	site-state	sera aa	S	0.0	12500
+107	site-state	virus aa	S	0.0	12500
+108	site-state	change	no	0.0	12500
+108	site-state	sera aa	L	0.0	12500
+108	site-state	virus aa	L	0.0	12500
+109	site-state	change	no	0.0	12500
+109	site-state	sera aa	R	0.0	12500
+109	site-state	virus aa	R	0.0	12500
+110	site-state	change	no	0.0	12500
+110	site-state	sera aa	S	0.0	12500
+110	site-state	virus aa	S	0.0	12500
+111	site-state	change	no	0.0	12499
+111	site-state	change	yes	0.0	1
+111	site-state	sera aa	L	0.0	12500
+111	site-state	virus aa	I	0.0	1
+111	site-state	virus aa	L	0.0	12499
+111	substitution	substitution absent	L111I	0.0	12499
+111	substitution	substitution present	L111I	0.0	1
+112	site-state	change	no	-0.0018180391904753	12140
+112	site-state	change	yes	0.0263684475655165	360
+112	site-state	sera aa	I	0.0422955611693004	311
+112	site-state	sera aa	V	0.0	12189
+112	site-state	virus aa	I	-0.0111378977778856	239
+112	site-state	virus aa	V	0.0	12261
+112	substitution	substitution absent	I112V	0.0009854379420055	12284
+112	substitution	substitution absent	V112I	-0.0018458079490079	12356
+112	substitution	substitution present	I112V	-0.0552177118499349	216
+112	substitution	substitution present	V112I	-0.019343316572527	144
+113	site-state	change	no	0.0	12500
+113	site-state	sera aa	A	0.0	12500
+113	site-state	virus aa	A	0.0	12500
+114	site-state	change	no	-0.0003210311509746	12474
+114	site-state	change	yes	0.1686376231911037	26
+114	site-state	sera aa	S	0.0	12500
+114	site-state	virus aa	A	0.2386795460855403	16
+114	site-state	virus aa	S	0.0	12474
+114	site-state	virus aa	T	0.0	10
+114	substitution	substitution absent	S114A	-0.0004093289045252	12484
+114	substitution	substitution absent	S114T	-9.52501445288525e-05	12490
+114	substitution	substitution present	S114A	0.4660151474505847	16
+114	substitution	substitution present	S114T	0.1042519057654247	10
+115	site-state	change	no	0.0	12500
+115	site-state	sera aa	S	0.0	12500
+115	site-state	virus aa	S	0.0	12500
+116	site-state	change	no	0.0	12500
+116	site-state	sera aa	G	0.0	12500
+116	site-state	virus aa	G	0.0	12500
+117	site-state	change	no	0.0	12494
+117	site-state	change	yes	0.0	6
+117	site-state	sera aa	T	0.0	12500
+117	site-state	virus aa	S	0.0	6
+117	site-state	virus aa	T	0.0	12494
+117	substitution	substitution absent	T117S	0.0	12494
+117	substitution	substitution present	T117S	0.0	6
+118	site-state	change	no	0.0	12500
+118	site-state	sera aa	L	0.0	12500
+118	site-state	virus aa	L	0.0	12500
+119	site-state	change	no	0.0	12500
+119	site-state	sera aa	E	0.0	12500
+119	site-state	virus aa	E	0.0	12500
+120	site-state	change	no	0.0	12500
+120	site-state	sera aa	F	0.0	12500
+120	site-state	virus aa	F	0.0	12500
+121	site-state	change	no	-0.0014840714998961	10652
+121	site-state	change	yes	0.013110430686038	1846
+121	site-state	sera aa	K	-0.0029739836700427	795
+121	site-state	sera aa	N	6.066264278927202e-05	11705
+121	site-state	virus aa	D	0.0091225879427446	41
+121	site-state	virus aa	K	-0.0077373267950638	1780
+121	site-state	virus aa	N	-0.0037957369018968	10656
+121	site-state	virus aa	S	0.0	16
+121	site-state	virus aa	T	0.0	5
+121	substitution	substitution absent	K121D	0.0	12499
+121	substitution	substitution absent	K121N	0.0002122393329152	12101
+121	substitution	substitution absent	N121D	-0.0005127347286016	12460
+121	substitution	substitution absent	N121K	-0.0111661680522971	11115
+121	substitution	substitution absent	N121S	-7.330240889141663e-05	12484
+121	substitution	substitution absent	N121T	0.0	12495
+121	substitution	substitution present	K121D	0.0	1
+121	substitution	substitution present	K121N	0.0102159481954598	399
+121	substitution	substitution present	N121D	0.2065275075560504	40
+121	substitution	substitution present	N121K	0.0884340403925054	1385
+121	substitution	substitution present	N121S	0.0490958598936086	16
+121	substitution	substitution present	N121T	0.0	5
+122	site-state	change	no	2.9708791285281084e-07	11348
+122	site-state	change	yes	-0.0021277405747727	1151
+122	site-state	sera aa	D	-0.0048157320482516	380
+122	site-state	sera aa	N	0.0	12120
+122	site-state	virus aa	D	-0.0001091925073866	808
+122	site-state	virus aa	K	0.0	1
+122	site-state	virus aa	N	-1.724740022867348e-05	11662
+122	site-state	virus aa	S	-0.0354083196069467	14
+122	site-state	virus aa	T	0.0	3
+122	site-state	virus aa	Y	0.3584437036689932	11
+122	substitution	substitution absent	D122N	0.0003326752180562	12153
+122	substitution	substitution absent	D122S	0.0	12500
+122	substitution	substitution absent	D122Y	0.0	12500
+122	substitution	substitution absent	N122D	0.0015462954247353	11725
+122	substitution	substitution absent	N122K	0.0	12499
+122	substitution	substitution absent	N122S	0.000152121248952	12486
+122	substitution	substitution absent	N122T	0.0	12497
+122	substitution	substitution absent	N122Y	-0.0004656155618637	12489
+122	substitution	substitution present	D122N	0.0013886419473115	347
+122	substitution	substitution present	N122D	-0.0162886576733782	775
+122	substitution	substitution present	N122K	0.0	1
+122	substitution	substitution present	N122S	-0.059549412771793	14
+122	substitution	substitution present	N122T	0.0	3
+122	substitution	substitution present	N122Y	0.3680553208500309	11
+123	site-state	change	no	0.0	12500
+123	site-state	sera aa	E	0.0	12500
+123	site-state	virus aa	E	0.0	12500
+124	site-state	change	no	-0.0001195055109626	12352
+124	site-state	change	yes	0.0693947922065575	147
+124	site-state	sera aa	S	0.0	12500
+124	site-state	virus aa	G	0.0	6
+124	site-state	virus aa	I	0.0	10
+124	site-state	virus aa	N	-0.1407975514468505	114
+124	site-state	virus aa	R	0.0	17
+124	site-state	virus aa	S	3.63685894498678e-05	12352
+124	substitution	substitution absent	S124G	-3.006073807383449e-05	12494
+124	substitution	substitution absent	S124I	0.0	12490
+124	substitution	substitution absent	S124N	0.0002682832158707	12386
+124	substitution	substitution absent	S124R	2.763306073595024e-05	12483
+124	substitution	substitution present	S124G	0.0	6
+124	substitution	substitution present	S124I	0.0	10
+124	substitution	substitution present	S124N	-0.0208465762546651	114
+124	substitution	substitution present	S124R	0.0059461749793119	17
+125	site-state	change	no	0.0	12500
+125	site-state	sera aa	F	0.0	12500
+125	site-state	virus aa	F	0.0	12500
+126	site-state	change	no	6.635385855410527e-05	12463
+126	site-state	change	yes	-0.0052560364981694	37
+126	site-state	sera aa	N	0.0	12500
+126	site-state	virus aa	D	0.0	2
+126	site-state	virus aa	K	-0.2856860849770747	29
+126	site-state	virus aa	N	0.0	12463
+126	site-state	virus aa	S	0.0	3
+126	site-state	virus aa	T	0.0	3
+126	substitution	substitution absent	N126D	0.0	12498
+126	substitution	substitution absent	N126K	0.0009321390614306	12471
+126	substitution	substitution absent	N126S	0.0	12497
+126	substitution	substitution absent	N126T	0.0	12497
+126	substitution	substitution present	N126D	0.0	2
+126	substitution	substitution present	N126K	-0.5116234706348117	29
+126	substitution	substitution present	N126S	0.0	3
+126	substitution	substitution present	N126T	0.0	3
+127	site-state	change	no	0.0	12500
+127	site-state	sera aa	W	0.0	12500
+127	site-state	virus aa	W	0.0	12500
+128	site-state	change	no	-0.0002866875881067	8440
+128	site-state	change	yes	-0.0023134404249674	4055
+128	site-state	sera aa	A	-0.0179612581518843	3924
+128	site-state	sera aa	N	0.0	7
+128	site-state	sera aa	T	0.0014522049454811	8569
+128	site-state	virus aa	A	0.0037696284525054	4710
+128	site-state	virus aa	I	0.0	4
+128	site-state	virus aa	N	0.0121809597406915	35
+128	site-state	virus aa	P	0.0	4
+128	site-state	virus aa	S	0.0	4
+128	site-state	virus aa	T	0.0032247411691113	7727
+128	site-state	virus aa	V	-0.0269678435363897	11
+128	substitution	substitution absent	A128N	0.0	12500
+128	substitution	substitution absent	A128T	-0.0027972644906852	10899
+128	substitution	substitution absent	A128V	5.629464623846549e-05	12492
+128	substitution	substitution absent	N128A	0.0	12498
+128	substitution	substitution absent	N128T	0.0	12497
+128	substitution	substitution absent	T128A	-0.0132367310540391	10107
+128	substitution	substitution absent	T128I	0.0	12496
+128	substitution	substitution absent	T128N	9.921553935834324e-05	12467
+128	substitution	substitution absent	T128P	0.0	12496
+128	substitution	substitution absent	T128S	0.0	12496
+128	substitution	substitution absent	T128V	0.0	12497
+128	substitution	substitution present	A128T	0.0123529257373153	1601
+128	substitution	substitution present	A128V	0.0	8
+128	substitution	substitution present	N128A	0.0	2
+128	substitution	substitution present	N128T	0.0	3
+128	substitution	substitution present	T128A	0.0676486654734663	2393
+128	substitution	substitution present	T128I	0.0	4
+128	substitution	substitution present	T128N	-0.0529884103052183	33
+128	substitution	substitution present	T128P	0.0	4
+128	substitution	substitution present	T128S	0.0	4
+128	substitution	substitution present	T128V	0.0	3
+129	site-state	change	no	0.0	12500
+129	site-state	sera aa	G	0.0	12500
+129	site-state	virus aa	G	0.0	12500
+130	site-state	change	no	-0.0001071585741053	12492
+130	site-state	change	yes	0.0144409227920621	8
+130	site-state	sera aa	V	0.0	12500
+130	site-state	virus aa	A	0.0	3
+130	site-state	virus aa	I	0.0	5
+130	site-state	virus aa	V	0.0	12492
+130	substitution	substitution absent	V130A	0.0	12497
+130	substitution	substitution absent	V130I	0.0	12495
+130	substitution	substitution present	V130A	0.0	3
+130	substitution	substitution present	V130I	0.0	5
+131	site-state	change	no	-0.0040458005484785	11711
+131	site-state	change	yes	0.0445584473084088	789
+131	site-state	sera aa	A	0.0	15
+131	site-state	sera aa	K	0.0005586177499205	386
+131	site-state	sera aa	T	0.0	12099
+131	site-state	virus aa	A	0.0	15
+131	site-state	virus aa	I	0.0	4
+131	site-state	virus aa	K	-0.0843867318560933	624
+131	site-state	virus aa	N	0.0	6
+131	site-state	virus aa	T	-3.499762993353738e-05	11851
+131	substitution	substitution absent	K131I	0.0	12499
+131	substitution	substitution absent	K131T	-0.0049581521459225	12230
+131	substitution	substitution absent	T131I	0.0	12497
+131	substitution	substitution absent	T131K	-0.0007319804394964	11991
+131	substitution	substitution absent	T131N	0.0	12494
+131	substitution	substitution present	K131I	0.0	1
+131	substitution	substitution present	K131T	0.2652399342648933	270
+131	substitution	substitution present	T131I	0.0	3
+131	substitution	substitution present	T131K	0.0421136081530043	509
+131	substitution	substitution present	T131N	0.0	6
+132	site-state	change	no	0.0	12500
+132	site-state	sera aa	Q	0.0	12500
+132	site-state	virus aa	Q	0.0	12500
+133	site-state	change	no	0.0	12495
+133	site-state	change	yes	0.0	5
+133	site-state	sera aa	N	0.0	12500
+133	site-state	virus aa	D	0.0	5
+133	site-state	virus aa	N	0.0	12495
+133	substitution	substitution absent	N133D	0.0	12495
+133	substitution	substitution present	N133D	0.0	5
+134	site-state	change	no	0.0	12500
+134	site-state	sera aa	G	0.0	12500
+134	site-state	virus aa	G	0.0	12500
+135	site-state	change	no	-0.0070988954369332	11522
+135	site-state	change	yes	0.0654404413148404	978
+135	site-state	sera aa	K	-0.0157078485652452	190
+135	site-state	sera aa	T	0.0	12310
+135	site-state	virus aa	A	0.0	6
+135	site-state	virus aa	K	-0.0114648500628005	875
+135	site-state	virus aa	N	0.0	7
+135	site-state	virus aa	T	-0.0012279604935878	11612
+135	substitution	substitution absent	K135N	0.0	12500
+135	substitution	substitution absent	K135T	-0.0002745654653312	12360
+135	substitution	substitution absent	T135A	0.0	12494
+135	substitution	substitution absent	T135K	-0.0096446168038131	11675
+135	substitution	substitution absent	T135N	-4.350196554334384e-05	12493
+135	substitution	substitution present	K135T	0.023939537269864	140
+135	substitution	substitution present	T135A	0.0	6
+135	substitution	substitution present	T135K	0.1315586958207969	825
+135	substitution	substitution present	T135N	0.0	7
+136	site-state	change	no	0.0	12500
+136	site-state	sera aa	S	0.0	12500
+136	site-state	virus aa	S	0.0	12500
+137	site-state	change	no	0.000229481394514	12438
+137	site-state	change	yes	-0.0044501510521658	62
+137	site-state	sera aa	S	0.0	12499
+137	site-state	sera aa	Y	0.0	1
+137	site-state	virus aa	F	0.0008705687085464	61
+137	site-state	virus aa	S	0.0	12437
+137	site-state	virus aa	Y	0.0	2
+137	substitution	substitution absent	S137F	-0.0002147122902142	12439
+137	substitution	substitution absent	S137Y	0.0	12499
+137	substitution	substitution present	S137F	0.0843299202143276	61
+137	substitution	substitution present	S137Y	0.0	1
+138	site-state	change	no	0.0024359694707782	9608
+138	site-state	change	yes	0.0164913048289103	2884
+138	site-state	sera aa	A	0.0027723587219522	9821
+138	site-state	sera aa	S	0.0	2679
+138	site-state	virus aa	A	-0.0009701904426486	10277
+138	site-state	virus aa	S	-0.0290667876372341	2215
+138	substitution	substitution absent	A138S	-0.0062275485576037	11289
+138	substitution	substitution absent	S138A	-0.0323417783030316	10827
+138	substitution	substitution present	A138S	0.0317404319829983	1211
+138	substitution	substitution present	S138A	0.2386553074409123	1673
+139	site-state	change	no	0.0	12500
+139	site-state	sera aa	C	0.0	12500
+139	site-state	virus aa	C	0.0	12500
+140	site-state	change	no	0.0014341807553639	10554
+140	site-state	change	yes	-0.0065311818803879	1940
+140	site-state	sera aa	I	0.0017209883943918	10553
+140	site-state	sera aa	K	0.0108137062819059	1658
+140	site-state	sera aa	M	-0.0042473559832993	289
+140	site-state	virus aa	I	0.0018020634470274	11286
+140	site-state	virus aa	K	-0.3247088144902231	993
+140	site-state	virus aa	L	0.0	10
+140	site-state	virus aa	M	0.0004697875678846	174
+140	site-state	virus aa	R	-0.0082091737376304	14
+140	site-state	virus aa	T	0.0	8
+140	site-state	virus aa	V	0.0	9
+140	substitution	substitution absent	I140K	0.029871356013082	12092
+140	substitution	substitution absent	I140L	0.0	12490
+140	substitution	substitution absent	I140M	-0.0001997279830937	12358
+140	substitution	substitution absent	I140R	0.0001881398959787	12486
+140	substitution	substitution absent	I140T	0.0	12494
+140	substitution	substitution absent	I140V	0.0	12491
+140	substitution	substitution absent	K140I	-0.0095173289371218	11438
+140	substitution	substitution absent	K140M	-7.958741621929325e-05	12485
+140	substitution	substitution absent	K140R	0.0	12500
+140	substitution	substitution absent	K140T	0.0	12498
+140	substitution	substitution absent	M140I	-0.0008922176504266	12234
+140	substitution	substitution absent	M140K	0.0	12494
+140	substitution	substitution present	I140K	-0.2863803370472015	408
+140	substitution	substitution present	I140L	0.0	10
+140	substitution	substitution present	I140M	0.0263708809473891	142
+140	substitution	substitution present	I140R	-0.038215318746506	14
+140	substitution	substitution present	I140T	0.0	6
+140	substitution	substitution present	I140V	0.0	9
+140	substitution	substitution present	K140I	0.1580133399470852	1062
+140	substitution	substitution present	K140M	0.0617064569051061	15
+140	substitution	substitution present	K140T	0.0	2
+140	substitution	substitution present	M140I	0.0314164247173601	266
+140	substitution	substitution present	M140K	0.0	6
+141	site-state	change	no	0.0	12497
+141	site-state	change	yes	0.0	3
+141	site-state	sera aa	G	0.0	2
+141	site-state	sera aa	R	0.0	12498
+141	site-state	virus aa	G	0.0	2
+141	site-state	virus aa	K	0.0	1
+141	site-state	virus aa	R	0.0	12497
+141	substitution	substitution absent	G141R	0.0	12499
+141	substitution	substitution absent	R141G	0.0	12499
+141	substitution	substitution absent	R141K	0.0	12499
+141	substitution	substitution present	G141R	0.0	1
+141	substitution	substitution present	R141G	0.0	1
+141	substitution	substitution present	R141K	0.0	1
+142	site-state	change	no	-0.0245989627699512	7753
+142	site-state	change	yes	0.0379570508566855	4742
+142	site-state	sera aa	G	-0.0122703608021703	4065
+142	site-state	sera aa	K	0.0629916908554293	727
+142	site-state	sera aa	R	0.0016313342308995	7708
+142	site-state	virus aa	E	0.0	3
+142	site-state	virus aa	G	0.0160550359924979	5306
+142	site-state	virus aa	I	0.0	1
+142	site-state	virus aa	K	-0.2100173970737386	632
+142	site-state	virus aa	R	0.0029872292158056	6550
+142	site-state	virus aa	S	0.0	3
+142	substitution	substitution absent	G142E	0.0	12499
+142	substitution	substitution absent	G142K	0.0024237929492062	12281
+142	substitution	substitution absent	G142R	-0.001917359988762	11264
+142	substitution	substitution absent	K142E	0.0	12500
+142	substitution	substitution absent	K142G	-0.0032698253839125	12148
+142	substitution	substitution absent	K142R	-0.0029094817786895	12229
+142	substitution	substitution absent	R142E	0.0	12498
+142	substitution	substitution absent	R142G	-0.0106517500290761	10152
+142	substitution	substitution absent	R142I	0.0	12499
+142	substitution	substitution absent	R142K	0.0020719708515793	12191
+142	substitution	substitution absent	R142S	0.0	12497
+142	substitution	substitution present	G142E	0.0	1
+142	substitution	substitution present	G142K	-0.0559416441717987	219
+142	substitution	substitution present	G142R	0.0352488439036566	1236
+142	substitution	substitution present	K142G	0.0536294215017509	352
+142	substitution	substitution present	K142R	0.1643484157221422	271
+142	substitution	substitution present	R142E	0.0	2
+142	substitution	substitution present	R142G	0.0683146415094167	2348
+142	substitution	substitution present	R142I	0.0	1
+142	substitution	substitution present	R142K	-0.0320564918476194	309
+142	substitution	substitution present	R142S	0.0	3
+143	site-state	change	no	0.0	12498
+143	site-state	change	yes	0.0	2
+143	site-state	sera aa	S	0.0	12500
+143	site-state	virus aa	F	0.0	2
+143	site-state	virus aa	S	0.0	12498
+143	substitution	substitution absent	S143F	0.0	12498
+143	substitution	substitution present	S143F	0.0	2
+144	site-state	change	no	-0.115768094855246	8147
+144	site-state	change	yes	0.2051442312974072	4353
+144	site-state	sera aa	D	0.0067949568314388	913
+144	site-state	sera aa	I	0.0	10
+144	site-state	sera aa	K	-0.0700756753796898	852
+144	site-state	sera aa	N	0.0021427638600028	7933
+144	site-state	sera aa	S	-0.0010442655329026	2792
+144	site-state	virus aa	D	-0.002248351436439	562
+144	site-state	virus aa	G	0.0	9
+144	site-state	virus aa	I	0.0014832972005064	12
+144	site-state	virus aa	K	-0.1378844783570303	1276
+144	site-state	virus aa	N	-0.0001696941354415	7650
+144	site-state	virus aa	R	0.0146480606642944	128
+144	site-state	virus aa	S	0.0032336530194366	2859
+144	site-state	virus aa	T	0.0	4
+144	substitution	substitution absent	D144G	0.0	12500
+144	substitution	substitution absent	D144K	0.000116544228016	12489
+144	substitution	substitution absent	D144N	-0.0126173310741509	11708
+144	substitution	substitution absent	D144S	0.0	12498
+144	substitution	substitution absent	D144T	0.0	12499
+144	substitution	substitution absent	I144N	0.0	12499
+144	substitution	substitution absent	K144D	0.0	12500
+144	substitution	substitution absent	K144G	0.0	12498
+144	substitution	substitution absent	K144N	-0.0012997838878591	12374
+144	substitution	substitution absent	K144R	0.0	12499
+144	substitution	substitution absent	K144S	-0.0010295892243814	12151
+144	substitution	substitution absent	N144D	-0.00827979761771	12045
+144	substitution	substitution absent	N144G	0.0	12497
+144	substitution	substitution absent	N144I	0.0	12497
+144	substitution	substitution absent	N144K	-0.0009394672252757	12197
+144	substitution	substitution absent	N144R	-0.0006405403245398	12451
+144	substitution	substitution absent	N144S	-0.0010667919182261	11516
+144	substitution	substitution absent	N144T	0.0	12497
+144	substitution	substitution absent	S144G	0.0	12496
+144	substitution	substitution absent	S144K	-0.0083765243609979	11912
+144	substitution	substitution absent	S144N	1.3935660277729422e-05	11902
+144	substitution	substitution absent	S144R	-0.0016165472129649	12422
+144	substitution	substitution present	D144K	-0.0461592625922773	11
+144	substitution	substitution present	D144N	0.1475194802960472	792
+144	substitution	substitution present	D144S	0.0	2
+144	substitution	substitution present	D144T	0.0	1
+144	substitution	substitution present	I144N	0.0	1
+144	substitution	substitution present	K144G	0.0	2
+144	substitution	substitution present	K144N	0.0969372511524172	126
+144	substitution	substitution present	K144R	0.0	1
+144	substitution	substitution present	K144S	0.0597886155598196	349
+144	substitution	substitution present	N144D	0.2303100958142256	455
+144	substitution	substitution present	N144G	0.0	3
+144	substitution	substitution present	N144I	0.0	3
+144	substitution	substitution present	N144K	0.0236734936729491	303
+144	substitution	substitution present	N144R	0.1605746556538138	49
+144	substitution	substitution present	N144S	0.0301660241372147	984
+144	substitution	substitution present	N144T	0.0	3
+144	substitution	substitution present	S144G	0.0	4
+144	substitution	substitution present	S144K	0.1714326488986081	588
+144	substitution	substitution present	S144N	0.0039876687679429	598
+144	substitution	substitution present	S144R	0.1599301450404774	78
+145	site-state	change	no	-0.0185760886239649	10109
+145	site-state	change	yes	0.0799803324733824	2388
+145	site-state	sera aa	D	6.136101232890433e-05	45
+145	site-state	sera aa	K	0.0	15
+145	site-state	sera aa	N	0.0035108350623936	4317
+145	site-state	sera aa	S	-8.749580395392388e-05	8123
+145	site-state	virus aa	D	0.0	23
+145	site-state	virus aa	G	0.0	4
+145	site-state	virus aa	K	-0.0019007307945394	15
+145	site-state	virus aa	N	-0.0372751257307476	3394
+145	site-state	virus aa	Q	0.0	1
+145	site-state	virus aa	S	0.0298296335086203	9060
+145	substitution	substitution absent	D145N	-0.0007633975557541	12475
+145	substitution	substitution absent	D145Q	0.0	12500
+145	substitution	substitution absent	D145S	0.0	12496
+145	substitution	substitution absent	K145N	0.0	12499
+145	substitution	substitution absent	N145D	0.0	12493
+145	substitution	substitution absent	N145G	0.0	12499
+145	substitution	substitution absent	N145K	0.0	12499
+145	substitution	substitution absent	N145Q	0.0	12499
+145	substitution	substitution absent	N145S	-0.0406905204667893	10858
+145	substitution	substitution absent	S145G	0.0	12497
+145	substitution	substitution absent	S145K	0.0	12500
+145	substitution	substitution absent	S145N	0.0033546571822762	11797
+145	substitution	substitution present	D145N	0.3166331730488536	25
+145	substitution	substitution present	D145S	0.0	4
+145	substitution	substitution present	K145N	0.0	1
+145	substitution	substitution present	N145D	0.0	7
+145	substitution	substitution present	N145G	0.0	1
+145	substitution	substitution present	N145K	0.0	1
+145	substitution	substitution present	N145Q	0.0	1
+145	substitution	substitution present	N145S	0.3230882893143795	1642
+145	substitution	substitution present	S145G	0.0	3
+145	substitution	substitution present	S145N	-0.0259069009271972	703
+146	site-state	change	no	0.0	12491
+146	site-state	change	yes	0.0	9
+146	site-state	sera aa	S	0.0	12500
+146	site-state	virus aa	G	0.0	9
+146	site-state	virus aa	S	0.0	12491
+146	substitution	substitution absent	S146G	0.0	12491
+146	substitution	substitution present	S146G	0.0	9
+147	site-state	change	no	0.0	12500
+147	site-state	sera aa	F	0.0	12500
+147	site-state	virus aa	F	0.0	12500
+148	site-state	change	no	0.0	12500
+148	site-state	sera aa	F	0.0	12500
+148	site-state	virus aa	F	0.0	12500
+149	site-state	change	no	0.0	12500
+149	site-state	sera aa	S	0.0	12500
+149	site-state	virus aa	S	0.0	12500
+150	site-state	change	no	-0.00026611062738	12454
+150	site-state	change	yes	0.0659473056749997	46
+150	site-state	sera aa	R	0.0	12500
+150	site-state	virus aa	K	0.0	46
+150	site-state	virus aa	R	0.0	12454
+150	substitution	substitution absent	R150K	-9.997205185291377e-05	12454
+150	substitution	substitution present	R150K	0.0615485185216968	46
+151	site-state	change	no	0.0	12500
+151	site-state	sera aa	L	0.0	12500
+151	site-state	virus aa	L	0.0	12500
+152	site-state	change	no	0.0	12500
+152	site-state	sera aa	N	0.0	12500
+152	site-state	virus aa	N	0.0	12500
+153	site-state	change	no	0.0	12500
+153	site-state	sera aa	W	0.0	12500
+153	site-state	virus aa	W	0.0	12500
+154	site-state	change	no	0.0	12500
+154	site-state	sera aa	L	0.0	12500
+154	site-state	virus aa	L	0.0	12500
+155	site-state	change	no	0.0	12500
+155	site-state	sera aa	H	0.0	15
+155	site-state	sera aa	T	0.0	12485
+155	site-state	virus aa	H	0.0	15
+155	site-state	virus aa	T	0.0	12485
+156	site-state	change	no	8.824476550567989e-05	12479
+156	site-state	change	yes	0.0014210025253769	21
+156	site-state	sera aa	H	0.0	12485
+156	site-state	sera aa	Q	0.0	15
+156	site-state	virus aa	H	-2.562455119763624e-05	12464
+156	site-state	virus aa	Q	-0.0647260586462855	29
+156	site-state	virus aa	R	0.0	3
+156	site-state	virus aa	S	0.0	4
+156	substitution	substitution absent	H156Q	0.0001367079660998	12486
+156	substitution	substitution absent	H156R	0.0	12497
+156	substitution	substitution absent	H156S	0.0	12496
+156	substitution	substitution present	H156Q	-0.079537792298771	14
+156	substitution	substitution present	H156R	0.0	3
+156	substitution	substitution present	H156S	0.0	4
+157	site-state	change	no	-0.0028422503589616	11004
+157	site-state	change	yes	0.0289398653795888	1496
+157	site-state	sera aa	L	0.0005276112972787	11960
+157	site-state	sera aa	S	0.0	540
+157	site-state	virus aa	F	0.0	2
+157	site-state	virus aa	L	0.0008128197720142	11358
+157	site-state	virus aa	S	-0.0006898077273366	1140
+157	substitution	substitution absent	L157F	0.0	12498
+157	substitution	substitution absent	L157S	-0.0059622718583872	11453
+157	substitution	substitution absent	S157L	-0.0005828199655045	12053
+157	substitution	substitution present	L157F	0.0	2
+157	substitution	substitution present	L157S	0.0715579086648147	1047
+157	substitution	substitution present	S157L	0.0408446154772561	447
+158	site-state	change	no	-0.0132038746851014	10199
+158	site-state	change	yes	0.1808875296268766	392
+158	site-state	sera aa	K	-0.0086602891302956	1307
+158	site-state	sera aa	N	-0.0001614444772296	9775
+158	site-state	sera aa	R	0.0	89
+158	site-state	virus aa	D	0.0	8
+158	site-state	virus aa	H	0.0	5
+158	site-state	virus aa	K	-0.0086961460079165	1325
+158	site-state	virus aa	N	0.0094390060171875	10317
+158	site-state	virus aa	R	-0.2135508403516022	94
+158	site-state	virus aa	S	0.0	8
+158	substitution	substitution absent	K158N	-0.0041978232380389	12391
+158	substitution	substitution absent	K158R	-0.0001686237936882	12433
+158	substitution	substitution absent	N158D	0.0	12493
+158	substitution	substitution absent	N158H	0.0	12497
+158	substitution	substitution absent	N158K	-0.002324018071797	12386
+158	substitution	substitution absent	N158R	-0.0001517330748994	12488
+158	substitution	substitution absent	N158S	0.0	12494
+158	substitution	substitution absent	R158K	-0.0010958773286884	12427
+158	substitution	substitution absent	R158N	0.0	12499
+158	substitution	substitution present	K158N	0.3831264788411779	109
+158	substitution	substitution present	K158R	-0.0016795613917186	67
+158	substitution	substitution present	N158D	0.0	7
+158	substitution	substitution present	N158H	0.0	3
+158	substitution	substitution present	N158K	0.2492540466687329	114
+158	substitution	substitution present	N158R	0.1148853490649148	12
+158	substitution	substitution present	N158S	0.0	6
+158	substitution	substitution present	R158K	0.1052792739231635	73
+158	substitution	substitution present	R158N	0.0	1
+159	site-state	change	no	-0.0764057309269082	9021
+159	site-state	change	yes	0.2042565890848718	3476
+159	site-state	sera aa	F	0.0052158010619517	7100
+159	site-state	sera aa	N	0.0004749607927352	32
+159	site-state	sera aa	S	-0.0017873060352507	2593
+159	site-state	sera aa	Y	0.0003769326965787	2775
+159	site-state	virus aa	F	0.0063076909189363	7066
+159	site-state	virus aa	N	-0.0187622646952044	47
+159	site-state	virus aa	S	-0.0729875396853042	1999
+159	site-state	virus aa	Y	0.0154490301880519	3385
+159	substitution	substitution absent	F159S	0.0027149783375255	12099
+159	substitution	substitution absent	F159Y	-0.0013897585082865	12081
+159	substitution	substitution absent	N159S	0.0	12490
+159	substitution	substitution absent	N159Y	0.0	12485
+159	substitution	substitution absent	S159F	-0.0071136045587005	11922
+159	substitution	substitution absent	S159N	8.323209877497251e-05	12483
+159	substitution	substitution absent	S159Y	-0.0326344697746666	11394
+159	substitution	substitution absent	Y159F	0.0006916586043213	12291
+159	substitution	substitution absent	Y159N	-0.0003721676202272	12477
+159	substitution	substitution absent	Y159S	0.0030723551729255	11802
+159	substitution	substitution present	F159S	-0.0365233087198504	401
+159	substitution	substitution present	F159Y	0.0478710699228299	419
+159	substitution	substitution present	N159S	0.0	10
+159	substitution	substitution present	N159Y	0.0	15
+159	substitution	substitution present	S159F	0.1566937388943062	578
+159	substitution	substitution present	S159N	-0.0123054325263805	17
+159	substitution	substitution present	S159Y	0.2816230177369697	1106
+159	substitution	substitution present	Y159F	0.0594794608080583	209
+159	substitution	substitution present	Y159N	0.1110261222752698	23
+159	substitution	substitution present	Y159S	0.0040107944076263	698
+160	site-state	change	no	-0.006834380989321	9427
+160	site-state	change	yes	0.0222835542463182	2270
+160	site-state	sera aa	I	0.0603791404361162	36
+160	site-state	sera aa	K	-0.001824374259758	10021
+160	site-state	sera aa	R	0.0	5
+160	site-state	sera aa	T	0.001167240759983	2151
+160	site-state	virus aa	A	-0.0028065853924854	14
+160	site-state	virus aa	E	0.0	3
+160	site-state	virus aa	I	0.1444865274152205	73
+160	site-state	virus aa	K	0.0032170895799101	9416
+160	site-state	virus aa	R	-0.076813788695087	16
+160	site-state	virus aa	T	0.0088767857477663	2419
+160	substitution	substitution absent	I160K	-1.2770602642774869e-05	12488
+160	substitution	substitution absent	I160T	-0.0003672854351541	12485
+160	substitution	substitution absent	K160A	0.0	12491
+160	substitution	substitution absent	K160E	0.0	12499
+160	substitution	substitution absent	K160I	-0.000115178813606	12467
+160	substitution	substitution absent	K160R	0.0	12492
+160	substitution	substitution absent	K160T	0.0026282698802166	11224
+160	substitution	substitution absent	R160K	0.0	12499
+160	substitution	substitution absent	T160A	0.0	12495
+160	substitution	substitution absent	T160E	0.0	12499
+160	substitution	substitution absent	T160I	-0.0009096457945188	12469
+160	substitution	substitution absent	T160K	-0.0086885831854998	11626
+160	substitution	substitution absent	T160R	0.0	12496
+160	substitution	substitution present	I160K	0.0	12
+160	substitution	substitution present	I160T	0.188913621513794	15
+160	substitution	substitution present	K160A	0.0	9
+160	substitution	substitution present	K160E	0.0	1
+160	substitution	substitution present	K160I	0.0631738451175924	33
+160	substitution	substitution present	K160R	0.0	8
+160	substitution	substitution present	K160T	0.0380165337368285	1276
+160	substitution	substitution present	R160K	0.0	1
+160	substitution	substitution present	T160A	0.0	5
+160	substitution	substitution present	T160E	0.0	1
+160	substitution	substitution present	T160I	0.4500767457145724	31
+160	substitution	substitution present	T160K	0.1291196774860477	874
+160	substitution	substitution present	T160R	0.0	4
+161	site-state	change	no	0.0	12495
+161	site-state	change	yes	0.0	3
+161	site-state	sera aa	Y	0.0	12500
+161	site-state	virus aa	F	0.0	2
+161	site-state	virus aa	K	0.0	1
+161	site-state	virus aa	Y	0.0	12495
+161	substitution	substitution absent	Y161F	0.0	12498
+161	substitution	substitution absent	Y161K	0.0	12499
+161	substitution	substitution present	Y161F	0.0	2
+161	substitution	substitution present	Y161K	0.0	1
+162	site-state	change	no	-2.484692097904922e-05	12483
+162	site-state	change	yes	0.0781275503211929	17
+162	site-state	sera aa	P	0.0	12500
+162	site-state	virus aa	P	-0.0001025912207282	12483
+162	site-state	virus aa	Q	0.0	4
+162	site-state	virus aa	S	0.0372933560440387	13
+162	substitution	substitution absent	P162Q	0.0	12496
+162	substitution	substitution absent	P162S	-0.0001156204150481	12487
+162	substitution	substitution present	P162Q	0.0	4
+162	substitution	substitution present	P162S	0.0292181818240778	13
+163	site-state	change	no	1.921768400384962e-05	12492
+163	site-state	change	yes	0.0	8
+163	site-state	sera aa	A	0.0	12500
+163	site-state	virus aa	A	0.0	12492
+163	site-state	virus aa	S	0.0	8
+163	substitution	substitution absent	A163S	2.589262099972845e-05	12492
+163	substitution	substitution present	A163S	0.0	8
+164	site-state	change	no	-2.834631228855192e-05	12435
+164	site-state	change	yes	0.0023794015224569	65
+164	site-state	sera aa	L	0.0	12468
+164	site-state	sera aa	Q	0.0	32
+164	site-state	virus aa	L	9.419754888188764e-06	12453
+164	site-state	virus aa	Q	0.0	47
+164	substitution	substitution absent	L164Q	0.0001188358075117	12460
+164	substitution	substitution absent	L164V	0.0	12500
+164	substitution	substitution absent	Q164L	-0.0003461836900925	12475
+164	substitution	substitution present	L164Q	-0.0261790155265927	40
+164	substitution	substitution present	Q164L	0.0873474618403674	25
+165	site-state	change	no	0.0	12496
+165	site-state	sera aa	N	0.0	12500
+165	site-state	virus aa	N	0.0	12496
+165	substitution	substitution absent	N165S	0.0	12500
+166	site-state	change	no	0.0	12496
+166	site-state	sera aa	V	0.0	12500
+166	site-state	virus aa	V	0.0	12496
+166	substitution	substitution absent	V166M	0.0	12500
+167	site-state	change	no	0.0	12500
+167	site-state	sera aa	T	0.0	12500
+167	site-state	virus aa	T	0.0	12500
+168	site-state	change	no	-9.853407747855127e-05	12469
+168	site-state	change	yes	0.0451234396731334	31
+168	site-state	sera aa	M	0.0	12500
+168	site-state	virus aa	I	0.0	4
+168	site-state	virus aa	M	0.0	12469
+168	site-state	virus aa	V	0.2982500635841305	27
+168	substitution	substitution absent	M168I	0.0	12496
+168	substitution	substitution absent	M168V	-0.0007295465155549	12473
+168	substitution	substitution present	M168I	0.0	4
+168	substitution	substitution present	M168V	0.3717365635922251	27
+169	site-state	change	no	-0.0002968873084117	12431
+169	site-state	change	yes	-0.0032961302061171	67
+169	site-state	sera aa	P	0.0	12458
+169	site-state	sera aa	S	0.0	42
+169	site-state	virus aa	P	-0.0002359166424553	12469
+169	site-state	virus aa	S	-0.0062201677694874	29
+169	substitution	substitution absent	P169Q	0.0	12500
+169	substitution	substitution absent	P169S	-0.0001135340372981	12473
+169	substitution	substitution absent	S169P	0.0001275086778883	12460
+169	substitution	substitution present	P169S	-0.0334170697477468	27
+169	substitution	substitution present	S169P	-0.0086525029370765	40
+170	site-state	change	no	0.0	12500
+170	site-state	sera aa	N	0.0	12500
+170	site-state	virus aa	N	0.0	12500
+171	site-state	change	no	0.0004939693315214	10838
+171	site-state	change	yes	-0.0016969696192415	1660
+171	site-state	sera aa	K	0.0001234435891369	784
+171	site-state	sera aa	N	0.0	11716
+171	site-state	virus aa	D	0.0	6
+171	site-state	virus aa	K	0.0132540400191981	1459
+171	site-state	virus aa	N	-0.0034572730720955	11014
+171	site-state	virus aa	R	0.0111996942263762	12
+171	site-state	virus aa	S	0.0	1
+171	site-state	virus aa	T	0.0	6
+171	substitution	substitution absent	K171N	0.0023110440024619	12023
+171	substitution	substitution absent	K171R	0.0	12495
+171	substitution	substitution absent	K171T	0.0	12499
+171	substitution	substitution absent	N171D	0.0	12494
+171	substitution	substitution absent	N171K	-0.0136865360591976	11342
+171	substitution	substitution absent	N171R	0.0	12493
+171	substitution	substitution absent	N171S	0.0	12499
+171	substitution	substitution absent	N171T	0.0	12495
+171	substitution	substitution present	K171N	-0.014764471535499	477
+171	substitution	substitution present	K171R	0.0	5
+171	substitution	substitution present	K171T	0.0	1
+171	substitution	substitution present	N171D	0.0	6
+171	substitution	substitution present	N171K	0.1367027901421524	1158
+171	substitution	substitution present	N171R	0.0	7
+171	substitution	substitution present	N171S	0.0	1
+171	substitution	substitution present	N171T	0.0	5
+172	site-state	change	no	1.794134899431661e-06	12478
+172	site-state	change	yes	-4.317240987948794e-05	22
+172	site-state	sera aa	D	0.0	10
+172	site-state	sera aa	E	2.545317151321709e-06	12484
+172	site-state	sera aa	G	0.0	6
+172	site-state	virus aa	D	0.0289878434200226	13
+172	site-state	virus aa	E	8.592096780592511e-05	12474
+172	site-state	virus aa	G	0.0	8
+172	site-state	virus aa	K	0.0	5
+172	substitution	substitution absent	D172E	0.0	12499
+172	substitution	substitution absent	E172D	0.0	12496
+172	substitution	substitution absent	E172G	0.0	12493
+172	substitution	substitution absent	E172K	0.0	12495
+172	substitution	substitution absent	G172E	0.0	12495
+172	substitution	substitution present	D172E	0.0	1
+172	substitution	substitution present	E172D	0.0	4
+172	substitution	substitution present	E172G	0.0	7
+172	substitution	substitution present	E172K	0.0	5
+172	substitution	substitution present	G172E	0.0	5
+173	site-state	change	no	-0.0005661531755993	11591
+173	site-state	change	yes	0.0166705742243383	909
+173	site-state	sera aa	E	0.0259419077723019	381
+173	site-state	sera aa	K	0.031794818850422	729
+173	site-state	sera aa	N	0.0	200
+173	site-state	sera aa	Q	0.002448015198531	11190
+173	site-state	virus aa	E	-0.0945162062486887	315
+173	site-state	virus aa	H	0.0303925283446001	14
+173	site-state	virus aa	K	0.1702098792444166	609
+173	site-state	virus aa	N	-0.0001765303554976	113
+173	site-state	virus aa	Q	0.0033191982227821	11448
+173	site-state	virus aa	T	0.0	1
+173	substitution	substitution absent	E173K	-0.0041733258253889	12302
+173	substitution	substitution absent	E173N	0.0	12492
+173	substitution	substitution absent	E173Q	-0.0001352599207287	12486
+173	substitution	substitution absent	E173T	0.0	12500
+173	substitution	substitution absent	K173E	0.0030092735105044	12360
+173	substitution	substitution absent	K173N	0.0006689822523184	12451
+173	substitution	substitution absent	K173Q	-0.0044806636613919	12278
+173	substitution	substitution absent	K173T	0.0	12499
+173	substitution	substitution absent	N173E	0.0	12493
+173	substitution	substitution absent	N173K	-8.407561776533295e-05	12456
+173	substitution	substitution absent	N173Q	-0.0009754100028177	12376
+173	substitution	substitution absent	N173T	0.0	12500
+173	substitution	substitution absent	Q173E	0.0	12493
+173	substitution	substitution absent	Q173H	3.356971563352211e-06	12486
+173	substitution	substitution absent	Q173K	0.0001257501358257	12450
+173	substitution	substitution absent	Q173N	4.8121365189434535e-05	12469
+173	substitution	substitution present	E173K	0.2955282396906425	198
+173	substitution	substitution present	E173N	0.0	8
+173	substitution	substitution present	E173Q	0.0833384651721609	14
+173	substitution	substitution present	K173E	-0.1143991110993375	140
+173	substitution	substitution present	K173N	-0.0109141865051341	49
+173	substitution	substitution present	K173Q	0.1788140453510076	222
+173	substitution	substitution present	K173T	0.0	1
+173	substitution	substitution present	N173E	0.0	7
+173	substitution	substitution present	N173K	-0.0131536038483162	44
+173	substitution	substitution present	N173Q	0.1233121858497049	124
+173	substitution	substitution present	Q173E	0.0	7
+173	substitution	substitution present	Q173H	0.0045167063362244	14
+173	substitution	substitution present	Q173K	0.0366107661553151	50
+173	substitution	substitution present	Q173N	0.0	31
+174	site-state	change	no	0.0	12500
+174	site-state	sera aa	F	0.0	12500
+174	site-state	virus aa	F	0.0	12500
+175	site-state	change	no	0.0	12494
+175	site-state	change	yes	0.0	6
+175	site-state	sera aa	D	0.0	12500
+175	site-state	virus aa	D	0.0	12494
+175	site-state	virus aa	E	0.0	6
+175	substitution	substitution absent	D175E	0.0	12494
+175	substitution	substitution present	D175E	0.0	6
+176	site-state	change	no	0.0	12500
+176	site-state	sera aa	K	0.0	12500
+176	site-state	virus aa	K	0.0	12500
+177	site-state	change	no	0.0	12498
+177	site-state	change	yes	0.0	2
+177	site-state	sera aa	L	0.0	12500
+177	site-state	virus aa	L	0.0	12498
+177	site-state	virus aa	M	0.0	2
+177	substitution	substitution absent	L177M	0.0	12498
+177	substitution	substitution present	L177M	0.0	2
+178	site-state	change	no	0.0	12499
+178	site-state	change	yes	0.0	1
+178	site-state	sera aa	Y	0.0	12500
+178	site-state	virus aa	C	0.0	1
+178	site-state	virus aa	Y	0.0	12499
+178	substitution	substitution absent	Y178C	0.0	12499
+178	substitution	substitution present	Y178C	0.0	1
+179	site-state	change	no	0.0	12491
+179	site-state	change	yes	0.0	9
+179	site-state	sera aa	I	0.0	12500
+179	site-state	virus aa	I	0.0	12491
+179	site-state	virus aa	V	0.0	9
+179	substitution	substitution absent	I179V	0.0	12491
+179	substitution	substitution present	I179V	0.0	9
+180	site-state	change	no	0.0	12500
+180	site-state	sera aa	W	0.0	12500
+180	site-state	virus aa	W	0.0	12500
+181	site-state	change	no	0.0	12500
+181	site-state	sera aa	G	0.0	12500
+181	site-state	virus aa	G	0.0	12500
+182	site-state	change	no	-3.803000197403284e-05	12487
+182	site-state	change	yes	0.0141515652634263	13
+182	site-state	sera aa	V	0.0	12500
+182	site-state	virus aa	F	0.0	2
+182	site-state	virus aa	I	0.0472914746410341	11
+182	site-state	virus aa	V	0.0	12487
+182	substitution	substitution absent	V182F	0.0	12498
+182	substitution	substitution absent	V182I	-8.361586004324084e-05	12489
+182	substitution	substitution present	V182F	0.0	2
+182	substitution	substitution present	V182I	0.0371701446079372	11
+183	site-state	change	no	0.0	12491
+183	site-state	change	yes	0.0	9
+183	site-state	sera aa	H	0.0	12500
+183	site-state	virus aa	F	0.0	2
+183	site-state	virus aa	H	0.0	12491
+183	site-state	virus aa	L	0.0	7
+183	substitution	substitution absent	H183F	0.0	12498
+183	substitution	substitution absent	H183L	0.0	12493
+183	substitution	substitution present	H183F	0.0	2
+183	substitution	substitution present	H183L	0.0	7
+184	site-state	change	no	0.0	12499
+184	site-state	change	yes	0.0	1
+184	site-state	sera aa	H	0.0	12500
+184	site-state	virus aa	H	0.0	12499
+184	site-state	virus aa	N	0.0	1
+184	substitution	substitution absent	H184N	0.0	12499
+184	substitution	substitution present	H184N	0.0	1
+185	site-state	change	no	0.0	12500
+185	site-state	sera aa	P	0.0	12500
+185	site-state	virus aa	P	0.0	12500
+186	site-state	change	no	-0.0005746459431991	12270
+186	site-state	change	yes	0.0288224566676798	227
+186	site-state	sera aa	D	-0.0135346558869417	70
+186	site-state	sera aa	G	1.978441960558745e-05	12369
+186	site-state	sera aa	S	0.0331551408486949	54
+186	site-state	sera aa	V	0.0	7
+186	site-state	virus aa	D	-0.1582463078834579	125
+186	site-state	virus aa	G	0.000255209071546	12267
+186	site-state	virus aa	S	-0.2389178549782067	64
+186	site-state	virus aa	V	0.2873687744527899	41
+186	substitution	substitution absent	D186G	-3.960448143689573e-05	12469
+186	substitution	substitution absent	D186S	0.0	12491
+186	substitution	substitution absent	G186D	0.0010365800091666	12416
+186	substitution	substitution absent	G186S	0.0007957530446458	12470
+186	substitution	substitution absent	G186V	-0.0006613281713965	12461
+186	substitution	substitution absent	S186D	0.0	12489
+186	substitution	substitution absent	S186G	-0.0001391652553437	12482
+186	substitution	substitution absent	V186G	0.0	12495
+186	substitution	substitution present	D186G	0.0083516108684509	31
+186	substitution	substitution present	D186S	0.0	9
+186	substitution	substitution present	G186D	-0.0659334476635748	84
+186	substitution	substitution present	G186S	-0.5828452259481903	30
+186	substitution	substitution present	G186V	0.2991511807929312	39
+186	substitution	substitution present	S186D	0.0	11
+186	substitution	substitution present	S186G	0.0614798357824361	18
+186	substitution	substitution present	V186G	0.0	5
+187	site-state	change	no	0.0003337591715949	12486
+187	site-state	change	yes	-0.1236377698819472	14
+187	site-state	sera aa	T	0.0	12500
+187	site-state	virus aa	A	0.199139048400201	12
+187	site-state	virus aa	S	0.0	2
+187	site-state	virus aa	T	0.0	12486
+187	substitution	substitution absent	T187A	-0.0001201922116809	12488
+187	substitution	substitution absent	T187S	0.0	12498
+187	substitution	substitution present	T187A	0.0511687045473783	12
+187	substitution	substitution present	T187S	0.0	2
+188	site-state	change	no	-0.0001484863802388	12470
+188	site-state	change	yes	0.0260274975192675	29
+188	site-state	sera aa	D	0.0	12500
+188	site-state	virus aa	D	0.0003659716714515	12470
+188	site-state	virus aa	E	0.1320424890641738	13
+188	site-state	virus aa	G	0.0	4
+188	site-state	virus aa	N	0.0	8
+188	site-state	virus aa	Y	0.0	4
+188	substitution	substitution absent	D188E	-0.0004101765650258	12487
+188	substitution	substitution absent	D188G	0.0	12496
+188	substitution	substitution absent	D188N	0.0001373929194339	12492
+188	substitution	substitution absent	D188Y	0.0	12496
+188	substitution	substitution absent	N188D	0.0	12500
+188	substitution	substitution present	D188E	0.2037496756840875	13
+188	substitution	substitution present	D188G	0.0	4
+188	substitution	substitution present	D188N	0.0	8
+188	substitution	substitution present	D188Y	0.0	4
+189	site-state	change	no	-0.0127212469400214	12313
+189	site-state	change	yes	0.7337001610204537	184
+189	site-state	sera aa	K	0.0001936551349075	11096
+189	site-state	sera aa	N	0.0	1389
+189	site-state	sera aa	S	0.0	15
+189	site-state	virus aa	K	-0.0001436888105498	11134
+189	site-state	virus aa	N	0.0021558533225152	1342
+189	site-state	virus aa	R	0.0	3
+189	site-state	virus aa	S	0.0	18
+189	substitution	substitution absent	K189N	-0.010431922595706	12433
+189	substitution	substitution absent	K189R	0.0	12497
+189	substitution	substitution absent	N189K	-0.008332199061736	12389
+189	substitution	substitution absent	N189S	0.0	12497
+189	substitution	substitution present	K189N	1.723830069320181	67
+189	substitution	substitution present	K189R	0.0	3
+189	substitution	substitution present	N189K	0.8572578113898663	111
+189	substitution	substitution present	N189S	0.0	3
+190	site-state	change	no	-0.0003033293060759	12365
+190	site-state	change	yes	0.0254014855260547	135
+190	site-state	sera aa	D	0.0	12430
+190	site-state	sera aa	N	0.0	70
+190	site-state	virus aa	D	-2.7662213214332997e-06	12375
+190	site-state	virus aa	G	0.0	2
+190	site-state	virus aa	N	0.0	123
+190	substitution	substitution absent	D190G	0.0	12498
+190	substitution	substitution absent	D190N	0.0002710434353114	12407
+190	substitution	substitution absent	N190D	-0.0001552303848739	12460
+190	substitution	substitution present	D190G	0.0	2
+190	substitution	substitution present	D190N	-0.0077755557293499	93
+190	substitution	substitution present	N190D	0.0496403895131414	40
+191	site-state	change	no	0.0	12499
+191	site-state	change	yes	0.0	1
+191	site-state	sera aa	Q	0.0	12500
+191	site-state	virus aa	P	0.0	1
+191	site-state	virus aa	Q	0.0	12499
+191	substitution	substitution absent	Q191P	0.0	12499
+191	substitution	substitution present	Q191P	0.0	1
+192	site-state	change	no	-0.0001079974530872	12415
+192	site-state	change	yes	0.0213259519398611	82
+192	site-state	sera aa	I	0.0	12490
+192	site-state	sera aa	T	0.0	10
+192	site-state	virus aa	F	0.0	9
+192	site-state	virus aa	I	-0.0002395111612629	12407
+192	site-state	virus aa	N	0.0	12
+192	site-state	virus aa	S	0.0	4
+192	site-state	virus aa	T	-0.0258073999100235	56
+192	site-state	virus aa	V	0.0	9
+192	substitution	substitution absent	I192F	0.0	12491
+192	substitution	substitution absent	I192N	-9.623784558457842e-05	12488
+192	substitution	substitution absent	I192S	0.0	12496
+192	substitution	substitution absent	I192T	5.685334611136058e-05	12453
+192	substitution	substitution absent	I192V	-2.5647465066187272e-05	12491
+192	substitution	substitution absent	T192I	0.0	12499
+192	substitution	substitution present	I192F	0.0	9
+192	substitution	substitution present	I192N	0.0403264174005548	12
+192	substitution	substitution present	I192S	0.0	4
+192	substitution	substitution present	I192T	-0.0312306809726133	47
+192	substitution	substitution present	I192V	0.0	9
+192	substitution	substitution present	T192I	0.0	1
+193	site-state	change	no	-0.0141511782888504	11508
+193	site-state	change	yes	0.1870355637173532	986
+193	site-state	sera aa	F	-0.0009738844802404	11372
+193	site-state	sera aa	S	-0.0222318301828175	1123
+193	site-state	sera aa	Y	0.0	5
+193	site-state	virus aa	F	0.0006528598881225	11362
+193	site-state	virus aa	S	-0.0045987827572545	1123
+193	site-state	virus aa	Y	0.0	9
+193	substitution	substitution absent	F193S	-0.001570242049963	12014
+193	substitution	substitution absent	F193Y	0.0	12491
+193	substitution	substitution absent	S193F	-0.0155117610059146	12014
+193	substitution	substitution absent	S193N	0.0	12500
+193	substitution	substitution absent	Y193F	0.0	12495
+193	substitution	substitution present	F193S	0.0327054292108454	486
+193	substitution	substitution present	F193Y	0.0	9
+193	substitution	substitution present	S193F	0.3719919814916627	486
+193	substitution	substitution present	Y193F	0.0	5
+194	site-state	change	no	3.290211493288367e-05	12375
+194	site-state	change	yes	0.0047850243023875	124
+194	site-state	sera aa	I	0.0	9
+194	site-state	sera aa	L	4.7878123653563366e-05	12415
+194	site-state	sera aa	P	0.0	76
+194	site-state	virus aa	I	0.0	5
+194	site-state	virus aa	L	0.0001585200257445	12418
+194	site-state	virus aa	P	-0.117056698682488	76
+194	substitution	substitution absent	I194L	0.0	12494
+194	substitution	substitution absent	L194I	0.0	12498
+194	substitution	substitution absent	L194P	0.0001304292092043	12442
+194	substitution	substitution absent	P194L	2.217054235034986e-05	12442
+194	substitution	substitution present	I194L	0.0	6
+194	substitution	substitution present	L194I	0.0	2
+194	substitution	substitution present	L194P	-0.1512966288340736	58
+194	substitution	substitution present	P194L	0.0144867459461742	58
+195	site-state	change	no	0.0005045811842843	12408
+195	site-state	change	yes	-0.1307777530980748	92
+195	site-state	sera aa	F	0.0	61
+195	site-state	sera aa	Y	0.0	12439
+195	site-state	virus aa	F	0.0066081027273566	79
+195	site-state	virus aa	H	0.0	4
+195	site-state	virus aa	N	0.0	2
+195	site-state	virus aa	Y	0.0006214880626254	12415
+195	substitution	substitution absent	F195Y	0.0008581132051177	12466
+195	substitution	substitution absent	Y195F	0.0001942975373481	12448
+195	substitution	substitution absent	Y195H	0.0	12496
+195	substitution	substitution absent	Y195N	0.0	12498
+195	substitution	substitution present	F195Y	-0.1622664150172663	34
+195	substitution	substitution present	Y195F	-0.1373417476458278	52
+195	substitution	substitution present	Y195H	0.0	4
+195	substitution	substitution present	Y195N	0.0	2
+196	site-state	change	no	0.0	12500
+196	site-state	sera aa	A	0.0	12500
+196	site-state	virus aa	A	0.0	12500
+196	substitution	substitution absent	A196T	0.0	12500
+196	substitution	substitution absent	T196A	0.0	12500
+197	site-state	change	no	-0.0047888136182305	11539
+197	site-state	change	yes	0.0115738970025234	958
+197	site-state	sera aa	H	-0.4512213093358167	222
+197	site-state	sera aa	Q	0.0001163701640978	11995
+197	site-state	sera aa	R	0.0120329451967217	283
+197	site-state	virus aa	H	-0.0322369510159743	249
+197	site-state	virus aa	K	-0.0119883665865645	84
+197	site-state	virus aa	Q	0.0128937302080537	11921
+197	site-state	virus aa	R	0.0002590033280875	243
+197	substitution	substitution absent	H197K	0.0	12498
+197	substitution	substitution absent	H197Q	0.0036089793506636	12313
+197	substitution	substitution absent	H197R	-2.3161775974536424e-05	12485
+197	substitution	substitution absent	Q197H	0.0037440060682623	12280
+197	substitution	substitution absent	Q197K	0.0012856922719877	12427
+197	substitution	substitution absent	Q197R	0.0029136389445037	12297
+197	substitution	substitution absent	R197H	9.12790645590034e-05	12488
+197	substitution	substitution absent	R197K	-4.110572218252553e-05	12491
+197	substitution	substitution absent	R197Q	-0.0049356146313029	12263
+197	substitution	substitution present	H197K	0.0	2
+197	substitution	substitution present	H197Q	-0.8331550701663176	187
+197	substitution	substitution present	H197R	0.0014305061530586	15
+197	substitution	substitution present	Q197H	-0.1508861491851272	220
+197	substitution	substitution present	Q197K	-0.1865143762109335	73
+197	substitution	substitution present	Q197R	-0.0899302367890263	203
+197	substitution	substitution present	R197H	0.0	12
+197	substitution	substitution present	R197K	0.0	9
+197	substitution	substitution present	R197Q	0.2137955443065223	237
+198	site-state	change	no	-2.0652312938307668e-05	10389
+198	site-state	change	yes	0.004641329483693	2102
+198	site-state	sera aa	A	-0.0013585072128753	3124
+198	site-state	sera aa	P	0.0074491940165045	80
+198	site-state	sera aa	S	0.0009652300292955	9296
+198	site-state	virus aa	A	-0.0029513244912867	2738
+198	site-state	virus aa	P	-0.0340122735992436	376
+198	site-state	virus aa	Q	0.0	1
+198	site-state	virus aa	S	0.0008406968565409	9374
+198	site-state	virus aa	T	0.0	2
+198	substitution	substitution absent	A198E	0.0	12500
+198	substitution	substitution absent	A198P	2.477477310769868e-05	12488
+198	substitution	substitution absent	A198S	0.0015839038315185	11466
+198	substitution	substitution absent	A198T	0.0	12498
+198	substitution	substitution absent	P198A	0.0	12499
+198	substitution	substitution absent	P198S	-0.0001228879688296	12449
+198	substitution	substitution absent	S198A	0.0005219031706621	11835
+198	substitution	substitution absent	S198P	0.0021709875316765	12164
+198	substitution	substitution absent	S198Q	0.0	12499
+198	substitution	substitution present	A198P	-0.0027585325944745	12
+198	substitution	substitution present	A198S	0.0086431731064625	1034
+198	substitution	substitution present	A198T	0.0	2
+198	substitution	substitution present	P198A	0.0	1
+198	substitution	substitution present	P198S	0.0181369679334987	51
+198	substitution	substitution present	S198A	0.0018720015606447	665
+198	substitution	substitution present	S198P	-0.0418293683162797	336
+198	substitution	substitution present	S198Q	0.0	1
+199	site-state	change	no	0.0014038609926624	12022
+199	site-state	change	yes	-0.01947895397905	478
+199	site-state	sera aa	P	-0.0749079820853569	169
+199	site-state	sera aa	S	0.0	12331
+199	site-state	virus aa	A	-0.005366128847687	263
+199	site-state	virus aa	P	0.0001648128226492	106
+199	site-state	virus aa	S	0.0019366745326534	12125
+199	site-state	virus aa	T	0.0	6
+199	substitution	substitution absent	P199S	0.0026035020828539	12364
+199	substitution	substitution absent	S199A	0.0006191639122473	12237
+199	substitution	substitution absent	S199L	0.0	12500
+199	substitution	substitution absent	S199P	-0.0004965706812531	12427
+199	substitution	substitution absent	S199T	0.0	12494
+199	substitution	substitution present	P199S	-0.2099010492264305	136
+199	substitution	substitution present	S199A	-0.0403802160332961	263
+199	substitution	substitution present	S199P	-0.2288372006782126	73
+199	substitution	substitution present	S199T	0.0	6
+200	site-state	change	no	0.0	12500
+200	site-state	sera aa	G	0.0	12500
+200	site-state	virus aa	G	0.0	12500
+201	site-state	change	no	-1.80648692196584e-05	12491
+201	site-state	change	yes	0.0010187287106707	9
+201	site-state	sera aa	R	0.0	12500
+201	site-state	virus aa	I	0.0	4
+201	site-state	virus aa	K	0.0	5
+201	site-state	virus aa	R	0.0	12491
+201	substitution	substitution absent	R201I	0.0	12496
+201	substitution	substitution absent	R201K	0.0	12495
+201	substitution	substitution present	R201I	0.0	4
+201	substitution	substitution present	R201K	0.0	5
+202	site-state	change	no	0.0001867654995054	12478
+202	site-state	change	yes	-0.0662559674958123	22
+202	site-state	sera aa	I	0.0	12485
+202	site-state	sera aa	V	0.0	15
+202	site-state	virus aa	F	0.0	2
+202	site-state	virus aa	I	3.4023925993693375e-05	12463
+202	site-state	virus aa	T	0.0	8
+202	site-state	virus aa	V	-0.0138983755650752	27
+202	substitution	substitution absent	I202F	0.0	12498
+202	substitution	substitution absent	I202T	0.0	12492
+202	substitution	substitution absent	I202V	0.0002951526732231	12488
+202	substitution	substitution present	I202F	0.0	2
+202	substitution	substitution present	I202T	0.0	8
+202	substitution	substitution present	I202V	-0.2855050203405161	12
+203	site-state	change	no	-0.0004278618478064	12491
+203	site-state	change	yes	0.0	3
+203	site-state	sera aa	T	0.0	12500
+203	site-state	virus aa	I	0.0	3
+203	site-state	virus aa	T	0.0	12491
+203	substitution	substitution absent	T203I	0.0	12497
+203	substitution	substitution present	T203I	0.0	3
+204	site-state	change	no	0.0	12493
+204	site-state	change	yes	0.0	7
+204	site-state	sera aa	V	0.0	12500
+204	site-state	virus aa	I	0.0	7
+204	site-state	virus aa	V	0.0	12493
+204	substitution	substitution absent	V204I	0.0	12493
+204	substitution	substitution present	V204I	0.0	7
+205	site-state	change	no	0.0	12500
+205	site-state	sera aa	S	0.0	12500
+205	site-state	virus aa	S	0.0	12500
+206	site-state	change	no	0.0	12500
+206	site-state	sera aa	T	0.0	12500
+206	site-state	virus aa	T	0.0	12500
+207	site-state	change	no	-1.2519364674931467e-05	12427
+207	site-state	change	yes	0.0003476523276227	73
+207	site-state	sera aa	K	0.0	12496
+207	site-state	sera aa	R	0.0	4
+207	site-state	virus aa	E	0.0	2
+207	site-state	virus aa	K	-1.9224841995563107e-05	12429
+207	site-state	virus aa	Q	0.0	9
+207	site-state	virus aa	R	-0.035555034084758	60
+207	substitution	substitution absent	K207E	0.0	12498
+207	substitution	substitution absent	K207Q	0.0	12491
+207	substitution	substitution absent	K207R	-8.975424183166614e-07	12441
+207	substitution	substitution absent	R207K	0.0	12497
+207	substitution	substitution present	K207E	0.0	2
+207	substitution	substitution present	K207Q	0.0	9
+207	substitution	substitution present	K207R	0.0306082548323626	59
+207	substitution	substitution present	R207K	0.0	3
+208	site-state	change	no	0.0004891737185639	11644
+208	site-state	change	yes	-0.0031694391254978	854
+208	site-state	sera aa	K	-0.0070938572995221	713
+208	site-state	sera aa	R	0.0	11787
+208	site-state	virus aa	G	0.0	2
+208	site-state	virus aa	I	0.0	7
+208	site-state	virus aa	K	0.0056844762508964	225
+208	site-state	virus aa	R	-0.0007610245995032	12264
+208	substitution	substitution absent	K208I	0.0	12499
+208	substitution	substitution absent	K208R	0.0013680327965193	11834
+208	substitution	substitution absent	R208G	0.0	12498
+208	substitution	substitution absent	R208I	0.0	12494
+208	substitution	substitution absent	R208K	-0.0015771697527464	12321
+208	substitution	substitution present	K208I	0.0	1
+208	substitution	substitution present	K208R	-0.0032799799500461	666
+208	substitution	substitution present	R208G	0.0	2
+208	substitution	substitution present	R208I	0.0	6
+208	substitution	substitution present	R208K	0.015805249884677	179
+209	site-state	change	no	4.224513558937458e-05	12481
+209	site-state	change	yes	-0.0195671390060728	19
+209	site-state	sera aa	N	0.0	14
+209	site-state	sera aa	S	0.0	12486
+209	site-state	virus aa	G	0.0	2
+209	site-state	virus aa	N	0.0	7
+209	site-state	virus aa	S	0.0002324343442993	12491
+209	substitution	substitution absent	N209S	0.0	12488
+209	substitution	substitution absent	S209G	0.0	12498
+209	substitution	substitution absent	S209N	0.0	12495
+209	substitution	substitution present	N209S	0.0	12
+209	substitution	substitution present	S209G	0.0	2
+209	substitution	substitution present	S209N	0.0	5
+210	site-state	change	no	0.0	12500
+210	site-state	sera aa	Q	0.0	12500
+210	site-state	virus aa	Q	0.0	12500
+211	site-state	change	no	0.0	12498
+211	site-state	change	yes	0.0	2
+211	site-state	sera aa	Q	0.0	12500
+211	site-state	virus aa	K	0.0	2
+211	site-state	virus aa	Q	0.0	12498
+211	substitution	substitution absent	Q211K	0.0	12498
+211	substitution	substitution present	Q211K	0.0	2
+212	site-state	change	no	0.0029224556905615	12264
+212	site-state	change	yes	-0.1248108765410644	236
+212	site-state	sera aa	A	0.0003585240065856	10911
+212	site-state	sera aa	T	0.0	1589
+212	site-state	virus aa	A	0.0009319902569146	10827
+212	site-state	virus aa	S	-0.039445515323799	82
+212	site-state	virus aa	T	-0.0027727411372876	1591
+212	substitution	substitution absent	A212S	0.0008067851480401	12418
+212	substitution	substitution absent	A212T	0.0013104638205166	12422
+212	substitution	substitution absent	T212A	0.0009936370176481	12424
+212	substitution	substitution present	A212S	-0.1071999692248793	82
+212	substitution	substitution present	A212T	-0.1984031344650176	78
+212	substitution	substitution present	T212A	-0.1187000310580523	76
+213	site-state	change	no	0.0008982374415955	12372
+213	site-state	change	yes	-0.0078471041076909	128
+213	site-state	sera aa	A	0.0763971313216639	78
+213	site-state	sera aa	V	0.0	12422
+213	site-state	virus aa	A	-0.0968369383402732	69
+213	site-state	virus aa	I	0.0	5
+213	site-state	virus aa	V	-5.30502778698324e-06	12426
+213	substitution	substitution absent	A213V	0.0012131457049551	12434
+213	substitution	substitution absent	V213A	0.0020424876346499	12443
+213	substitution	substitution absent	V213I	0.0	12495
+213	substitution	substitution present	A213V	-0.1354233804722617	66
+213	substitution	substitution present	V213A	-0.3590406087233103	57
+213	substitution	substitution present	V213I	0.0	5
+214	site-state	change	no	-0.0005796700439057	12315
+214	site-state	change	yes	0.0344962430194871	185
+214	site-state	sera aa	I	0.0	12489
+214	site-state	sera aa	T	0.0	11
+214	site-state	virus aa	I	-7.013718762835928e-05	12324
+214	site-state	virus aa	S	0.0	2
+214	site-state	virus aa	T	0.0269021847390717	159
+214	site-state	virus aa	V	0.0	15
+214	substitution	substitution absent	I214S	0.0	12498
+214	substitution	substitution absent	I214T	-0.0011542863136689	12342
+214	substitution	substitution absent	I214V	0.0001013707355349	12485
+214	substitution	substitution absent	T214I	0.0	12490
+214	substitution	substitution present	I214S	0.0	2
+214	substitution	substitution present	I214T	0.0930819897535947	158
+214	substitution	substitution present	I214V	0.0	15
+214	substitution	substitution present	T214I	0.0	10
+215	site-state	change	no	0.0	12500
+215	site-state	sera aa	P	0.0	12500
+215	site-state	virus aa	P	0.0	12500
+216	site-state	change	no	-0.0003279274702741	12490
+216	site-state	change	yes	0.3602175034908196	10
+216	site-state	sera aa	N	0.0	12500
+216	site-state	virus aa	H	0.0	2
+216	site-state	virus aa	I	0.0	4
+216	site-state	virus aa	N	0.0	12490
+216	site-state	virus aa	S	0.0	4
+216	substitution	substitution absent	N216H	0.0	12498
+216	substitution	substitution absent	N216I	0.0	12496
+216	substitution	substitution absent	N216S	0.0	12496
+216	substitution	substitution present	N216H	0.0	2
+216	substitution	substitution present	N216I	0.0	4
+216	substitution	substitution present	N216S	0.0	4
+217	site-state	change	no	0.0	12494
+217	site-state	change	yes	0.0	6
+217	site-state	sera aa	I	0.0	12500
+217	site-state	virus aa	I	0.0	12494
+217	site-state	virus aa	S	0.0	3
+217	site-state	virus aa	T	0.0	3
+217	substitution	substitution absent	I217S	0.0	12497
+217	substitution	substitution absent	I217T	0.0	12497
+217	substitution	substitution absent	I217V	0.0	12500
+217	substitution	substitution present	I217S	0.0	3
+217	substitution	substitution present	I217T	0.0	3
+218	site-state	change	no	0.0	12493
+218	site-state	change	yes	0.0	7
+218	site-state	sera aa	G	0.0	12497
+218	site-state	sera aa	R	0.0	3
+218	site-state	virus aa	G	0.0	12494
+218	site-state	virus aa	R	0.0	6
+218	substitution	substitution absent	G218R	0.0	12495
+218	substitution	substitution absent	R218G	0.0	12498
+218	substitution	substitution present	G218R	0.0	5
+218	substitution	substitution present	R218G	0.0	2
+219	site-state	change	no	0.0004779198464615	11925
+219	site-state	change	yes	-0.0023023672810282	572
+219	site-state	sera aa	F	-0.0021495301298286	380
+219	site-state	sera aa	S	0.0	12120
+219	site-state	virus aa	F	-0.110544906264523	259
+219	site-state	virus aa	S	0.0007762756337702	12208
+219	site-state	virus aa	Y	-0.0353521083062009	30
+219	substitution	substitution absent	F219S	-0.0011885460516885	12169
+219	substitution	substitution absent	F219Y	0.0	12499
+219	substitution	substitution absent	S219F	0.0020512071636452	12289
+219	substitution	substitution absent	S219Y	6.086886914130373e-05	12471
+219	substitution	substitution present	F219S	0.0531818307513574	331
+219	substitution	substitution present	F219Y	0.0	1
+219	substitution	substitution present	S219F	-0.0787015619951638	211
+219	substitution	substitution present	S219Y	-0.0444397145695699	29
+220	site-state	change	no	0.0	12489
+220	site-state	change	yes	0.0	11
+220	site-state	sera aa	I	0.0	5
+220	site-state	sera aa	R	0.0	12493
+220	site-state	sera aa	S	0.0	2
+220	site-state	virus aa	I	0.0	1
+220	site-state	virus aa	K	0.0	5
+220	site-state	virus aa	R	0.0	12492
+220	site-state	virus aa	S	0.0	2
+220	substitution	substitution absent	I220R	0.0	12496
+220	substitution	substitution absent	R220I	0.0	12500
+220	substitution	substitution absent	R220K	0.0	12495
+220	substitution	substitution absent	R220S	0.0	12499
+220	substitution	substitution absent	S220R	0.0	12499
+220	substitution	substitution present	I220R	0.0	4
+220	substitution	substitution present	R220K	0.0	5
+220	substitution	substitution present	R220S	0.0	1
+220	substitution	substitution present	S220R	0.0	1
+221	site-state	change	no	-0.001466103749368	12428
+221	site-state	change	yes	0.222265004311272	33
+221	site-state	sera aa	P	0.0	12500
+221	site-state	virus aa	L	-0.0154239688115343	30
+221	site-state	virus aa	P	0.0	12428
+221	site-state	virus aa	S	0.0	3
+221	substitution	substitution absent	P221L	-0.0006348861768135	12470
+221	substitution	substitution absent	P221S	0.0	12497
+221	substitution	substitution present	P221L	0.3332558781107366	30
+221	substitution	substitution present	P221S	0.0	3
+222	site-state	change	no	0.0	12493
+222	site-state	change	yes	0.0	7
+222	site-state	sera aa	R	0.0	12485
+222	site-state	sera aa	W	0.0	15
+222	site-state	virus aa	I	0.0	2
+222	site-state	virus aa	K	0.0	5
+222	site-state	virus aa	R	-0.0004880671113543	12478
+222	site-state	virus aa	W	0.0	15
+222	substitution	substitution absent	R222I	0.0	12498
+222	substitution	substitution absent	R222K	0.0	12495
+222	substitution	substitution present	R222I	0.0	2
+222	substitution	substitution present	R222K	0.0	5
+223	site-state	change	no	0.0002984573916109	11325
+223	site-state	change	yes	-8.619777473219967e-05	1021
+223	site-state	sera aa	I	0.0002250782244819	10032
+223	site-state	sera aa	V	0.0010795418794727	2316
+223	site-state	virus aa	I	-0.00086817708987	10241
+223	site-state	virus aa	V	0.0013096659722091	2257
+223	substitution	substitution absent	I223V	-0.0006636515545334	12018
+223	substitution	substitution absent	V223I	0.0001656856585006	11961
+223	substitution	substitution present	I223V	0.0060291514162367	482
+223	substitution	substitution present	V223I	-0.0105680535874927	539
+224	site-state	change	no	0.0	12500
+224	site-state	sera aa	R	0.0	12500
+224	site-state	virus aa	R	0.0	12500
+225	site-state	change	no	-0.0716729194570739	9743
+225	site-state	change	yes	0.2521011952721192	2728
+225	site-state	sera aa	D	-0.0011157693918612	6443
+225	site-state	sera aa	G	0.0	15
+225	site-state	sera aa	N	0.0003603873623475	6042
+225	site-state	virus aa	D	0.0225363698467172	5905
+225	site-state	virus aa	G	-0.2681308083757516	15
+225	site-state	virus aa	N	-0.0168751312504446	6551
+225	substitution	substitution absent	D225G	0.0	12500
+225	substitution	substitution absent	D225N	-0.0081235371993355	10871
+225	substitution	substitution absent	N225D	-0.0698773994549873	11401
+225	substitution	substitution present	D225N	0.0508888328838419	1629
+225	substitution	substitution present	N225D	0.8312104475227461	1099
+226	site-state	change	no	-2.6795405413767756e-05	12488
+226	site-state	change	yes	0.0	12
+226	site-state	sera aa	I	-8.257190047073474e-07	12488
+226	site-state	sera aa	V	0.0023382317607854	12
+226	site-state	virus aa	I	2.4262145574182692e-05	12480
+226	site-state	virus aa	S	0.0	9
+226	site-state	virus aa	V	0.0	11
+226	substitution	substitution absent	I226S	-3.022243227581624e-05	12491
+226	substitution	substitution absent	I226V	0.0	12499
+226	substitution	substitution absent	V226I	0.0	12498
+226	substitution	substitution present	I226S	0.0	9
+226	substitution	substitution present	I226V	0.0	1
+226	substitution	substitution present	V226I	0.0	2
+227	site-state	change	no	-2.845681352199698e-05	12457
+227	site-state	change	yes	-0.0714724848323522	40
+227	site-state	sera aa	P	0.0	12440
+227	site-state	sera aa	S	0.0	60
+227	site-state	virus aa	H	0.0	4
+227	site-state	virus aa	P	-0.000287372472163	12451
+227	site-state	virus aa	S	0.2276708100868249	42
+227	substitution	substitution absent	P227H	0.0	12496
+227	substitution	substitution absent	P227S	-0.0009099499297118	12491
+227	substitution	substitution absent	S227P	0.0002270893243502	12473
+227	substitution	substitution present	P227H	0.0	4
+227	substitution	substitution present	P227S	0.1319622920690753	9
+227	substitution	substitution present	S227P	-0.1653373284507783	27
+228	site-state	change	no	0.0	12500
+228	site-state	sera aa	S	0.0	12500
+228	site-state	virus aa	S	0.0	12500
+229	site-state	change	no	0.0	12496
+229	site-state	change	yes	0.0	4
+229	site-state	sera aa	R	0.0	12500
+229	site-state	virus aa	I	0.0	4
+229	site-state	virus aa	R	0.0	12496
+229	substitution	substitution absent	R229I	0.0	12496
+229	substitution	substitution present	R229I	0.0	4
+230	site-state	change	no	0.0001529737017438	11445
+230	site-state	change	yes	-0.0121643875821435	1054
+230	site-state	sera aa	I	0.0	11778
+230	site-state	sera aa	V	0.0	722
+230	site-state	virus aa	I	-4.785481821425432e-06	11845
+230	site-state	virus aa	M	0.0	3
+230	site-state	virus aa	V	0.0	651
+230	substitution	substitution absent	I230M	0.0	12497
+230	substitution	substitution absent	I230V	0.0005158262084302	12010
+230	substitution	substitution absent	V230I	0.0006315271204518	11939
+230	substitution	substitution present	I230M	0.0	3
+230	substitution	substitution present	I230V	-0.0575264540798549	490
+230	substitution	substitution present	V230I	-0.0436097970338592	561
+231	site-state	change	no	0.0	12500
+231	site-state	sera aa	S	0.0	12500
+231	site-state	virus aa	S	0.0	12500
+232	site-state	change	no	0.0	12496
+232	site-state	change	yes	0.0	4
+232	site-state	sera aa	I	0.0	12500
+232	site-state	virus aa	F	0.0	4
+232	site-state	virus aa	I	0.0	12496
+232	substitution	substitution absent	I232F	0.0	12496
+232	substitution	substitution present	I232F	0.0	4
+233	site-state	change	no	0.0	12495
+233	site-state	change	yes	0.0	5
+233	site-state	sera aa	Y	0.0	12500
+233	site-state	virus aa	H	0.0	5
+233	site-state	virus aa	Y	0.0	12495
+233	substitution	substitution absent	Y233H	0.0	12495
+233	substitution	substitution present	Y233H	0.0	5
+234	site-state	change	no	0.0	12500
+234	site-state	sera aa	W	0.0	12500
+234	site-state	virus aa	W	0.0	12500
+235	site-state	change	no	0.0	12500
+235	site-state	sera aa	T	0.0	12500
+235	site-state	virus aa	T	0.0	12500
+236	site-state	change	no	0.0	12494
+236	site-state	change	yes	0.0	6
+236	site-state	sera aa	I	0.0	12500
+236	site-state	virus aa	I	0.0	12494
+236	site-state	virus aa	T	0.0	2
+236	site-state	virus aa	V	0.0	4
+236	substitution	substitution absent	I236T	0.0	12498
+236	substitution	substitution absent	I236V	0.0	12496
+236	substitution	substitution present	I236T	0.0	2
+236	substitution	substitution present	I236V	0.0	4
+237	site-state	change	no	0.0	12498
+237	site-state	sera aa	V	0.0	12500
+237	site-state	virus aa	V	0.0	12498
+238	site-state	change	no	0.0	12497
+238	site-state	change	yes	0.0	3
+238	site-state	sera aa	K	0.0	12500
+238	site-state	virus aa	K	0.0	12497
+238	site-state	virus aa	N	0.0	1
+238	site-state	virus aa	R	0.0	2
+238	substitution	substitution absent	K238N	0.0	12499
+238	substitution	substitution absent	K238R	0.0	12498
+238	substitution	substitution present	K238N	0.0	1
+238	substitution	substitution present	K238R	0.0	2
+239	site-state	change	no	0.0	12496
+239	site-state	change	yes	0.0	4
+239	site-state	sera aa	P	0.0	12500
+239	site-state	virus aa	P	0.0	12496
+239	site-state	virus aa	S	0.0	4
+239	substitution	substitution absent	P239S	0.0	12496
+239	substitution	substitution present	P239S	0.0	4
+240	site-state	change	no	0.0	12487
+240	site-state	change	yes	0.0	13
+240	site-state	sera aa	G	0.0	12500
+240	site-state	virus aa	G	0.0	12487
+240	site-state	virus aa	R	0.0	13
+240	substitution	substitution absent	G240R	1.8203010308627455e-06	12487
+240	substitution	substitution present	G240R	0.0	13
+241	site-state	change	no	-5.8355505246717314e-05	12200
+241	site-state	change	yes	0.002159051237594	300
+241	site-state	sera aa	D	0.0	12249
+241	site-state	sera aa	R	0.0	251
+241	site-state	virus aa	D	1.4198247134959e-05	12389
+241	site-state	virus aa	R	0.0	111
+241	substitution	substitution absent	D241R	-0.0068649594973963	12420
+241	substitution	substitution absent	R241D	-0.0022847883195428	12280
+241	substitution	substitution present	D241R	0.0	80
+241	substitution	substitution present	R241D	0.071299374451191	220
+242	site-state	change	no	8.417618072714842e-05	12165
+242	site-state	change	yes	-0.0223909329283631	335
+242	site-state	sera aa	H	0.0	251
+242	site-state	sera aa	I	0.0	12249
+242	site-state	virus aa	H	0.0	111
+242	site-state	virus aa	I	-0.0001950710156346	12354
+242	site-state	virus aa	L	0.0	6
+242	site-state	virus aa	M	0.2254885500987362	21
+242	site-state	virus aa	T	0.0	2
+242	site-state	virus aa	V	0.0	6
+242	substitution	substitution absent	H242I	1.2648340618801668e-05	12280
+242	substitution	substitution absent	H242M	0.0	12500
+242	substitution	substitution absent	I242H	0.0	12420
+242	substitution	substitution absent	I242L	0.0	12494
+242	substitution	substitution absent	I242M	-0.0002098668000875	12479
+242	substitution	substitution absent	I242T	0.0	12498
+242	substitution	substitution absent	I242V	0.0	12494
+242	substitution	substitution present	H242I	-0.000164319740821	220
+242	substitution	substitution present	I242H	0.0	80
+242	substitution	substitution present	I242L	0.0	6
+242	substitution	substitution present	I242M	0.1378815475927083	21
+242	substitution	substitution present	I242T	0.0	2
+242	substitution	substitution present	I242V	0.0	6
+243	site-state	change	no	0.0	12188
+243	site-state	change	yes	0.0	308
+243	site-state	sera aa	L	0.0	12249
+243	site-state	sera aa	T	0.0	251
+243	site-state	virus aa	F	0.0	3
+243	site-state	virus aa	I	0.0	5
+243	site-state	virus aa	L	0.0	12377
+243	site-state	virus aa	T	0.0	111
+243	substitution	substitution absent	L243F	0.0	12497
+243	substitution	substitution absent	L243I	0.0	12495
+243	substitution	substitution absent	L243T	0.0	12420
+243	substitution	substitution absent	T243I	0.0	12500
+243	substitution	substitution absent	T243L	0.0001259683497387	12280
+243	substitution	substitution present	L243F	0.0	3
+243	substitution	substitution present	L243I	0.0	5
+243	substitution	substitution present	L243T	0.0	80
+243	substitution	substitution present	T243L	-0.0026700454969156	220
+244	site-state	change	no	0.0	12200
+244	site-state	change	yes	0.0	300
+244	site-state	sera aa	F	0.0	251
+244	site-state	sera aa	L	0.0	12249
+244	site-state	virus aa	F	0.0	111
+244	site-state	virus aa	L	0.0	12389
+244	substitution	substitution absent	F244L	0.0	12280
+244	substitution	substitution absent	L244F	0.0	12420
+244	substitution	substitution present	F244L	0.0	220
+244	substitution	substitution present	L244F	0.0	80
+245	site-state	change	no	1.303908751052172e-05	12198
+245	site-state	change	yes	-0.0034794374955779	302
+245	site-state	sera aa	D	0.0	251
+245	site-state	sera aa	I	0.0	12249
+245	site-state	virus aa	D	0.0	111
+245	site-state	virus aa	I	0.0	12387
+245	site-state	virus aa	V	0.0	2
+245	substitution	substitution absent	D245I	0.0	12280
+245	substitution	substitution absent	I245D	0.0	12420
+245	substitution	substitution absent	I245V	0.0	12498
+245	substitution	substitution present	D245I	0.0	220
+245	substitution	substitution present	I245D	0.0	80
+245	substitution	substitution present	I245V	0.0	2
+246	site-state	change	no	0.0	12197
+246	site-state	change	yes	0.0	303
+246	site-state	sera aa	N	0.0	12249
+246	site-state	sera aa	Q	0.0	251
+246	site-state	virus aa	N	0.0	12386
+246	site-state	virus aa	Q	0.0	111
+246	site-state	virus aa	S	0.0	3
+246	substitution	substitution absent	N246H	0.0	12500
+246	substitution	substitution absent	N246Q	0.0	12420
+246	substitution	substitution absent	N246S	0.0	12497
+246	substitution	substitution absent	Q246N	0.0	12280
+246	substitution	substitution present	N246Q	0.0	80
+246	substitution	substitution present	N246S	0.0	3
+246	substitution	substitution present	Q246N	0.0	220
+247	site-state	change	no	0.0	12198
+247	site-state	change	yes	0.0	302
+247	site-state	sera aa	H	0.0	251
+247	site-state	sera aa	S	0.0	12249
+247	site-state	virus aa	C	0.0	2
+247	site-state	virus aa	H	0.0	111
+247	site-state	virus aa	S	0.0	12387
+247	substitution	substitution absent	H247S	0.0	12280
+247	substitution	substitution absent	S247C	0.0	12498
+247	substitution	substitution absent	S247H	0.0	12420
+247	substitution	substitution present	H247S	0.0	220
+247	substitution	substitution present	S247C	0.0	2
+247	substitution	substitution present	S247H	0.0	80
+248	site-state	change	no	1.7659062174865843e-05	12188
+248	site-state	change	yes	-0.0051487965837771	302
+248	site-state	sera aa	R	0.0	251
+248	site-state	sera aa	T	0.0	12249
+248	site-state	virus aa	R	0.0	111
+248	site-state	virus aa	S	0.0	2
+248	site-state	virus aa	T	0.0	12377
+248	substitution	substitution absent	R248T	0.0	12280
+248	substitution	substitution absent	T248I	0.0	12500
+248	substitution	substitution absent	T248R	0.0	12420
+248	substitution	substitution absent	T248S	0.0	12498
+248	substitution	substitution present	R248T	0.0	220
+248	substitution	substitution present	T248R	0.0	80
+248	substitution	substitution present	T248S	0.0	2
+249	site-state	change	no	0.0	12500
+249	site-state	sera aa	G	0.0	12500
+249	site-state	virus aa	G	0.0	12500
+250	site-state	change	no	0.0	12500
+250	site-state	sera aa	N	0.0	12500
+250	site-state	virus aa	N	0.0	12500
+251	site-state	change	no	0.0	12498
+251	site-state	sera aa	L	0.0	12500
+251	site-state	virus aa	L	0.0	12498
+252	site-state	change	no	-7.24196259576176e-05	12479
+252	site-state	change	yes	0.0781825687325504	21
+252	site-state	sera aa	I	0.0	12500
+252	site-state	virus aa	I	0.0	12479
+252	site-state	virus aa	L	0.0	2
+252	site-state	virus aa	V	0.0207685735497002	19
+252	substitution	substitution absent	I252L	0.0	12498
+252	substitution	substitution absent	I252V	-8.68878051104529e-05	12481
+252	substitution	substitution present	I252L	0.0	2
+252	substitution	substitution present	I252V	0.0539912336388245	19
+253	site-state	change	no	0.0	12500
+253	site-state	sera aa	A	0.0	12500
+253	site-state	virus aa	A	0.0	12500
+254	site-state	change	no	0.0	12500
+254	site-state	sera aa	P	0.0	12500
+254	site-state	virus aa	P	0.0	12500
+255	site-state	change	no	0.0	12500
+255	site-state	sera aa	R	0.0	12500
+255	site-state	virus aa	R	0.0	12500
+256	site-state	change	no	0.0	12500
+256	site-state	sera aa	G	0.0	12500
+256	site-state	virus aa	G	0.0	12500
+257	site-state	change	no	0.0	12500
+257	site-state	sera aa	Y	0.0	12500
+257	site-state	virus aa	Y	0.0	12500
+258	site-state	change	no	0.0	12500
+258	site-state	sera aa	F	0.0	12500
+258	site-state	virus aa	F	0.0	12500
+259	site-state	change	no	0.0	12498
+259	site-state	change	yes	0.0	2
+259	site-state	sera aa	K	0.0	12500
+259	site-state	virus aa	K	0.0	12498
+259	site-state	virus aa	R	0.0	2
+259	substitution	substitution absent	K259R	0.0	12498
+259	substitution	substitution present	K259R	0.0	2
+260	site-state	change	no	0.0002188224685499	12435
+260	site-state	change	yes	-0.0514195152597077	65
+260	site-state	sera aa	I	0.0	12500
+260	site-state	virus aa	I	0.0	12435
+260	site-state	virus aa	L	0.0	8
+260	site-state	virus aa	M	-0.0262756157006386	36
+260	site-state	virus aa	V	-0.1460765436465736	21
+260	substitution	substitution absent	I260L	0.0	12492
+260	substitution	substitution absent	I260M	0.0006122357321119	12464
+260	substitution	substitution absent	I260V	0.0004291076495844	12479
+260	substitution	substitution present	I260L	0.0	8
+260	substitution	substitution present	I260M	-0.2726636178742188	36
+260	substitution	substitution present	I260V	-0.2629867879061143	21
+261	site-state	change	no	-0.0038914569174457	10875
+261	site-state	change	yes	0.0298648298858444	1621
+261	site-state	sera aa	Q	-0.0273925619117571	748
+261	site-state	sera aa	R	0.0	11752
+261	site-state	virus aa	L	0.0	7
+261	site-state	virus aa	Q	-0.0087093667801936	1118
+261	site-state	virus aa	R	0.000595873215564	11371
+261	substitution	substitution absent	Q261L	0.0	12500
+261	substitution	substitution absent	Q261R	0.0008791279856616	11878
+261	substitution	substitution absent	R261L	-0.000271396563746	12493
+261	substitution	substitution absent	R261Q	-0.0018191497449532	11508
+261	substitution	substitution present	Q261R	0.0046885625306549	622
+261	substitution	substitution present	R261L	0.0	7
+261	substitution	substitution present	R261Q	0.023758889898488	992
+262	site-state	change	no	-0.0007843277505717	12285
+262	site-state	change	yes	0.0319802596589987	214
+262	site-state	sera aa	N	0.0	9
+262	site-state	sera aa	S	0.0	12491
+262	site-state	virus aa	G	0.0	7
+262	site-state	virus aa	N	-0.0482071591066175	187
+262	site-state	virus aa	R	0.0	7
+262	site-state	virus aa	S	-0.0003908924303407	12292
+262	site-state	virus aa	T	0.0	6
+262	substitution	substitution absent	N262S	0.0	12492
+262	substitution	substitution absent	S262G	0.0	12493
+262	substitution	substitution absent	S262N	-4.4948622372286165e-05	12314
+262	substitution	substitution absent	S262R	0.0	12493
+262	substitution	substitution absent	S262T	0.0	12494
+262	substitution	substitution present	N262S	0.0	8
+262	substitution	substitution present	S262G	0.0	7
+262	substitution	substitution present	S262N	0.0014890459264984	186
+262	substitution	substitution present	S262R	0.0	7
+262	substitution	substitution present	S262T	0.0	6
+263	site-state	change	no	4.047067831207953e-05	12482
+263	site-state	change	yes	-0.0646317154848855	14
+263	site-state	sera aa	G	0.0	12500
+263	site-state	virus aa	E	0.0	10
+263	site-state	virus aa	G	0.0	12482
+263	site-state	virus aa	R	0.0	4
+263	substitution	substitution absent	G263E	0.0	12490
+263	substitution	substitution absent	G263R	0.0	12496
+263	substitution	substitution present	G263E	0.0	10
+263	substitution	substitution present	G263R	0.0	4
+264	site-state	change	no	-1.6678679480557474e-05	12442
+264	site-state	change	yes	0.01809519821059	58
+264	site-state	sera aa	K	0.0	12500
+264	site-state	virus aa	E	-0.2091002485017662	17
+264	site-state	virus aa	K	0.0	12442
+264	site-state	virus aa	N	0.0	2
+264	site-state	virus aa	Q	0.0	3
+264	site-state	virus aa	R	0.0284538675394308	36
+264	substitution	substitution absent	K264E	0.0005385023559187	12483
+264	substitution	substitution absent	K264N	0.0	12498
+264	substitution	substitution absent	K264Q	0.0	12497
+264	substitution	substitution absent	K264R	-6.491525156909997e-05	12464
+264	substitution	substitution present	K264E	-0.3495188098082304	17
+264	substitution	substitution present	K264N	0.0	2
+264	substitution	substitution present	K264Q	0.0	3
+264	substitution	substitution present	K264R	0.0211201252946841	36
+265	site-state	change	no	3.01226776436053e-06	12490
+265	site-state	change	yes	0.0	10
+265	site-state	sera aa	S	0.0	12500
+265	site-state	virus aa	G	0.0	9
+265	site-state	virus aa	N	0.0	1
+265	site-state	virus aa	S	0.0	12490
+265	substitution	substitution absent	S265G	0.0	12491
+265	substitution	substitution absent	S265N	0.0	12499
+265	substitution	substitution present	S265G	0.0	9
+265	substitution	substitution present	S265N	0.0	1
+266	site-state	change	no	0.0	12500
+266	site-state	sera aa	S	0.0	12500
+266	site-state	virus aa	S	0.0	12500
+267	site-state	change	no	0.0001840167415251	12478
+267	site-state	change	yes	-0.155223631533568	22
+267	site-state	sera aa	I	0.0	12500
+267	site-state	virus aa	I	0.0	12478
+267	site-state	virus aa	V	0.0	22
+267	substitution	substitution absent	I267V	0.0003998312933434	12478
+267	substitution	substitution present	I267V	-0.2776390948007872	22
+268	site-state	change	no	1.0237159514531484e-05	12488
+268	site-state	change	yes	-0.0171646214004573	12
+268	site-state	sera aa	M	0.0	12500
+268	site-state	virus aa	I	0.0	10
+268	site-state	virus aa	L	0.0	2
+268	site-state	virus aa	M	0.0	12488
+268	substitution	substitution absent	M268I	1.3280021821738831e-05	12490
+268	substitution	substitution absent	M268L	0.0	12498
+268	substitution	substitution present	M268I	-0.0124954684434127	10
+268	substitution	substitution present	M268L	0.0	2
+269	site-state	change	no	-0.0002224015816862	12409
+269	site-state	change	yes	0.0220988398684667	91
+269	site-state	sera aa	K	0.0	42
+269	site-state	sera aa	R	0.0	12458
+269	site-state	virus aa	K	0.0208378074521746	53
+269	site-state	virus aa	R	0.0	12447
+269	substitution	substitution absent	K269R	0.0	12460
+269	substitution	substitution absent	R269K	-0.0009290513983047	12449
+269	substitution	substitution present	K269R	0.0	40
+269	substitution	substitution present	R269K	0.2007384042586026	51
+270	site-state	change	no	0.0	12498
+270	site-state	change	yes	0.0	2
+270	site-state	sera aa	S	0.0	12500
+270	site-state	virus aa	S	0.0	12498
+270	site-state	virus aa	T	0.0	2
+270	substitution	substitution absent	S270T	0.0	12498
+270	substitution	substitution present	S270T	0.0	2
+271	site-state	change	no	0.0	12500
+271	site-state	sera aa	D	0.0	12500
+271	site-state	virus aa	D	0.0	12500
+272	site-state	change	no	0.0003420366320684	12451
+272	site-state	change	yes	-0.0281466902342451	49
+272	site-state	sera aa	A	0.0	12500
+272	site-state	virus aa	A	0.0	12451
+272	site-state	virus aa	S	0.0	1
+272	site-state	virus aa	T	-0.0490548016941902	48
+272	substitution	substitution absent	A272S	0.0	12499
+272	substitution	substitution absent	A272T	0.0004362816860208	12452
+272	substitution	substitution absent	A272V	0.0	12500
+272	substitution	substitution present	A272S	0.0	1
+272	substitution	substitution present	A272T	-0.0736990245196677	48
+273	site-state	change	no	0.0	12493
+273	site-state	change	yes	0.0	7
+273	site-state	sera aa	P	0.0	12500
+273	site-state	virus aa	L	0.0	1
+273	site-state	virus aa	P	0.0	12493
+273	site-state	virus aa	S	0.0	4
+273	site-state	virus aa	T	0.0	2
+273	substitution	substitution absent	P273L	0.0	12499
+273	substitution	substitution absent	P273S	0.0	12496
+273	substitution	substitution absent	P273T	0.0	12498
+273	substitution	substitution present	P273L	0.0	1
+273	substitution	substitution present	P273S	0.0	4
+273	substitution	substitution present	P273T	0.0	2
+274	site-state	change	no	0.0	12496
+274	site-state	change	yes	0.0	4
+274	site-state	sera aa	I	0.0	12500
+274	site-state	virus aa	I	0.0	12496
+274	site-state	virus aa	V	0.0	4
+274	substitution	substitution absent	I274V	0.0	12496
+274	substitution	substitution present	I274V	0.0	4
+275	site-state	change	no	-0.0003652660208925	12476
+275	site-state	change	yes	0.1314645208481443	24
+275	site-state	sera aa	G	0.0	12500
+275	site-state	virus aa	D	0.0	7
+275	site-state	virus aa	G	-5.225565201866529e-05	12476
+275	site-state	virus aa	S	0.0598057160857671	16
+275	site-state	virus aa	V	0.0	1
+275	substitution	substitution absent	G275D	0.0	12493
+275	substitution	substitution absent	G275S	-0.000476826200608	12484
+275	substitution	substitution absent	G275V	0.0	12499
+275	substitution	substitution present	G275D	0.0	7
+275	substitution	substitution present	G275S	0.2475649721374389	16
+275	substitution	substitution present	G275V	0.0	1
+276	site-state	change	no	-0.0018842453184624	12449
+276	site-state	change	yes	0.4006903607009037	51
+276	site-state	sera aa	K	0.0	12500
+276	site-state	virus aa	E	0.0	7
+276	site-state	virus aa	K	-0.0004996088491342	12449
+276	site-state	virus aa	N	0.2467315480001401	24
+276	site-state	virus aa	R	-0.0055329027816663	20
+276	substitution	substitution absent	K276E	0.0	12493
+276	substitution	substitution absent	K276N	-0.0020569896885147	12476
+276	substitution	substitution absent	K276R	-0.0007645071454703	12480
+276	substitution	substitution present	K276E	0.0	7
+276	substitution	substitution present	K276N	0.9778345456922884	24
+276	substitution	substitution present	K276R	0.4576674939673176	20
+277	site-state	change	no	0.0	12500
+277	site-state	sera aa	C	0.0	12500
+277	site-state	virus aa	C	0.0	12500
+278	site-state	change	no	-0.003900727230934	9969
+278	site-state	change	yes	0.0084642933360877	2531
+278	site-state	sera aa	K	0.0024869919891189	7335
+278	site-state	sera aa	N	-1.1505813409596785e-05	5165
+278	site-state	virus aa	D	0.0	1
+278	site-state	virus aa	E	0.0	3
+278	site-state	virus aa	K	-0.0072549654680639	8591
+278	site-state	virus aa	N	-0.0077930791046033	3892
+278	site-state	virus aa	R	0.0035480105771641	12
+278	site-state	virus aa	S	0.0	1
+278	substitution	substitution absent	K278E	0.0	12500
+278	substitution	substitution absent	K278N	-0.0029280126121527	11875
+278	substitution	substitution absent	K278R	0.0	12493
+278	substitution	substitution absent	K278S	0.0	12499
+278	substitution	substitution absent	N278D	0.0	12499
+278	substitution	substitution absent	N278E	0.0	12497
+278	substitution	substitution absent	N278K	0.0008249206610488	10611
+278	substitution	substitution absent	N278R	0.0	12495
+278	substitution	substitution absent	N278S	0.0	12500
+278	substitution	substitution present	K278N	0.0674397219334417	625
+278	substitution	substitution present	K278R	0.0	7
+278	substitution	substitution present	K278S	0.0	1
+278	substitution	substitution present	N278D	0.0	1
+278	substitution	substitution present	N278E	0.0	3
+278	substitution	substitution present	N278K	-0.0048826820660263	1889
+278	substitution	substitution present	N278R	0.0	5
+279	site-state	change	no	0.0001388197843225	12440
+279	site-state	change	yes	-0.0314079154051167	59
+279	site-state	sera aa	S	0.0	12500
+279	site-state	virus aa	A	0.0	1
+279	site-state	virus aa	S	0.0	12440
+279	site-state	virus aa	Y	-0.0133282609759903	58
+279	substitution	substitution absent	S279A	0.0	12499
+279	substitution	substitution absent	S279Y	0.0003011120139346	12442
+279	substitution	substitution present	S279A	0.0	1
+279	substitution	substitution present	S279Y	-0.0529302768670074	58
+280	site-state	change	no	-0.0003375909829207	11299
+280	site-state	change	yes	0.0039872541839904	1201
+280	site-state	sera aa	A	0.0	722
+280	site-state	sera aa	E	-3.9704223342316536e-05	11678
+280	site-state	sera aa	G	0.0	100
+280	site-state	virus aa	A	0.0234945134928254	630
+280	site-state	virus aa	E	-0.0002347287014963	11784
+280	site-state	virus aa	G	-0.0312843551510691	77
+280	site-state	virus aa	K	0.0	2
+280	site-state	virus aa	S	0.0	1
+280	site-state	virus aa	T	0.0	6
+280	substitution	substitution absent	A280E	-2.68863646136918e-05	11939
+280	substitution	substitution absent	A280G	0.0	12500
+280	substitution	substitution absent	A280S	0.0	12499
+280	substitution	substitution absent	A280T	0.0	12494
+280	substitution	substitution absent	E280A	-0.0020591924999729	12024
+280	substitution	substitution absent	E280G	0.0001411264495461	12434
+280	substitution	substitution absent	E280K	0.0	12498
+280	substitution	substitution absent	E280S	0.0	12500
+280	substitution	substitution absent	G280E	-0.0005666478748178	12411
+280	substitution	substitution present	A280E	0.0007142278625035	561
+280	substitution	substitution present	A280S	0.0	1
+280	substitution	substitution present	A280T	0.0	6
+280	substitution	substitution present	E280A	0.1037136762497081	476
+280	substitution	substitution present	E280G	-0.0286008565027417	66
+280	substitution	substitution present	E280K	0.0	2
+280	substitution	substitution present	G280E	0.1362871064190678	89
+281	site-state	change	no	0.0	12500
+281	site-state	sera aa	C	0.0	12500
+281	site-state	virus aa	C	0.0	12500
+282	site-state	change	no	0.0	12498
+282	site-state	change	yes	0.0	2
+282	site-state	sera aa	I	0.0	12500
+282	site-state	virus aa	I	0.0	12498
+282	site-state	virus aa	T	0.0	1
+282	site-state	virus aa	V	0.0	1
+282	substitution	substitution absent	I282T	0.0	12499
+282	substitution	substitution absent	I282V	0.0	12499
+282	substitution	substitution present	I282T	0.0	1
+282	substitution	substitution present	I282V	0.0	1
+283	site-state	change	no	0.0	12500
+283	site-state	sera aa	T	0.0	12500
+283	site-state	virus aa	T	0.0	12500
+284	site-state	change	no	0.0	12500
+284	site-state	sera aa	P	0.0	12500
+284	site-state	virus aa	P	0.0	12500
+285	site-state	change	no	0.0	12497
+285	site-state	change	yes	0.0	3
+285	site-state	sera aa	N	0.0	12500
+285	site-state	virus aa	D	0.0	3
+285	site-state	virus aa	N	0.0	12497
+285	substitution	substitution absent	N285D	0.0	12497
+285	substitution	substitution present	N285D	0.0	3
+286	site-state	change	no	0.0	12500
+286	site-state	sera aa	G	0.0	12500
+286	site-state	virus aa	G	0.0	12500
+287	site-state	change	no	0.0	12500
+287	site-state	sera aa	S	0.0	12500
+287	site-state	virus aa	S	0.0	12500
+288	site-state	change	no	0.0	12495
+288	site-state	change	yes	0.0	5
+288	site-state	sera aa	I	0.0	12500
+288	site-state	virus aa	I	0.0	12495
+288	site-state	virus aa	V	0.0	5
+288	substitution	substitution absent	I288V	0.0	12495
+288	substitution	substitution present	I288V	0.0	5
+289	site-state	change	no	0.0004035879787483	12482
+289	site-state	change	yes	-0.1831903456089129	18
+289	site-state	sera aa	P	0.0	12500
+289	site-state	virus aa	A	0.0	3
+289	site-state	virus aa	P	0.0	12482
+289	site-state	virus aa	S	0.0	15
+289	substitution	substitution absent	P289A	0.0	12497
+289	substitution	substitution absent	P289S	0.0001726652358713	12485
+289	substitution	substitution present	P289A	0.0	3
+289	substitution	substitution present	P289S	-0.0206037883194193	15
+290	site-state	change	no	0.0	12500
+290	site-state	sera aa	N	0.0	12500
+290	site-state	virus aa	N	0.0	12500
+290	substitution	substitution absent	N290S	0.0	12500
+291	site-state	change	no	-0.0003801695048303	12475
+291	site-state	change	yes	0.1687387567048969	24
+291	site-state	sera aa	D	0.0	12500
+291	site-state	virus aa	D	-2.7697668568546068e-05	12475
+291	site-state	virus aa	E	0.0	3
+291	site-state	virus aa	G	0.0	9
+291	site-state	virus aa	N	0.0	10
+291	site-state	virus aa	Y	0.0	2
+291	substitution	substitution absent	D291E	0.0	12497
+291	substitution	substitution absent	D291G	0.0	12491
+291	substitution	substitution absent	D291N	-2.145895917554144e-05	12490
+291	substitution	substitution absent	D291Y	0.0	12498
+291	substitution	substitution present	D291E	0.0	3
+291	substitution	substitution present	D291G	0.0	9
+291	substitution	substitution present	D291N	0.0033060058231557	10
+291	substitution	substitution present	D291Y	0.0	2
+292	site-state	change	no	-0.0002562160594234	12490
+292	site-state	change	yes	0.1221368240245873	10
+292	site-state	sera aa	K	0.0	12500
+292	site-state	virus aa	K	0.0	12490
+292	site-state	virus aa	R	0.0	10
+292	substitution	substitution absent	K292R	-0.0003081776741161	12490
+292	substitution	substitution present	K292R	0.1378939728322566	10
+293	site-state	change	no	0.0	12500
+293	site-state	sera aa	P	0.0	12500
+293	site-state	virus aa	P	0.0	12500
+294	site-state	change	no	0.0	12499
+294	site-state	change	yes	0.0	1
+294	site-state	sera aa	F	0.0	12500
+294	site-state	virus aa	F	0.0	12499
+294	site-state	virus aa	L	0.0	1
+294	substitution	substitution absent	F294L	0.0	12499
+294	substitution	substitution present	F294L	0.0	1
+295	site-state	change	no	0.0	12500
+295	site-state	sera aa	Q	0.0	12500
+295	site-state	virus aa	Q	0.0	12500
+296	site-state	change	no	0.0	12499
+296	site-state	change	yes	0.0	1
+296	site-state	sera aa	N	0.0	12500
+296	site-state	virus aa	N	0.0	12499
+296	site-state	virus aa	S	0.0	1
+296	substitution	substitution absent	N296S	0.0	12499
+296	substitution	substitution present	N296S	0.0	1
+297	site-state	change	no	0.0	12493
+297	site-state	change	yes	0.0	7
+297	site-state	sera aa	V	0.0	12500
+297	site-state	virus aa	I	0.0	7
+297	site-state	virus aa	V	0.0	12493
+297	substitution	substitution absent	V297I	0.0	12493
+297	substitution	substitution present	V297I	0.0	7
+298	site-state	change	no	0.0	12497
+298	site-state	change	yes	0.0	3
+298	site-state	sera aa	N	0.0	12500
+298	site-state	virus aa	H	0.0	3
+298	site-state	virus aa	N	0.0	12497
+298	substitution	substitution absent	N298H	0.0	12497
+298	substitution	substitution present	N298H	0.0	3
+299	site-state	change	no	-9.445909943086694e-05	12485
+299	site-state	change	yes	0.1495026212916094	15
+299	site-state	sera aa	R	0.0	12500
+299	site-state	virus aa	K	0.0	15
+299	site-state	virus aa	R	0.0	12485
+299	substitution	substitution absent	R299K	-0.0002538996981504	12485
+299	substitution	substitution present	R299K	0.2736994986917357	15
+300	site-state	change	no	-0.0001525711118077	12486
+300	site-state	change	yes	0.0864465331061751	14
+300	site-state	sera aa	I	0.0	12500
+300	site-state	virus aa	I	0.0	12486
+300	site-state	virus aa	V	0.0	14
+300	substitution	substitution absent	I300V	-0.000113708573129	12486
+300	substitution	substitution present	I300V	0.0730468123229196	14
+301	site-state	change	no	0.0	12497
+301	site-state	change	yes	0.0	3
+301	site-state	sera aa	T	0.0	12500
+301	site-state	virus aa	A	0.0	3
+301	site-state	virus aa	T	0.0	12497
+301	substitution	substitution absent	T301A	0.0	12497
+301	substitution	substitution present	T301A	0.0	3
+302	site-state	change	no	0.0	12498
+302	site-state	sera aa	Y	0.0	12500
+302	site-state	virus aa	Y	0.0	12498
+303	site-state	change	no	0.0	12500
+303	site-state	sera aa	G	0.0	12500
+303	site-state	virus aa	G	0.0	12500
+304	site-state	change	no	0.0004091480513437	12451
+304	site-state	change	yes	-0.1950461936372667	45
+304	site-state	sera aa	A	0.0	12500
+304	site-state	virus aa	A	0.0	12451
+304	site-state	virus aa	D	0.0	5
+304	site-state	virus aa	E	0.0	1
+304	site-state	virus aa	P	0.0	2
+304	site-state	virus aa	T	0.1873515419108379	31
+304	site-state	virus aa	V	0.0	6
+304	substitution	substitution absent	A304D	0.0	12495
+304	substitution	substitution absent	A304E	0.0	12499
+304	substitution	substitution absent	A304P	0.0	12498
+304	substitution	substitution absent	A304T	-0.0004550985594825	12469
+304	substitution	substitution absent	A304V	0.0	12494
+304	substitution	substitution present	A304D	0.0	5
+304	substitution	substitution present	A304E	0.0	1
+304	substitution	substitution present	A304P	0.0	2
+304	substitution	substitution present	A304T	0.1256722940454574	31
+304	substitution	substitution present	A304V	0.0	6
+305	site-state	change	no	0.0	12500
+305	site-state	sera aa	C	0.0	12500
+305	site-state	virus aa	C	0.0	12500
+306	site-state	change	no	0.0	12500
+306	site-state	sera aa	P	0.0	12500
+306	site-state	virus aa	P	0.0	12500
+307	site-state	change	no	-6.506293714985296e-06	12487
+307	site-state	change	yes	0.0	13
+307	site-state	sera aa	R	0.0	12500
+307	site-state	virus aa	I	0.0	8
+307	site-state	virus aa	K	0.0	5
+307	site-state	virus aa	R	0.0	12487
+307	substitution	substitution absent	R307I	0.0	12492
+307	substitution	substitution absent	R307K	0.0	12495
+307	substitution	substitution present	R307I	0.0	8
+307	substitution	substitution present	R307K	0.0	5
+308	site-state	change	no	0.0	12224
+308	site-state	sera aa	Y	0.0	12300
+308	site-state	virus aa	Y	0.0	12399
+309	site-state	change	no	0.0001037211684697	12194
+309	site-state	change	yes	-0.0502947438514303	30
+309	site-state	sera aa	V	0.0	12300
+309	site-state	virus aa	I	-0.057345959370497	33
+309	site-state	virus aa	V	9.426836808593456e-06	12366
+309	substitution	substitution absent	V309I	0.0001496641203246	12470
+309	substitution	substitution present	V309I	-0.0842282089909194	30
+310	site-state	change	no	0.0002210144067743	12215
+310	site-state	change	yes	-0.0236207831758492	9
+310	site-state	sera aa	K	0.0	12300
+310	site-state	virus aa	K	5.922914765651905e-06	12390
+310	site-state	virus aa	R	0.0	6
+310	site-state	virus aa	T	0.0	3
+310	substitution	substitution absent	K310R	1.696348723255763e-05	12494
+310	substitution	substitution absent	K310T	0.0	12497
+310	substitution	substitution present	K310R	0.0	6
+310	substitution	substitution present	K310T	0.0	3
+311	site-state	change	no	-0.0029218925467833	9685
+311	site-state	change	yes	0.0192674314564499	2539
+311	site-state	sera aa	H	0.0008127373897322	2689
+311	site-state	sera aa	Q	-5.342921446714549e-05	9611
+311	site-state	virus aa	H	0.0099336123808157	2559
+311	site-state	virus aa	L	0.0	4
+311	site-state	virus aa	Q	-0.0001702586819784	9836
+311	substitution	substitution absent	H311L	0.0	12499
+311	substitution	substitution absent	H311Q	-0.0114893383019614	11168
+311	substitution	substitution absent	Q311H	0.0057302453474476	11297
+311	substitution	substitution absent	Q311L	0.0	12497
+311	substitution	substitution present	H311L	0.0	1
+311	substitution	substitution present	H311Q	0.0924608560316719	1332
+311	substitution	substitution present	Q311H	0.0007816834904712	1203
+311	substitution	substitution present	Q311L	0.0	3
+312	site-state	change	no	-0.0039757970986362	9071
+312	site-state	change	yes	0.0075663470592705	3153
+312	site-state	sera aa	N	-0.007147736418899	3984
+312	site-state	sera aa	S	0.0017460007728997	8316
+312	site-state	virus aa	D	0.0	3
+312	site-state	virus aa	G	0.0	4
+312	site-state	virus aa	K	0.0	10
+312	site-state	virus aa	N	-0.0092526105912283	3156
+312	site-state	virus aa	R	0.0	3
+312	site-state	virus aa	S	0.0038409003112645	9223
+312	substitution	substitution absent	N312D	0.0	12497
+312	substitution	substitution absent	N312G	0.0	12499
+312	substitution	substitution absent	N312K	0.0	12490
+312	substitution	substitution absent	N312R	0.0	12499
+312	substitution	substitution absent	N312S	-0.0295246594899646	10478
+312	substitution	substitution absent	S312G	0.0	12497
+312	substitution	substitution absent	S312N	0.0026157327169483	11389
+312	substitution	substitution absent	S312R	0.0	12498
+312	substitution	substitution present	N312D	0.0	3
+312	substitution	substitution present	N312G	0.0	1
+312	substitution	substitution present	N312K	0.0	10
+312	substitution	substitution present	N312R	0.0	1
+312	substitution	substitution present	N312S	0.1201383920615777	2022
+312	substitution	substitution present	S312G	0.0	3
+312	substitution	substitution present	S312N	0.0078880731813828	1111
+312	substitution	substitution present	S312R	0.0	2
+313	site-state	change	no	-0.0001715177257116	12066
+313	site-state	change	yes	-6.478548117543166e-05	3
+313	site-state	sera aa	T	0.0	12300
+313	site-state	virus aa	N	0.0	3
+313	site-state	virus aa	T	-0.0002349458777313	12234
+313	substitution	substitution absent	T313N	0.0	12497
+313	substitution	substitution present	T313N	0.0	3
+314	site-state	change	no	-0.0002337850215574	12016
+314	site-state	sera aa	L	0.0	12300
+314	site-state	virus aa	L	-4.544542665391966e-05	12183
+315	site-state	change	no	0.0001392549613594	11995
+315	site-state	change	yes	-8.787078248137097e-06	11
+315	site-state	sera aa	K	0.0	12300
+315	site-state	virus aa	K	7.802887320103771e-05	12161
+315	site-state	virus aa	R	0.0	11
+315	substitution	substitution absent	K315R	0.0	12489
+315	substitution	substitution present	K315R	0.0	11
+316	site-state	change	no	-0.0001344457536658	11994
+316	site-state	change	yes	-0.0001483832827207	3
+316	site-state	sera aa	L	0.0	12300
+316	site-state	virus aa	L	-7.35436338769176e-05	12159
+316	site-state	virus aa	M	0.0	3
+316	substitution	substitution absent	L316M	0.0	12497
+316	substitution	substitution present	L316M	0.0	3
+317	site-state	change	no	-1.346232038659958e-05	11985
+317	site-state	sera aa	A	0.0	12300
+317	site-state	virus aa	A	-0.0001485865389654	12149
+318	site-state	change	no	0.000736504108639	11923
+318	site-state	change	yes	-0.001967056747626	57
+318	site-state	sera aa	I	0.0	42
+318	site-state	sera aa	T	7.072696932608182e-05	12258
+318	site-state	virus aa	I	0.0	19
+318	site-state	virus aa	T	-0.0003420243498358	12125
+318	substitution	substitution absent	I318T	0.0	12460
+318	substitution	substitution absent	T318I	-0.000260733478744	12483
+318	substitution	substitution present	I318T	0.0	40
+318	substitution	substitution present	T318I	0.0	17
+319	site-state	change	no	0.0007606053707196	11827
+319	site-state	sera aa	G	5.7520036733929874e-05	12200
+319	site-state	virus aa	G	0.0009320970218027	12079
+320	site-state	change	no	-0.0007583485244322	11800
+320	site-state	change	yes	-0.0011703607557358	1
+320	site-state	sera aa	M	0.0	12200
+320	site-state	virus aa	I	0.0	1
+320	site-state	virus aa	M	-0.0017043315039105	12052
+320	substitution	substitution absent	M320I	0.0	12499
+320	substitution	substitution present	M320I	0.0	1
+321	site-state	change	no	0.0001330050620893	11801
+321	site-state	sera aa	R	0.0	12200
+321	site-state	virus aa	R	-1.1163329766256416e-05	12052
+322	site-state	change	no	5.069690490049321e-05	11799
+322	site-state	sera aa	N	0.0	12200
+322	site-state	virus aa	N	0.0001013906526211	12050
+323	site-state	change	no	-0.0008108640423273	11706
+323	site-state	change	yes	-1.0468474384089304e-06	3
+323	site-state	sera aa	V	-0.0002469495525708	12133
+323	site-state	virus aa	I	0.0	3
+323	site-state	virus aa	V	0.0020796852665774	11999
+323	substitution	substitution absent	V323I	0.0	12497
+323	substitution	substitution present	V323I	0.0	3
+324	site-state	change	no	0.0004027874635343	11592
+324	site-state	change	yes	0.0	1
+324	site-state	sera aa	P	0.0003271149687367	12030
+324	site-state	virus aa	P	0.0029293483592177	11933
+324	site-state	virus aa	Q	0.0	1
+324	substitution	substitution absent	P324Q	0.0	12499
+324	substitution	substitution present	P324Q	0.0	1
+325	site-state	change	no	0.0005849419682645	11560
+325	site-state	change	yes	-0.0018535202163233	10
+325	site-state	sera aa	E	0.0	12030
+325	site-state	virus aa	D	0.0	6
+325	site-state	virus aa	E	-0.0004612589101015	11880
+325	site-state	virus aa	G	0.0	2
+325	site-state	virus aa	K	0.0	8
+325	substitution	substitution absent	E325D	0.0	12495
+325	substitution	substitution absent	E325G	0.0	12500
+325	substitution	substitution absent	E325K	0.0	12495
+325	substitution	substitution present	E325D	0.0	5
+325	substitution	substitution present	E325K	0.0	5
+326	site-state	change	no	-0.0066430462025576	9586
+326	site-state	change	yes	0.0326266610857068	1989
+326	site-state	sera aa	K	-0.0016987178027475	10396
+326	site-state	sera aa	R	0.0139950260827902	1589
+326	site-state	sera aa	T	0.0	45
+326	site-state	virus aa	K	-0.000554539295718	10567
+326	site-state	virus aa	R	0.0810384637096473	1305
+326	site-state	virus aa	T	0.0	26
+326	substitution	substitution absent	K326R	-0.0150763079147269	11648
+326	substitution	substitution absent	K326T	0.0	12492
+326	substitution	substitution absent	R326K	-0.0061360008888566	11393
+326	substitution	substitution absent	T326K	0.0001109823709603	12478
+326	substitution	substitution present	K326R	0.2555287111696457	852
+326	substitution	substitution present	K326T	0.0	8
+326	substitution	substitution present	R326K	0.0710325863494203	1107
+326	substitution	substitution present	T326K	-0.0813161332899363	22
+327	site-state	change	no	-7.972358321418796e-05	11565
+327	site-state	sera aa	Q	0.0	12030
+327	site-state	virus aa	Q	-0.00010348875694	11884
+328	site-state	change	no	0.000131627449444	11544
+328	site-state	change	yes	-0.0197542181400278	11
+328	site-state	sera aa	T	0.0	12030
+328	site-state	virus aa	A	0.0	7
+328	site-state	virus aa	N	0.0	1
+328	site-state	virus aa	S	0.0	3
+328	site-state	virus aa	T	-0.0011163646430298	11860
+328	substitution	substitution absent	T328A	0.0	12493
+328	substitution	substitution absent	T328N	0.0	12499
+328	substitution	substitution absent	T328S	0.0	12497
+328	substitution	substitution present	T328A	0.0	7
+328	substitution	substitution present	T328N	0.0	1
+328	substitution	substitution present	T328S	0.0	3

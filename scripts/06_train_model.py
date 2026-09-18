@@ -14,6 +14,8 @@ from scipy.stats import spearmanr
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import GroupKFold, GroupShuffleSplit, train_test_split
 
+from model_validation import inner_selection, fit_selected_model
+
 from common import (
     append_qc_log,
     apply_additive_effects,
@@ -44,21 +46,12 @@ def fit_predict(
     X_train: pd.DataFrame,
     y_train: np.ndarray,
     X_val: pd.DataFrame,
-    y_val: np.ndarray,
+    selection: tuple,
     params: dict,
     categorical_cols: list[str],
 ) -> tuple[lgb.LGBMRegressor, np.ndarray]:
-    model = lgb.LGBMRegressor(**params)
-    fit_kwargs = {
-        "X": X_train,
-        "y": y_train,
-        "eval_set": [(X_val, y_val)],
-        "callbacks": [lgb.early_stopping(50, verbose=False)],
-    }
-    if categorical_cols:
-        fit_kwargs["categorical_feature"] = categorical_cols
-    model.fit(**fit_kwargs)
-    preds = model.predict(X_val, num_iteration=model.best_iteration_)
+    model = fit_selected_model(X_train, y_train, params, selection, categorical_cols)
+    preds = model.predict(X_val)
     return model, preds
 
 
@@ -155,7 +148,11 @@ def run_models_for_split(
         virus_col=virus_col,
     )
     y_train_corr = y_train - train_base
-    y_val_corr = y_val - val_base
+    selection = inner_selection(
+        train_bin, "virus_strain_matched",
+        lambda a, b: fit_split_additive(a, b, target_col, serum_col, virus_col),
+        random_state=params["random_state"],
+    )
 
     results = []
     pred_meta_cols = [
@@ -179,7 +176,7 @@ def run_models_for_split(
         X_train=X_state_train,
         y_train=y_train_corr,
         X_val=X_state_val,
-        y_val=y_val_corr,
+        selection=selection,
         params=params,
         categorical_cols=state_cats,
     )
@@ -190,7 +187,7 @@ def run_models_for_split(
         {
             "model_type": "site_state",
             **compute_metrics(y_val, pred_state),
-            "best_iteration": int(model_state.best_iteration_ or params["n_estimators"]),
+            "best_iteration": int(model_state.n_estimators_),
         }
     )
 
@@ -201,7 +198,7 @@ def run_models_for_split(
         X_train=X_bin_train,
         y_train=y_train_corr,
         X_val=X_bin_val,
-        y_val=y_val_corr,
+        selection=selection,
         params=params,
         categorical_cols=bin_cats,
     )
@@ -212,7 +209,7 @@ def run_models_for_split(
         {
             "model_type": "binary_site",
             **compute_metrics(y_val, pred_bin),
-            "best_iteration": int(model_bin.best_iteration_ or params["n_estimators"]),
+            "best_iteration": int(model_bin.n_estimators_),
         }
     )
 
@@ -222,7 +219,7 @@ def run_models_for_split(
         X_train=X_temp_train,
         y_train=y_train_corr,
         X_val=X_temp_val,
-        y_val=y_val_corr,
+        selection=selection,
         params=params,
         categorical_cols=[],
     )
@@ -232,7 +229,7 @@ def run_models_for_split(
         {
             "model_type": "temporal_only",
             **compute_metrics(y_val, pred_temp),
-            "best_iteration": int(model_temp.best_iteration_ or params["n_estimators"]),
+            "best_iteration": int(model_temp.n_estimators_),
         }
     )
 
@@ -245,7 +242,7 @@ def run_models_for_split(
         X_train=X_rand_train,
         y_train=y_train_corr,
         X_val=X_rand_val,
-        y_val=y_val_corr,
+        selection=selection,
         params=params,
         categorical_cols=bin_cats,
     )
@@ -255,7 +252,7 @@ def run_models_for_split(
         {
             "model_type": "randomized_binary",
             **compute_metrics(y_val, pred_rand),
-            "best_iteration": int(model_rand.best_iteration_ or params["n_estimators"]),
+            "best_iteration": int(model_rand.n_estimators_),
         }
     )
 
@@ -267,7 +264,7 @@ def run_models_for_split(
             X_train=X_sub_train,
             y_train=y_train_corr,
             X_val=X_sub_val,
-            y_val=y_val_corr,
+            selection=selection,
             params=params,
             categorical_cols=sub_cats,
         )
@@ -278,7 +275,7 @@ def run_models_for_split(
             {
                 "model_type": "substitution_identity",
                 **compute_metrics(y_val, pred_sub),
-                "best_iteration": int(model_sub.best_iteration_ or params["n_estimators"]),
+                "best_iteration": int(model_sub.n_estimators_),
             }
         )
     else:
@@ -436,7 +433,7 @@ def main() -> None:
 
     state_params = params.copy()
     if site_state_best_iterations:
-        state_params["n_estimators"] = max(100, int(np.round(np.mean(site_state_best_iterations))))
+        state_params["n_estimators"] = max(1, int(np.round(np.mean(site_state_best_iterations))))
     final_state = lgb.LGBMRegressor(**state_params)
     X_state_full = prepare_frame(df_binary, site_state_cols)
     state_cats_full = [c for c in X_state_full.columns if str(X_state_full[c].dtype) == "category"]
@@ -446,7 +443,7 @@ def main() -> None:
 
     binary_params = params.copy()
     if binary_best_iterations:
-        binary_params["n_estimators"] = max(100, int(np.round(np.mean(binary_best_iterations))))
+        binary_params["n_estimators"] = max(1, int(np.round(np.mean(binary_best_iterations))))
     final_binary = lgb.LGBMRegressor(**binary_params)
     X_binary_full = prepare_frame(df_binary, binary_cols)
     binary_cats_full = [c for c in X_binary_full.columns if str(X_binary_full[c].dtype) == "category"]
@@ -459,7 +456,7 @@ def main() -> None:
         substitution_params = params.copy()
         if substitution_best_iterations:
             substitution_params["n_estimators"] = max(
-                100, int(np.round(np.mean(substitution_best_iterations)))
+                1, int(np.round(np.mean(substitution_best_iterations)))
             )
         final_substitution = lgb.LGBMRegressor(**substitution_params)
         X_sub_full = prepare_frame(df_substitution, substitution_cols)

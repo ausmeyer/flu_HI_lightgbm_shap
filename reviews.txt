@@ -1,0 +1,78 @@
+Editorial Board Member Comments:
+The manuscript characterizes the contribution of specific amino acid sites to the antigenicity of hemagglutinins of influenza viruses. This is an important area in virology, but the manuscript is probably too specialized for PNAS.
+
+Reviewer Comments:
+Reviewer #1:
+
+Suitable Quality?:
+No
+
+Sufficient General Interest?:
+No
+
+Conclusions Justified?:
+Yes
+
+Clearly Written?:
+Yes
+
+Procedures Described?:
+Yes
+
+Supplemental Material Warranted?:
+Yes
+
+Sufficient data/samples?:
+Yes
+
+Comments:
+This paper analyzes the contributions of different sites to changes in antigenicity of influenza viruses. This relates to the longstanding question of identifying key sites that drive antigenic change.
+
+To do this, it uses two different computational approaches to assess how much changes at each site lead to changes in HI titers on large pre-existing datasets. The methods appear solid, and this is a good approach to quantify the impact of sites. Importantly, the authors should more clearly make available easy to process numerical files (eg, CSVs or tables) giving the numerical valuies (eg, SHAP values) to facilitate re-use.
+
+My main critique is the overall limitation of the conceptual approach of defining a discrete set of important antigenic sites from HI data. These definitions are definitely still widely used, so the improvements here are welcome. However, there is growing recognition that the epitopes targeted by antibodies can change over time due to both evolution of the HA (eg, introduction of glycans) and the specificity of antibody responses. In addition, due to imprinting people can target different sites than the ferret sera used for most of the HI data. Finally, it is now clear that there is also just substantial variation across people in antibody targeting. For these reasons, I think this is solid work that advances the definition of antigenic sites, but is inherently limited because just classifying sites in terms of a single univariate antigenic value is itself a somewhat limited approach. For those reasons, this study might be more appropriate for a specialty journal than PNAS.
+
+AI Disclosure:
+I did not use AI software during preparation of this review.
+
+Reviewer #2:
+
+Suitable Quality?:
+No
+
+Sufficient General Interest?:
+No
+
+Conclusions Justified?:
+No
+
+Clearly Written?:
+No
+
+Procedures Described?:
+No
+
+Supplemental Material Warranted?:
+Yes
+
+Sufficient data/samples?:
+No
+
+Comments:
+The manuscript by Meyer and Santillana aimed to generate a "consolidated ranking of candidate antigenic positions" in HA of influenza A(H3N2) virus, relevant for antigenic drift. Two publicly available HI and sequence datasets were used to predict which amino acid positions in HA contribute to A(H3N2) virus antigenic properties as determined by HI assays. The predictions were made using interpretable gradient-boosted tree models with SHAP importance attribution. Results were compared with other published studies. The authors conclude that their methods recovered the majority of antigenically important positions identified in prior publications and improved concordance between rankings from the two different datasets.
+
+There are several problems with this manuscript.
+First, the manuscript is full of (unexplained) jargon and is therefore very difficult - if not impossible - to follow. I have been active in influenza research and antigenic characterization, bioinformatics, phylogeny, machine learning for quite some time. I conclude that the present manuscript is written for a very small, highly specialized group of computational scientists, rather than the broad readership of PNAS.
+Second, the opening statements in the abstract and introduction - which seem to provide the rationale of the study - are wrong. The authors seem to think that vaccine strain selection depends on knowing which amino acid substitutions affect neutralizing antibody recognition, but this is factually incorrect. Vaccine strains were selected long before sequencing technology was available, with success. Vaccine strain selection depends on virus phenotypes, as measured with human and animal antisera and thus only indirectly depends on virus genotypes. Of course, if phenotypes could be predicted perfectly from genotypes, genotypes could provide an alternative vaccine strain selection criterium in the future. But it is not critical. Other virology misconceptions were also detected in the manuscript (see below). Thirdly, and most importantly, the authors predicted amino acid positions and compared the outcomes with amino acid positions predicted by others. However, the true benchmark for such predictions should be experimentally validated positions rather than predicted ones. The various methods of prediction (Harvey, Shah, Neher/Bedford Meyer/Santillana) all face the same problems (see below) and therefore should be validated based on experimental evidence rather than (other) predictions. Without such experimental validation, there is little value for the lists of amino acid positions as generated here.
+
+Co-linearity in influenza virus (sequence) data and epistatic interactions have a substantial impact on studies like the one presented here and those of Neher/Bedford, Harvey, Shah. As a consequence, the effect of amino acid substitutions on antigenic properties is easily overestimated. This is most clearly shown by several publications of Koel and colleagues, in which the impact of hundreds of individual amino acid substitutions in multiple virus backbones were measured experimentally. Many of the top-ranked substitutions in the present study were shown by Koel et al and publications of others to have no or marginal effects on antigenic properties. Moreover, it is known (again e.g. from Koel) that different amino acid substitutions at a particular position can have highly variable effects on antigenic properties. In general, only non-conservative amino acid substitutions (e.g. changes in charge or volume of the amino acids involved) have a substantial antigenic impact. As a consequence, crucial information is missing when only the amino acid position but not the actual amino acid change is listed, as done in Fig.1 and Fig. 2. In order to provide useful information, please collect data on the exact amino acid substitutions rather than only the position and provide evidence that the 30 top-ranked substitutions indeed have been verified to have a substantial effect on antigenic properties, e.g. based on published literature.
+
+The abstract (and to some extent also the rest of the manuscript) is chaotic and not according to general scientific writing. The abstract is unstructured. It starts with an erroneous statement. It contains abbreviations without explanations. It refers to datasets and prior publications that most readers will not know. The main text fails to describe the basic principles of the methods used and how they relate to methods used by previous publications.
+
+Examples of problems related to virology background:
+- 2nd sentence introduction. A(H3N2) viruses have evolved in all genes since 1968, not just in the HA head.
+- 5th sentence of introduction incorrect "The utility of these assays is dependent on knowing which HA positions matter most." The HI assay do not rely on such knowledge at all. The subsequent sentences are also wrong, as the decision to update a vaccine or not are only driven by antigenic phenotype characterizations.
+- Line 154 "antigenic shift" is used inappropriately here, as this term is reserved for pandemic influenza viruses. The studies referred to here addressed antigenic drift, not shift.
+
+AI Disclosure:
+I did not use AI software during preparation of this review.

@@ -21,7 +21,8 @@ from common import append_qc_log, load_config, normalize_strain_name, read_fasta
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", default="configs/h3n2.json")
-    parser.add_argument("--fuzzy-threshold", type=float, default=90.0)
+    parser.add_argument("--fuzzy-threshold", type=float, default=100.0,
+                        help="Default requires exact normalized names; lower thresholds need manual verification.")
     return parser.parse_args()
 
 

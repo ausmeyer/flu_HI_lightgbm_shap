@@ -132,6 +132,8 @@ def main() -> None:
     }
     excluded_rows = 0
     if exclude_passages:
+        # Composite labels such as CELL|EGG name multiple passage events; the row is
+        # kept because no single normalized passage class equals an excluded value.
         keep_mask = (
             ~df["virus_passage_class"].isin(exclude_passages)
             & ~df["reference_passage_class"].isin(exclude_passages)

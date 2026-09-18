@@ -22,6 +22,11 @@ This directory contains three script groups.
 - `01_fetch_sequences.py` to `11_compare_paper_sites.py`
   - Sequence fetch, alignment, strain matching, titer preprocessing, feature building,
     model training, SHAP analysis, figure generation, coverage audit, cleanup, and paper comparison.
+  - Figure generation includes signed top-20 individual covariate SHAP panels for
+    the site-state and substitution models.
+- `43_analyze_koel_context_dependence.py`
+  - Neher/Bedford counterfactual analysis testing whether LightGBM learns background-dependent
+    effects for exact Koel 2019 substitutions at positions 145 and 155.
 
 ## WIC Source-Assembly Pipeline
 
@@ -34,6 +39,11 @@ This directory contains three script groups.
 - `24_prepare_wic_ha1_alignment.py` to `32_cleanup_wic_model_outputs.py`
   - HA1 alignment prep, WIC titer preprocessing, feature building, model training,
     SHAP analysis, literature comparison, figure generation, and cleanup.
+  - Figure generation includes signed top-20 individual covariate SHAP panels for
+    the site-state and substitution models.
+- `44_analyze_wic_glycan_context_dependence.py`
+  - Filtered WIC counterfactual analysis testing whether the site-state model
+    distinguishes site-160 substitutions that create or remove the HA1 `N158-X159-S/T160` glycosylation motif.
 - `33_build_h3n2_patristic_tree.py`
   - Builds a FastTree Newick tree with branch lengths for the aligned `H3N2` HA proteins.
 - `34_build_wic_ha1_patristic_tree.py`
@@ -47,5 +57,8 @@ This directory contains three script groups.
   - Reference site lists for Neher 2016 and the WIC paper.
 - `wic_name_utils.py`
   - WIC-specific strain/name normalization helpers.
+- `shap_reuse.py`
+  - Value-specific SHAP summary helpers, including plotting for signed individual
+    covariate SHAP panels.
 
 The numbered scripts are stage implementations. For normal use, prefer the two wrapper scripts above.

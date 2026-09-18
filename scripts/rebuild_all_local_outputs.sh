@@ -68,6 +68,7 @@ rebuild_h3n2_from_existing_alignment() {
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/05_build_features.py" --config "$ROOT_DIR/configs/h3n2.json"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/06_train_model.py" --config "$ROOT_DIR/configs/h3n2.json"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/07_shap_analysis.py" --config "$ROOT_DIR/configs/h3n2.json"
+  run "$PYTHON_BIN" "$ROOT_DIR/scripts/43_analyze_koel_context_dependence.py" --config "$ROOT_DIR/configs/h3n2.json"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/08_generate_figures.py" --config "$ROOT_DIR/configs/h3n2.json"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/11_compare_paper_sites.py" --config "$ROOT_DIR/configs/h3n2.json"
   run "$PYTHON_BIN" "$ROOT_DIR/scripts/09_audit_strain_coverage.py" --config "$ROOT_DIR/configs/h3n2.json"

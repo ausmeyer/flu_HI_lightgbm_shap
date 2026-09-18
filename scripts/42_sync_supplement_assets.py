@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SUPPLEMENT_DIR = ROOT / "69b778fd3e7b181fe1c2943b"
+DEFAULT_SUPPLEMENT_DIR = ROOT / "69b7797c762f515edcff3ad6"
 
 
 def parse_args() -> argparse.Namespace:
@@ -80,6 +80,10 @@ def main() -> None:
             tables_dir / "table_s2_reference_overlap.tex",
         ROOT / "manuscript" / "generated_supplement" / "table_s2_reference_overlap.tsv":
             tables_dir / "table_s2_reference_overlap.tsv",
+        ROOT / "manuscript" / "generated_supplement" / "table_s4_neher_bedford_shap_values.tsv":
+            tables_dir / "table_s4_neher_bedford_shap_values.tsv",
+        ROOT / "manuscript" / "generated_supplement" / "table_s5_wic_filtered_shap_values.tsv":
+            tables_dir / "table_s5_wic_filtered_shap_values.tsv",
     }
 
     for src, dst in {**figure_mapping, **table_mapping}.items():

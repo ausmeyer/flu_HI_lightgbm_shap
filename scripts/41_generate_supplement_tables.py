@@ -12,6 +12,21 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "manuscript" / "generated_supplement"
 MASTER_TABLE = ROOT / "site_model_literature_comparison.tsv"
 
+REUSABLE_SHAP_TABLES = [
+    (
+        ROOT / "H3N2" / "output" / "H3N2_reusable_shap_values.tsv",
+        OUT_DIR / "table_s4_neher_bedford_shap_values.tsv",
+    ),
+    (
+        ROOT
+        / "H3N2-WIC-no-egg-no-mixed-no-unknown"
+        / "output"
+        / "modeling"
+        / "H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_reusable_shap_values.tsv",
+        OUT_DIR / "table_s5_wic_filtered_shap_values.tsv",
+    ),
+]
+
 
 ANALYSES = [
     {
@@ -182,6 +197,21 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def copy_reusable_shap_tables() -> None:
+    for src, dst in REUSABLE_SHAP_TABLES:
+        if not src.exists():
+            raise FileNotFoundError(
+                f"Reusable SHAP table not found: {src}. "
+                "Run the corresponding SHAP analysis before generating supplement tables."
+            )
+        table = pd.read_csv(src, sep="\t")
+        expected_cols = ["site", "model_type", "covariate_name", "covariate_value", "shap_value"]
+        missing = set(expected_cols).difference(table.columns)
+        if missing:
+            raise ValueError(f"{src} is missing required columns: {sorted(missing)}")
+        table.to_csv(dst, sep="\t", index=False)
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     table_s1 = build_table_s1()
@@ -191,6 +221,7 @@ def main() -> None:
     table_s2.to_csv(OUT_DIR / "table_s2_reference_overlap.tsv", sep="\t", index=False)
     write_table_s1_tex(table_s1, OUT_DIR / "table_s1_model_performance.tex")
     write_table_s2_tex(table_s2, OUT_DIR / "table_s2_reference_overlap.tex")
+    copy_reusable_shap_tables()
 
 
 if __name__ == "__main__":

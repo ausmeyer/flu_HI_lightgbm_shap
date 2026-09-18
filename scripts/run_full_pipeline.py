@@ -53,6 +53,7 @@ def main() -> None:
     run_step([sys.executable, "scripts/05_build_features.py", "--config", args.config])
     run_step([sys.executable, "scripts/06_train_model.py", "--config", args.config])
     run_step([sys.executable, "scripts/07_shap_analysis.py", "--config", args.config])
+    run_step([sys.executable, "scripts/43_analyze_koel_context_dependence.py", "--config", args.config])
     if not args.skip_figures:
         run_step([sys.executable, "scripts/08_generate_figures.py", "--config", args.config])
     run_step([sys.executable, "scripts/11_compare_paper_sites.py", "--config", args.config])

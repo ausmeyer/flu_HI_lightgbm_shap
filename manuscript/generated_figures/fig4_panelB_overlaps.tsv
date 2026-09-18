@@ -2,9 +2,9 @@ label	h3n2_overlap	wic_filtered_overlap	ref_size
 Koel sites	6	5	7
 Neher/Bedford sites	11	10	15
 Harvey/WIC sites	11	12	15
-Shah/WIC sites	12	18	30
+Shah/WIC sites	14	17	30
 LightGBM+SHAP passage	11	16	30
-LightGBM+SHAP date	11	19	30
-Unpassaged entropy	9	21	30
-Unpassaged dN/dS	7	9	30
-McWhite unpassaged dN/dS	4	6	30
+LightGBM+SHAP date	12	18	30
+Unpassaged entropy	10	20	30
+Unpassaged dN/dS	7	10	30
+McWhite unpassaged dN/dS	3	6	30

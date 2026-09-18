@@ -26,6 +26,10 @@ def main() -> None:
     keep_names = {
         f"{subtype}_HA1_aligned.fasta",
         f"{subtype}_cv_summary.tsv",
+        f"{subtype}_glycan_context_background_summary.tsv",
+        f"{subtype}_glycan_context_comparison.tsv",
+        f"{subtype}_glycan_context_effects.tsv",
+        f"{subtype}_glycan_context_transition_summary.tsv",
         f"{subtype}_ha1_alignment_metadata.json",
         f"{subtype}_ha1_extraction_summary.tsv",
         f"{subtype}_ha1_position_map.csv",
@@ -38,6 +42,7 @@ def main() -> None:
         f"{subtype}_patristic_tree_metadata.json",
         f"{subtype}_patristic_tree_tip_depths.tsv",
         f"{subtype}_qc_log.txt",
+        f"{subtype}_reusable_shap_values.tsv",
         f"{subtype}_site_stability.tsv",
         f"{subtype}_site_summary.tsv",
         f"{subtype}_substitution_site_stability.tsv",
@@ -47,11 +52,13 @@ def main() -> None:
     }
     keep_figures = {
         f"{subtype}_cv_performance_summary.pdf",
+        f"{subtype}_glycan_context_dependence_158_160.pdf",
         f"{subtype}_heldout_model_comparison.pdf",
         f"{subtype}_neher2016_fig2_analog.pdf",
         f"{subtype}_predicted_vs_actual.pdf",
         f"{subtype}_residualization_diagnostic.pdf",
         f"{subtype}_shap_summary_top30.pdf",
+        f"{subtype}_signed_feature_shap_top20.pdf",
         f"{subtype}_site_component_top30.pdf",
         f"{subtype}_site_importance_bar.pdf",
         f"{subtype}_site_stability_top30.pdf",

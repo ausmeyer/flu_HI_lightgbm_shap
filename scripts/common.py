@@ -426,6 +426,14 @@ def fit_additive_effects(
         {level: float(value) for level, value in zip(virus_effect_names, virus_coefs)}
     )
 
+    # Center factor effects so an unseen level receives the mean level effect.
+    # This leaves every fitted training value unchanged.
+    for effects in (serum_effects, virus_effects):
+        shift = float(np.mean(list(effects.values())))
+        intercept += shift
+        for level in effects:
+            effects[level] -= shift
+
     fitted = (
         intercept
         + serum.map(serum_effects).to_numpy(dtype=float)
@@ -505,6 +513,12 @@ def fit_additive_effects_multi(
         )
         factor_effects[col] = effects
         fitted += work[col].astype(str).map(effects).to_numpy(dtype=float)
+
+    for effects in factor_effects.values():
+        shift = float(np.mean(list(effects.values())))
+        intercept += shift
+        for level in effects:
+            effects[level] -= shift
 
     residual = y - fitted
     return {

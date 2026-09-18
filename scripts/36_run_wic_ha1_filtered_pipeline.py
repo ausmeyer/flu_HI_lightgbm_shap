@@ -63,6 +63,7 @@ def main() -> None:
         train_cmd.extend(["--n-splits", str(args.n_splits)])
     run_step(train_cmd)
     run_step([sys.executable, "scripts/29_shap_analysis_wic.py", "--config", config])
+    run_step([sys.executable, "scripts/44_analyze_wic_glycan_context_dependence.py", "--config", config])
     run_step([sys.executable, "scripts/30_compare_wic_paper_sites.py", "--config", config])
     run_step([sys.executable, "scripts/31_generate_wic_figures.py", "--config", config])
     if not args.keep_intermediates:

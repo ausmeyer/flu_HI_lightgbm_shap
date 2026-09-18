@@ -16,6 +16,8 @@ import shap
 from scipy.stats import mannwhitneyu
 from sklearn.model_selection import GroupKFold
 
+from model_validation import inner_selection, fit_selected_model
+
 from common import (
     append_qc_log,
     apply_additive_effects,
@@ -25,6 +27,13 @@ from common import (
     load_config,
 )
 from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from shap_reuse import (
+    collect_site_state_reuse_stats,
+    collect_substitution_reuse_stats,
+    merge_reuse_stats,
+    new_reuse_stats,
+    reuse_stats_to_table,
+)
 
 
 PAPER_SITE_ROWS = NEHER2016_H3_SITE_ROWS
@@ -69,6 +78,7 @@ class FoldOutputs:
     sub_fold_feature_abs_rows: list[dict[str, float | int]]
     sub_best_iterations: list[int]
     total_sub_rows: int
+    sub_reuse_stats: object
 
 
 def parse_args() -> argparse.Namespace:
@@ -145,18 +155,11 @@ def fit_shap_model(
     X_train: pd.DataFrame,
     y_train: np.ndarray,
     X_test: pd.DataFrame,
-    y_test: np.ndarray,
+    selection: tuple,
     params: dict,
 ) -> tuple[lgb.LGBMRegressor, pd.DataFrame]:
     categorical_cols = [c for c in X_train.columns if str(X_train[c].dtype) == "category"]
-    model = lgb.LGBMRegressor(**params)
-    model.fit(
-        X_train,
-        y_train,
-        eval_set=[(X_test, y_test)],
-        categorical_feature=categorical_cols,
-        callbacks=[lgb.early_stopping(50, verbose=False)],
-    )
+    model = fit_selected_model(X_train, y_train, params, selection, categorical_cols)
     shap_values = shap.TreeExplainer(model).shap_values(X_test)
     if isinstance(shap_values, list):
         shap_values = shap_values[0]
@@ -205,6 +208,7 @@ def run_cv_shap(
     sub_fold_feature_abs_rows: list[dict[str, float | int]] = []
     sub_best_iterations: list[int] = []
     total_sub_rows = 0
+    sub_reuse_stats = new_reuse_stats()
 
     for fold, (train_idx, test_idx) in enumerate(gkf.split(df, groups=groups), start=1):
         train_df = df.iloc[train_idx].copy()
@@ -214,12 +218,15 @@ def run_cv_shap(
 
         train_base, test_base = fit_additive_baseline(train_df=train_df, test_df=test_df)
         y_train = train_df["standardized_titer"].to_numpy(dtype=float) - train_base
-        y_test = test_df["standardized_titer"].to_numpy(dtype=float) - test_base
+        selection = inner_selection(
+            train_df, "virus_strain_matched", fit_additive_baseline,
+            random_state=params["random_state"],
+        )
 
         X_train = prepare_frame(train_df, main_cols)
         X_test = prepare_frame(test_df, main_cols)
-        model, shap_df = fit_shap_model(X_train=X_train, y_train=y_train, X_test=X_test, y_test=y_test, params=params)
-        best_iterations.append(int(model.best_iteration_ or params["n_estimators"]))
+        model, shap_df = fit_shap_model(X_train=X_train, y_train=y_train, X_test=X_test, selection=selection, params=params)
+        best_iterations.append(int(model.n_estimators_))
 
         shap_df["fold"] = fold
         shap_df["row_index"] = test_idx
@@ -243,13 +250,19 @@ def run_cv_shap(
             X_train=X_sub_train,
             y_train=y_train,
             X_test=X_sub_test,
-            y_test=y_test,
+            selection=selection,
             params=params,
         )
-        sub_best_iterations.append(int(sub_model.best_iteration_ or params["n_estimators"]))
+        sub_best_iterations.append(int(sub_model.n_estimators_))
         sub_feature_abs_sum += sub_shap_df.abs().sum(axis=0)
         sub_feature_signed_sum += sub_shap_df.sum(axis=0)
         total_sub_rows += len(sub_shap_df)
+        collect_substitution_reuse_stats(
+            stats=sub_reuse_stats,
+            feature_values=X_sub_test.reset_index(drop=True),
+            shap_values=sub_shap_df.reset_index(drop=True),
+            feature_cols=substitution_cols,
+        )
 
         fold_abs_mean = sub_shap_df.abs().mean(axis=0)
         sub_fold_feature_abs_rows.extend(
@@ -266,6 +279,7 @@ def run_cv_shap(
         sub_fold_feature_abs_rows=sub_fold_feature_abs_rows,
         sub_best_iterations=sub_best_iterations,
         total_sub_rows=total_sub_rows,
+        sub_reuse_stats=sub_reuse_stats,
     )
 
 
@@ -492,6 +506,7 @@ def save_outputs(
     substitution_feature_summary: pd.DataFrame | None,
     substitution_site_importance: pd.DataFrame | None,
     substitution_site_stability: pd.DataFrame | None,
+    substitution_reuse_stats: object,
     validation: dict[str, object],
 ) -> list[str]:
     out_dir = Path(cfg["output_dir"])
@@ -601,6 +616,18 @@ def save_outputs(
             ]
         )
 
+    reusable_shap_path = out_dir / f"{subtype}_reusable_shap_values.tsv"
+    reuse_stats = new_reuse_stats()
+    collect_site_state_reuse_stats(
+        stats=reuse_stats,
+        feature_values=shap_feature_df,
+        shap_values=shap_df,
+        feature_cols=feature_summary["feature"].astype(str).tolist(),
+    )
+    merge_reuse_stats(reuse_stats, substitution_reuse_stats)
+    reuse_stats_to_table(reuse_stats).to_csv(reusable_shap_path, sep="\t", index=False)
+    lines.append(f"Saved reusable SHAP value table: {reusable_shap_path}")
+
     validation_path = out_dir / f"{subtype}_koel_validation.json"
     with open(validation_path, "w", encoding="utf-8") as f:
         json.dump(validation, f, indent=2)
@@ -705,6 +732,7 @@ def main() -> None:
         substitution_feature_summary=substitution_feature_summary,
         substitution_site_importance=substitution_site_importance,
         substitution_site_stability=substitution_site_stability,
+        substitution_reuse_stats=fold_outputs.sub_reuse_stats,
         validation=validation,
     )
     append_qc_log(cfg, "07_shap_analysis", lines)

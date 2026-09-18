@@ -18,6 +18,7 @@ import seaborn as sns
 
 from common import append_qc_log, get_prediction_color_feature, humanize_distance_label, load_config
 from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from shap_reuse import save_signed_reusable_shap_figure
 
 
 sns.set_theme(style="ticks", context="paper")
@@ -219,6 +220,7 @@ def main() -> None:
     figures_dir = cfg["figures_dir"]
     color_col = get_prediction_color_feature(cfg)
     feature_summary = read_optional_table(f"{cfg['output_dir']}/{cfg['subtype']}_feature_shap_importance.csv")
+    reusable_shap = read_optional_table(f"{cfg['output_dir']}/{cfg['subtype']}_reusable_shap_values.tsv", sep="\t")
     site_summary = add_reference_flags(pd.read_csv(f"{cfg['output_dir']}/{cfg['subtype']}_site_summary.tsv", sep="\t"))
     site_importance = read_optional_table(f"{cfg['output_dir']}/{cfg['subtype']}_site_importance.csv")
     site_importance = add_reference_flags(site_importance) if site_importance is not None else site_summary.copy()
@@ -448,6 +450,13 @@ def main() -> None:
         lines.append(f"Saved substitution SHAP summary figure: {sub_shap_summary_path}")
     else:
         lines.append("Skipped substitution SHAP summary figure: missing substitution_feature_shap_importance.csv")
+
+    if reusable_shap is not None:
+        signed_shap_path = f"{figures_dir}/{cfg['subtype']}_signed_feature_shap_top20.pdf"
+        save_signed_reusable_shap_figure(reusable_shap=reusable_shap, out_path=signed_shap_path)
+        lines.append(f"Saved signed feature SHAP figure: {signed_shap_path}")
+    else:
+        lines.append("Skipped signed feature SHAP figure: missing reusable_shap_values.tsv")
 
     sub_site_colors = [reference_bar_color(row) for _, row in substitution_site_importance.iterrows()]
     fig, ax = plt.subplots(figsize=(15, 4.8))

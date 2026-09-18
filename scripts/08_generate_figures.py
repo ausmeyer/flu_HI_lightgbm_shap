@@ -19,6 +19,7 @@ import seaborn as sns
 
 from common import append_qc_log, get_prediction_color_feature, humanize_distance_label, load_config
 from paper_sites import NEHER2016_H3_SITE_ROWS, SHAH2024_H3_SITE_ROWS, WIC2023_H3_SITE_ROWS
+from shap_reuse import save_signed_reusable_shap_figure
 
 
 sns.set_theme(style="ticks", context="paper")
@@ -529,6 +530,7 @@ def load_analysis_tables(cfg: dict) -> dict[str, pd.DataFrame]:
     sub_site_importance = read_optional_table(out_dir / f"{subtype}_substitution_site_importance.csv")
     tables = {
         "feature_summary": read_optional_table(out_dir / f"{subtype}_feature_shap_importance.csv"),
+        "reusable_shap": read_optional_table(out_dir / f"{subtype}_reusable_shap_values.tsv", sep="\t"),
         "site_importance": add_reference_flags(site_importance) if site_importance is not None else site_summary.copy(),
         "site_summary": site_summary,
         "site_stability": add_reference_flags(pd.read_csv(out_dir / f"{subtype}_site_stability.tsv", sep="\t")),
@@ -614,6 +616,16 @@ def main() -> None:
         )
     else:
         lines.append("Skipped substitution SHAP summary figure: missing substitution_feature_shap_importance.csv")
+    if tables["reusable_shap"] is not None:
+        save_signed_reusable_shap_figure(
+            reusable_shap=tables["reusable_shap"],
+            out_path=figures_dir / f"{subtype}_signed_feature_shap_top20.pdf",
+        )
+        lines.append(
+            f"Saved signed feature SHAP figure: {figures_dir / f'{subtype}_signed_feature_shap_top20.pdf'}"
+        )
+    else:
+        lines.append("Skipped signed feature SHAP figure: missing reusable_shap_values.tsv")
     sub_colors = np.where(tables["sub_site_importance"]["is_koel_site"].to_numpy(), "#d7301f", "#9ecae1")
     save_site_importance_bar(
         site_importance=tables["sub_site_importance"],
