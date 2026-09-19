@@ -49,7 +49,6 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
 
 - `H3N2/H3N2_HI_data.tsv`
 - `H3N2/H3N2_seq_data.tsv`
-- `H1N1/H1N1_HI_data.tsv`
 - `scripts/`
   - `01-11`: original `H3N2` pipeline stages
   - `12-23`: WIC source-assembly stages
@@ -63,7 +62,7 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
 - `scripts/paper_sites.py`
 - `scripts/wic_name_utils.py`
 - `configs/h3n2.json`
-- `configs/h1n1_template.json`
+- `configs/h1n1_template.json`: template only; H1N1 input data are not included
 - `manuscript/github_snapshot_2026-09-18/`: dated manuscript and supplement sources, bibliography, figures, and tables
 - `site_model_literature_comparison.tsv`: master site-level comparison table
 - `model_performance_literature_summary.tsv`: master model-metrics table

@@ -277,7 +277,7 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
     for row in df.itertuples(index=False):
         neher = "--" if pd.isna(row.neher_site_state_rank) else str(int(row.neher_site_state_rank))
         wic = "--" if pd.isna(row.wic_filtered_site_state_rank) else str(int(row.wic_filtered_site_state_rank))
-        note = str(row.literature_note).replace("&", r"\&")
+        note = str(row.literature_note).replace("&", r"\&").replace(">=", r"$\geq$")
         lines.append(
             f"{int(row.site)} & {neher} & {wic} & {yes_no(row.in_koel)} & {yes_no(row.in_neher2016)} & {yes_no(row.in_harvey_pip95)} & {yes_no(row.in_shah2024)} & {note} \\\\"
         )
