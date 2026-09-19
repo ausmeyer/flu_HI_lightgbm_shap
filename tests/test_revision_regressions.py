@@ -47,3 +47,12 @@ assert match('A/NewYork/55/2001',100)[0] is None
 assert match('A/New York/55/2004',100)[0]=='A/NewYork/55/2004'
 print('PASS: unseen-virus offsets are invariant to arbitrary strain-name ordering; training fits are preserved.')
 print('PASS: composite passage labels are normalized but only exact classes are excluded.')
+from paper_sites import HARVEY2023_PIP95_SITE_ROWS, HARVEY2023_RESTRICTED15_SITE_ROWS, WIC2023_H3_SITE_ROWS
+pip95={int(r['site']) for r in HARVEY2023_PIP95_SITE_ROWS}
+restricted={int(r['site']) for r in HARVEY2023_RESTRICTED15_SITE_ROWS}
+alias={int(r['site']) for r in WIC2023_H3_SITE_ROWS}
+assert pip95=={131,135,138,144,145,157,158,159,173,189,193,194,223,225}
+assert len(pip95)==14 and 225 in pip95 and 194 in pip95
+assert alias==pip95
+assert 225 not in restricted and len(restricted)==15
+print('PASS: primary Harvey comparison is the 14 structurally-aware PIP>=0.95 sites, including 225.')

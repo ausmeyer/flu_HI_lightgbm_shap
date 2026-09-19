@@ -1,0 +1,384 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{authblk}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{placeins}
+\usepackage{setspace}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage[numbers,sort&compress]{natbib}
+
+\doublespacing
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+
+\newsavebox{\supplementtablebox}
+\newenvironment{fitsupplementtable}{%
+  \begingroup
+  \renewenvironment{tabular*}[2]{%
+    \begin{lrbox}{\supplementtablebox}\begin{tabular}{##2}%
+  }{%
+    \end{tabular}\end{lrbox}%
+    \ifdim\wd\supplementtablebox>\textwidth
+      \resizebox{\textwidth}{!}{\usebox{\supplementtablebox}}%
+    \else\usebox{\supplementtablebox}\fi
+  }%
+}{\endgroup}
+
+\begin{document}
+
+\title{Supplementary Information: Interpretable machine learning identifies amino acid states and substitutions associated with H3N2 antigenic variation}
+
+\author[1,2]{Austin G. Meyer}
+\author[3]{Mauricio Santillana}
+
+\affil[1]{Department of Pediatrics, Baylor Scott \& White Medical Center, McLane Children's Hospital, Temple, TX, USA}
+\affil[2]{Department of Pediatrics, Baylor College of Medicine, Temple, TX, USA}
+\affil[3]{Department of Physics, Northeastern University, Boston, MA, USA}
+
+\date{}
+
+\maketitle
+
+\section*{Correspondence}
+Correspondence should be addressed to Austin G. Meyer. E-mail: austin.g.meyer@gmail.com
+
+%%% -----------------------------------------------------------------------
+\section*{Supplementary Methods}
+%%% -----------------------------------------------------------------------
+
+\subsection*{S1.1\quad Data sources and inclusion criteria}
+
+\textbf{Neher/Bedford H3N2 dataset.} The Neher/Bedford H3N2 HI dataset provides curated hemagglutination inhibition measurements spanning H3N2 viruses and antisera from 1968 through 2011~\cite{Neher2016PNAS}. After matching each virus strain to an HA protein sequence and performing alignment quality control, the modeling dataset retained 8,599 HI observations corresponding to 402 named-virus HA sequence records; these records are not necessarily distinct amino-acid sequences.
+
+\textbf{WIC H3N2 dataset.} The WIC H3N2 dataset was assembled from WHO Collaborating Centre surveillance HI measurements~\cite{Harvey2023PLoSComputBiol}. The raw dataset contains 202,605 HI observations; 104,972 had matched HA1 sequences for both virus and serum components, and 104,605 observations were retained for modeling after alignment quality control (see S1.2).
+
+\textbf{WIC filtered subset.} The filtered WIC subset excludes HI observations in which either the virus or reference serum has a normalized passage class exactly equal to \texttt{EGG}, \texttt{MIXED}, or \texttt{UNKNOWN}. Rows with composite labels such as \texttt{CELL|EGG} or \texttt{CELL|UNKNOWN} were retained unless the normalized class was exactly one of the excluded values. This filtering retained 28,521 observations after sequence matching; 28,448 of these had aligned HA1 sequences available for feature construction. Table~S3 summarizes the retained and excluded sequence-matched WIC observations. A stricter composite-egg sensitivity is described in S1.8.
+
+\subsection*{S1.2\quad Sequence acquisition, alignment, and numbering}
+
+\textbf{Neher/Bedford sequence retrieval.} HA protein sequences for Neher/Bedford strains were retrieved from GISAID~\cite{Elbe2017GlobChall, Shu2017EuroSurveillance} using isolate identifiers matched to the HI table. For strains not resolvable in GISAID, NCBI GenBank was queried via the Entrez API as a fallback. Strain names were normalized by converting to uppercase and removing non-alphanumeric characters, and HI records were matched to sequences only when the normalized strain names were identical. This exact-match rule excluded a small set of near-name matches; 1,460 of 10,059 input HI rows were dropped at this stage. No matched row in the final analysis relied on a fuzzy name match.
+
+\textbf{WIC sequence retrieval.} The WIC HI dataset references 16,223 unique virus and reference serum strains. Sequences were sought through three sources applied in decreasing priority:
+
+\textit{(1) Harvey et al.\ curated HA1 alignment.} The curated HA1 alignment distributed with Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol} (public code repository \url{https://github.com/will-harvey/Flu_g2p_mapping}) yielded sequences for 1,738 strains.
+
+\textit{(2) GISAID.} Strains not resolved from the curated alignment were queried in GISAID using the GISAIDR R package in batches of 250 strain names per API call. Canonical-isolate selection preferred HA1-complete sequences ($\geq$328 residues), then lower-passage material, then lower sequence ambiguity. This step resolved sequences for an additional 2,501 strains. Four of these records retain IRD in the accession-database annotation, but their selected sequence payloads came from GISAID; they are included in the 2,501 GISAID sequence-source records.
+
+\textit{(3) Public databases.} Remaining unresolved strains were queried against NCBI GenBank and BV-BRC. This step generated 20 accession-linked manifest rows after matching, but the final local FASTA used for modeling contained only sequences from the Harvey repository and GISAID.
+
+In total, HA1 sequences were resolved for 4,239 of 16,223 unique strains (26\%) in the final modeling inputs, covering both components of 104,972 of the 202,605 raw HI observations (51.8\%). After alignment quality control, 104,605 observations remained (51.6\% of the raw observations).
+
+\textbf{Alignment, quality control, and numbering.} For the Neher/Bedford dataset, retrieved HA protein sequences were aligned to A/HongKong/1/1968 using MAFFT~\cite{Katoh2013MolBiolEvol} in automatic mode (\texttt{--auto}), the N-terminal 16-residue signal peptide was removed, and the 550-residue mature HA sequence was retained. For the WIC dataset, HA1 sequences were extracted using length-based cutoffs prior to alignment with MAFFT and mapped to mature HA numbering. Sequences with more than 5\% gap positions or more than 2\% ambiguous residues (X, B, Z, or J) were excluded. The conversion from gene-site to mature-protein numbering subtracts 16 from the gene-site position (e.g., gene site 176 = mature site 160).
+
+\subsection*{S1.3\quad Titer preprocessing and avidity/potency correction}
+
+\textbf{Censored titer handling.} Titer values reported as $<$X were converted to X/2; values reported as $>$X were converted to 2X, then log\textsubscript{2}-transformed.
+
+\textbf{Homologous titer normalization.} The standardized titer for each observation was the homologous log\textsubscript{2} titer minus the observed log\textsubscript{2} titer. When no homologous titer was observed, the maximum observed titer across all viruses for that serum was used as the fallback reference. The fallback was used for 999 of 8,599 Neher/Bedford observations (11.6\%) and 1,540 of 28,521 sequence-matched filtered WIC observations (5.4\%); the latter denominator is before alignment quality control.
+
+\textbf{Additive avidity/potency correction for WIC.} An additive least-squares framework was defined for six categorical factors: (1) reference serum identifier, (2) assay date label, (3) virus passage class, (4) reference serum passage class, (5) antiserum class, and (6) red blood cell type. During model training the additive effects were re-estimated within each training split (Fig.~S8).
+
+\subsection*{S1.4\quad Model specification and feature encodings}
+
+\textbf{Site-state encoding.} Each modeled position is represented by a binary change indicator, a one-hot virus amino-acid state, and a one-hot serum amino-acid state. For Neher/Bedford, positions span the 550-residue mature HA sequence; for WIC, they span the 328-residue HA1 alignment.
+
+\textbf{Substitution encoding.} Each observed directed amino acid change from serum to virus at each modeled position is represented as a binary indicator. Sites where no change is observed are not separately represented.
+
+\textbf{Distance covariates.} Neher/Bedford models included temporal distance. WIC models included temporal distance plus 9 assay-context covariates: virus passage class, reference passage class, virus passage known/unknown, reference passage known/unknown, antiserum class, red blood cell type, red blood cell species, oseltamivir presence, and oseltamivir concentration inferred from the red blood cell annotation.
+
+\textbf{Model fitting.} Gradient-boosted tree models were trained using LightGBM~\cite{Ke2017LightGBM} with up to 1,000 boosting iterations (learning rate 0.1, number of leaves 31, maximum tree depth unconstrained, minimum child samples 20, no L1 or L2 regularization). For every training fold, 20\% of training virus names were set aside in an inner grouped split for early stopping (patience 50 rounds). The outer held-out fold was never used for early stopping.
+
+\subsection*{S1.5\quad Validation and held-out evaluation}
+
+\textbf{Grouped cross-validation.} All HI observations involving a given virus name, regardless of which serum it was tested against, were assigned to the same cross-validation fold. This withholds named viruses from the opposite split. It does not withhold sera, and it does not prevent closely related viruses from appearing in both training and test data. It is therefore a retrospective named-virus evaluation, not a test of new-clade or future-season generalization. Five-fold grouped cross-validation was performed for all primary analyses. Performance was summarized as the mean Spearman correlation and RMSE between predicted and observed standardized titers across held-out folds.
+
+\textbf{Secondary holdout diagnostics.} Single-split evaluations held out either a random 10\% of HI observations or all observations involving a grouped 10\% of virus names. The grouped-virus diagnostic has the same relatedness limitation as the primary cross-validation. Figures~S1, S5, S13, and S15 compare model families under these two holdout schemes; Figs.~S4 and S9 show site-state predictions for the same split types. Grouped-cross-validation metrics are reported separately in Table~S1.
+
+\subsection*{S1.6\quad SHAP attribution, value-level tables, and site-ranking stability}
+
+SHAP values were computed using TreeExplainer~\cite{Lundberg2020NatMachIntell} applied to the fitted LightGBM models. For Neher/Bedford, SHAP values were aggregated over all held-out predictions across folds; for WIC, up to 2,500 held-out rows were sampled per fold (maximum 12,500 rows in Table~S5). Site importance is the sum of mean absolute SHAP values of the site-change, virus-state, and serum-state groups. Value-level tables (Tables~S4 and S5) report mean signed SHAP and the number of contributing observations. Fold-to-fold stability is shown in Figs.~S3 and S7. Site 383 in the Neher/Bedford substitution table is an HA2 position; K383R ($n=46$ assay rows) is retained in the complete table without a post hoc count cutoff.
+
+\subsection*{S1.7\quad Cross-study comparison design}
+
+The cross-study comparison in the main manuscript (Fig.~3) integrates site rankings from the following sources.
+
+\textbf{Koel reference set.} Seven positions (145, 155, 156, 158, 159, 189, 193) identified by Koel et al.\ (2013)~\cite{Koel2013Science}.
+
+\textbf{Neher/Bedford reference set.} Fifteen positions compiled from cluster-transition-associated substitutions named in Neher et al.\ (2016)~\cite{Neher2016PNAS}; this is a compiled comparison set, not a separately published 15-row list.
+
+\textbf{Harvey reference set (primary).} All 14 HA1 positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol}: 131, 135, 138, 144, 145, 157, 158, 159, 173, 189, 193, 194, 223, and 225. This is the published rule used for all main-text Harvey overlaps.
+
+\textbf{Harvey restricted 15-site subset (sensitivity only).} An earlier-draft mix of naive-model PIP~$\geq$0.95 sites and top-25 posterior-inclusion sites in canonical antigenic regions. It omits 225 and is not Harvey's complete identification. Overlaps with this subset are in the Table~S2 TSV column \texttt{harvey\_restricted15\_top30\_overlap} and are not the primary comparison.
+
+\textbf{Shah reference set.} Thirty positions identified by aggregating the top 20 feature-importance sites across 14 influenza seasons in Shah et al.\ (2024)~\cite{shah2024seasonal}. Because the Shah model uses WIC data from a similar period, overlap with our filtered WIC models is concordance across related WIC-derived analyses.
+
+\textbf{LightGBM passage-SHAP and date-SHAP rankings.} Top-30 site rankings from sequence-only LightGBM analyses that trained passage-history classifiers and collection-date regressors without HI measurements~\cite{Meyer2026Interface_sequenceML}.
+
+\textbf{Unpassaged entropy and dN/dS.} Site-wise Shannon entropy and dN/dS from unpassaged H3N2 HA sequences, including the McWhite et al.\ (2016) unpassaged-tip ranking~\cite{McWhite2016VE_passage}.
+
+For all comparisons, we used the top 30 ranked sites from each primary model as a fixed comparison window. Expected overlap under a hypergeometric null is 2.7 sites for two sets of 30 from 328 WIC HA1 sites (0.6 for a 7-site list; 1.4 for a 15-site list; 1.3 for a 14-site list), and 1.6, 0.4, and 0.8 for the corresponding Neher/Bedford comparisons over 550 mature-HA sites. Sequence-only overlaps are shown in main-text Fig.~3B and are not duplicated in Table~S2. Table~S6 lists literature-list membership for the union of each primary model's top 15 sites. Its notes refer to the experimental reports of Koel et al., Zost et al., and Chambers et al.~\cite{Koel2019JGenVirol, Zost2017PNAS, Chambers2015CellReports}. Membership is concordance, not experimental validation.
+
+\subsection*{S1.8\quad Sensitivity analyses, patristic distance,\\ and passage-filter variants}
+
+\textbf{Unfiltered WIC.} The unfiltered WIC analysis (Figs.~S10--S11) retains passage heterogeneity and is not treated as a primary model.
+
+\textbf{Patristic-distance models.} Pairwise patristic distances were extracted from FastTree WAG+gamma trees using Biopython~\cite{Price2010PLoSOne, cock2009biopython} and included as a continuous covariate. These models are sensitivity analyses (Figs.~S12--S15) because patristic distance is a function of the same HA sequences already used as features. RMSE improvements were at most about 1\% (Table~S1).
+
+\textbf{Exact-class versus composite-egg filters.} The primary filter drops only exact classes \texttt{EGG}, \texttt{MIXED}, and \texttt{UNKNOWN}. In the 28,521 sequence-matched filtered rows, 418 (1.47\%) still contain \texttt{EGG} in a composite label on the virus or reference side (\texttt{CELL|EGG} or \texttt{EGG|CELL}). Dropping those rows would leave 28,103 observations. We did not retrain under that stricter rule. Table~S3 already tabulates the retained composite classes. If an interpretation required the complete absence of egg exposure, the stricter filter would need a new model fit; the 1.5\% row fraction does not, by itself, demonstrate that top-site ranks would be unchanged.
+
+\subsection*{S1.9\quad Counterfactual analyses at Koel sites 145 and 155}
+
+Koel et al.\ (2019)~\cite{Koel2019JGenVirol} reported that substitutions at HA1 position 145 were fully independent of amino-acid context in their reverse-genetics panel, whereas substitutions at position 155 were variable and context-dependent. We did not treat our fitted HI models as a reproduction of that experimental pattern.
+
+We evaluated the exact single-residue substitutions they assayed at positions 145 and 155 in the seven Koel backbone viruses present in the Neher/Bedford HA alignment. The 17 wildtype-to-mutant contrasts per model scope correspond to 7 unique substitutions (H155T, H155Y, K145N, N145K, S145K, T155Y, Y155T) across 7 backgrounds. For each contrast, only the target site was mutated. Both sequences were encoded as site-state feature vectors against each of 152 serum sequence contexts. The 17 wildtype-to-mutant contrasts give 2,584 pairs; three additional mutant-to-mutant contrasts give 456 pairs, for 20 contrasts and 3,040 baseline--comparison pairs per model scope. Predicted effects are differences in predicted residual titer.
+
+Full-data LightGBM fits, five-fold grouped cross-validation fits, and an additive ridge-regression comparator (alpha = 1.0) were evaluated on the same features. The ridge comparator assigns each site-state feature a single weight, so a given substitution has one coefficient; background-level ridge medians that look different in a summary table still come from that background-invariant substitution effect plus the other encoded states. Signed LightGBM predictions that differ from Koel HI titers therefore do not establish biological disagreement with the experiments. These calculations are exploratory background-dependent predicted titer changes (Fig.~S18).
+
+In the full-data LightGBM wildtype-versus-mutant table, N145K in the SI87 background (A/Netherlands/620/1989) spanned $-2.032$ to $+1.538$ log\textsubscript{2} units across serum contexts (median $-0.091$). The corresponding ridge median for N145K was $-0.187$ in every background where that substitution was encoded. Site-level summaries of background-median variation were larger at 145 than at 155 in the full-data LightGBM fit (standard deviation of background medians 0.061 versus 0.020). Cross-validation medians for N145K were similar in sign pattern (SI87 $-0.070$; VI75 $+0.019$; TX77 $-0.009$) but are a stability check, not an experimental confirmation.
+
+\subsection*{S1.10\quad Counterfactual analysis at the HA1 158--160 glycosylation motif}
+
+Zost et al.\ (2017)~\cite{Zost2017PNAS} showed that K160T introduces an N-linked glycosylation motif at HA1 positions 158--160 in contemporary H3N2 and that this motif alters antibody binding; Das et al.\ (2011), Kosik et al.\ (2018), and Altman et al.\ (2019)~\cite{Das2011PNAS_glycan, Kosik2018PLoSPathog, Altman2019mBio} address glycosylation more broadly and are not used here as validation of historical N158K. Using the filtered WIC site-state model, we identified observed assay rows whose virus sequence carried K or T at site 160 with unambiguous residues at 158--160 (25,701 rows; 3,198 unique virus backgrounds). Only site 160 was mutated (K160T or T160K). Substitutions were partitioned by whether they created or removed the N158-X159-S/T160 motif. Motif-changing K160T had a larger predicted effect than motif-preserving controls (median background-median effects 0.056 versus 0.023 across 2,184 versus 347 backgrounds); T160K showed 0.091 versus 0.078 across 638 versus 29 backgrounds (Fig.~S19). These are descriptive predicted-titer contrasts. They are not experimental measurements of glycosylation occupancy or of antigenic effect.
+
+%%% -----------------------------------------------------------------------
+\section*{Supplementary Tables}
+%%% -----------------------------------------------------------------------
+
+\input{tables/table_s1_model_performance.tex}
+
+\begin{fitsupplementtable}
+\setlength{\tabcolsep}{1pt}
+\input{tables/table_s2_reference_overlap.tex}
+\end{fitsupplementtable}
+
+\input{tables/table_s3_wic_filter_summary.tex}
+
+{\emergencystretch=1em
+\noindent\textbf{Tables S4 and S5} are provided as machine-readable tab-separated value files (\path{table_s4_neher_bedford_shap_values.tsv} and \path{table_s5_wic_filtered_shap_values.tsv}) accompanying this supplement, because their full contents (4,481 and 3,172 rows, respectively) exceed practical page limits. Table~S4 reports, for every site in the Neher/Bedford analysis, the mean signed SHAP contribution of each covariate value together with the number of contributing observations. Table~S5 reports the same quantities for the passage-filtered WIC analysis. The WIC SHAP subsample contains at most 12,500 rows, so substitution counts such as N225D $n=1{,}099$ are subsample counts, not the full filtered-data counts. Section S1.6 describes how these tables were constructed.\par}
+
+
+\setcounter{table}{5}
+\begin{fitsupplementtable}
+\input{tables/table_s6_literature_overlap.tex}
+\end{fitsupplementtable}
+
+\clearpage
+
+%%% -----------------------------------------------------------------------
+\section*{Supplementary Results}
+%%% -----------------------------------------------------------------------
+
+\subsection*{Section A: Primary Neher/Bedford H3N2 diagnostics}
+
+Figures~S1--S4 show that the LightGBM models trained on the Neher/Bedford dataset are predictive, that their site rankings are stable across folds, and that performance holds under grouped named-virus holdout. Figure~S16 shows the top 20 value-level features by absolute mean signed SHAP contribution.
+
+\subsection*{Section B: Primary filtered WIC H3N2 diagnostics}
+
+Figures~S5--S9 establish the same properties for the models trained on the filtered WIC dataset. Figure~S17 shows the corresponding value-level features.
+
+\subsection*{Section C: Sensitivity analyses}
+
+Figures~S10--S15 present unfiltered WIC and patristic-distance variants. Patristic distance provided at most marginal RMSE improvement (Table~S1) with changes in rank order and benchmark overlap (Table~S2).
+
+\subsection*{Section D: Exploratory background-dependent\\ predicted titer changes}
+
+Figures~S18 and S19 report computational introductions of Koel 145/155 substitutions and of site-160 motif-changing substitutions. These panels describe background-dependent predicted titer changes from the fitted trees. They are not experimental tests of epistasis, and signed disagreements with Koel HI titers are not interpreted as biological conflict (S1.9, S1.10).
+
+%%% -----------------------------------------------------------------------
+\section*{Supplementary Figures}
+%%% -----------------------------------------------------------------------
+\subsection*{Section A: Primary Neher/Bedford H3N2 diagnostics}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s1_h3n2_heldout_model_comparison.pdf}
+\caption{\textbf{Held-out model-family comparison for the primary analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. The model families comprise the additive baseline and the site-change, site-state, and substitution sequence encodings. No error bars are shown. Five-fold grouped-cross-validation RMSE and Spearman correlations are reported separately in Table~S1.}
+\label{fig:si-h3n2-heldout}
+\par\vspace{0.35em}
+\textit{Alt text.} Grouped bars show Neher/Bedford model-family RMSE for random-measurement and grouped-virus 10-percent holdouts, without error bars.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s2_h3n2_predicted_vs_actual.pdf}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the Neher/Bedford dataset.} Each point represents one held-out HI observation; the diagonal line indicates perfect agreement. Point color encodes the temporal distance covariate.}
+\label{fig:si-h3n2-predicted}
+\par\vspace{0.35em}
+\textit{Alt text.} Scatter plot of observed versus predicted standardized HI titers for the Neher/Bedford site-state model, concentrated around the identity line.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s3_h3n2_site_stability_top30.pdf}
+\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the Neher/Bedford dataset.} Points show the mean rank of each site across cross-validation folds; horizontal segments indicate one standard deviation.}
+\label{fig:si-h3n2-stability}
+\par\vspace{0.35em}
+\textit{Alt text.} Rank-stability plot for the top 30 Neher/Bedford sites, with leading antigenic sites showing narrow fold-to-fold rank ranges.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\noindent\parbox{0.48\textwidth}{\centering\small\textbf{A. Random 10\% measurements}}\hfill
+\parbox{0.48\textwidth}{\centering\small\textbf{B. Grouped 10\% virus names}}\par
+\includegraphics[width=\textwidth]{figures/fig_s4_h3n2_neher_analog.pdf}
+\caption{\textbf{Observed-versus-predicted titers for the Neher/Bedford site-state model under two holdout schemes.} \textbf{(A)} A random 10\% of HI observations are held out. \textbf{(B)} All observations involving a grouped 10\% of virus names are held out. Each point represents one held-out observation. The grouped split withholds named viruses but can still include close relatives and shared sera. Model-family RMSE comparisons are shown in Fig.~S1.}
+\label{fig:si-h3n2-neher-analog}
+\par\vspace{0.35em}
+\textit{Alt text.} Two observed-versus-predicted titer scatter panels for the Neher/Bedford site-state model: A, random 10-percent measurement holdout; B, grouped 10-percent virus-name holdout.
+\end{figure}
+
+\clearpage
+\subsection*{Section B: Primary filtered WIC H3N2 diagnostics}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s5_wic_filtered_heldout_model_comparison.pdf}
+\caption{\textbf{Held-out model-family comparison for the analysis on the filtered WIC H3N2 dataset.} Bars show RMSE across model families for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. No error bars are shown. Five-fold grouped-cross-validation RMSE and Spearman correlations are reported separately in Table~S1; filtered and unfiltered metrics are not directly comparable because filtering changes the response distribution.}
+\label{fig:si-wic-filtered-heldout}
+\par\vspace{0.35em}
+\textit{Alt text.} Grouped bars show passage-filtered WIC model-family RMSE for random-measurement and grouped-virus 10-percent holdouts, without error bars.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s6_wic_filtered_predicted_vs_actual.pdf}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the passage-filtered WIC dataset.} Each point represents one held-out HI observation. Relative to the unfiltered analysis (Fig.~S10), the distribution is tighter and lacks the two-cluster structure associated with mixed passage types.}
+\label{fig:si-wic-filtered-predicted}
+\par\vspace{0.35em}
+\textit{Alt text.} Scatter plot of observed versus predicted standardized titers for the filtered WIC site-state model, tightly concentrated around the identity line.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s7_wic_filtered_site_stability_top30.pdf}
+\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the passage-filtered WIC dataset.} The leading sites include 144, 225, 159, 140, and 145. Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol} included 225 among structurally aware PIP~$\geq$0.95 positions.}
+\label{fig:si-wic-filtered-stability}
+\par\vspace{0.35em}
+\textit{Alt text.} Rank-stability plot for the top 30 filtered WIC sites, led by 144 and 225 with narrow fold-to-fold ranges.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s8_wic_filtered_residualization.pdf}
+\caption{\textbf{Residualization diagnostic for the analysis on the filtered WIC H3N2 dataset.} Scatter plot of standardized titer versus context-corrected titer, with point color indicating whether the normalization reference was an observed homologous titer or the maximum observed titer for that serum.}
+\label{fig:si-wic-filtered-residualization}
+\par\vspace{0.35em}
+\textit{Alt text.} Scatter plot of standardized versus context-corrected HI titer, colored by homologous-titer source.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\noindent\parbox{0.48\textwidth}{\centering\small\textbf{A. Random 10\% measurements}}\hfill
+\parbox{0.48\textwidth}{\centering\small\textbf{B. Grouped 10\% virus names}}\par
+\includegraphics[width=\textwidth]{figures/fig_s9_wic_filtered_neher_analog.pdf}
+\caption{\textbf{Observed-versus-predicted titers for the filtered WIC site-state model under two holdout schemes.} \textbf{(A)} A random 10\% of HI observations are held out. \textbf{(B)} All observations involving a grouped 10\% of virus names are held out. Each point represents one held-out observation. The grouped split withholds named viruses but can include close relatives and shared sera. Model-family RMSE comparisons are shown in Fig.~S5.}
+\label{fig:si-wic-filtered-neher-analog}
+\par\vspace{0.35em}
+\textit{Alt text.} Two observed-versus-predicted titer scatter panels for the filtered WIC site-state model: A, random 10-percent measurement holdout; B, grouped 10-percent virus-name holdout.
+\end{figure}
+
+\clearpage
+\subsection*{Section C: Sensitivity analyses}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s10_wic_full_predicted_vs_actual.pdf}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the unfiltered WIC dataset.} The distribution shows a two-cluster structure reflecting mixed passage contexts.}
+\label{fig:si-wic-full-predicted}
+\par\vspace{0.35em}
+\textit{Alt text.} Scatter plot of unfiltered WIC observed versus predicted titers with a visible two-cluster structure.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s11_wic_full_site_component_top30.pdf}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the unfiltered WIC dataset.} Bracket annotations follow the main-text figures, including the 14-site Harvey PIP~$\geq$0.95 set. Passage-associated positions appear alongside canonical antigenic sites relative to the filtered analysis (main text Fig.~2).}
+\label{fig:si-wic-full-site-component}
+\par\vspace{0.35em}
+\textit{Alt text.} Horizontal stacked bars of the top 30 unfiltered WIC sites by mean absolute SHAP value, with literature-set brackets.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s12_h3n2_patristic_site_component_top30.pdf}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the Neher/Bedford dataset with added patristic distance.} The principal ranked sites remain similar to the primary Neher/Bedford model (main text Fig.~1).}
+\label{fig:si-h3n2-patristic-site-component}
+\par\vspace{0.35em}
+\textit{Alt text.} Horizontal stacked bars of Neher/Bedford sites after adding patristic distance, resembling the primary Fig.~1 ranking.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s13_h3n2_patristic_heldout_model_comparison.pdf}
+\caption{\textbf{Held-out model-family comparison for the patristic-distance sensitivity analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE across model families for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. No error bars are shown. Five-fold grouped-cross-validation results with and without patristic distance are reported separately in Table~S1.}
+\label{fig:si-h3n2-patristic-heldout}
+\par\vspace{0.35em}
+\textit{Alt text.} Grouped bars show Neher/Bedford model-family RMSE with patristic distance for random-measurement and grouped-virus 10-percent holdouts, without error bars.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s14_wic_filtered_patristic_site_component_top30.pdf}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the passage-filtered WIC dataset with added patristic distance.} The same five sites lead the primary filtered model (main text Fig.~2) and this sensitivity analysis, but their order changes.}
+\label{fig:si-wic-filtered-patristic-site-component}
+\par\vspace{0.35em}
+\textit{Alt text.} Horizontal stacked bars of filtered WIC sites after adding patristic distance, led by 159 and 225.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s15_wic_filtered_patristic_heldout_model_comparison.pdf}
+\caption{\textbf{Held-out model-family comparison for the patristic-distance sensitivity analysis on the filtered WIC H3N2 dataset.} Bars show RMSE across model families for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. No error bars are shown. Five-fold grouped-cross-validation results with and without patristic distance are reported separately in Table~S1.}
+\label{fig:si-wic-filtered-patristic-heldout}
+\par\vspace{0.35em}
+\textit{Alt text.} Grouped bars show filtered WIC model-family RMSE with patristic distance for random-measurement and grouped-virus 10-percent holdouts, without error bars.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s16_h3n2_signed_feature_shap.pdf}
+\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the Neher/Bedford models.} \textbf{(A)} Site-state encoding. \textbf{(B)} Substitution encoding, including N158K ($n=188$) and S189R ($n=254$). Complete tables are Tables~S4 and S5.}
+\label{fig:si-h3n2-signed-features}
+\par\vspace{0.35em}
+\textit{Alt text.} Two horizontal bar panels of signed SHAP features for Neher/Bedford site-state and substitution models, with blue toward greater predicted titer loss and orange toward preserved cross-reactivity.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s17_wic_signed_feature_shap.pdf}
+\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the passage-filtered WIC models.} Substitution-level leaders include K189N ($n=67$ in the SHAP subsample), H197Q ($n=187$), and N225D ($n=1{,}099$).}
+\label{fig:si-wic-signed-features}
+\par\vspace{0.35em}
+\textit{Alt text.} Two horizontal bar panels of signed SHAP features for filtered WIC site-state and substitution models, led in the substitution panel by K189N, H197Q, and N225D.
+\end{figure}
+
+\clearpage
+\subsection*{Section D: Exploratory background-dependent\\ predicted titer changes}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s18_koel_context_dependence.pdf}
+\caption{\textbf{Exploratory Koel et al.\ (2019)~\cite{Koel2019JGenVirol} counterfactual for background-dependent predicted titer changes in the Neher/Bedford site-state model.} Each point is the median predicted residual-titer effect of introducing the indicated substitution into one historical HA background, evaluated across 152 serum sequence contexts; error bars span the interquartile range. These are predicted titer changes from the fitted trees, not experimental HI effects. Koel et al.\ found 145 substitutions context-independent and 155 substitutions context-dependent; this figure does not test that experimental claim. The 17 wildtype-to-mutant contrasts per model scope comprise 7 unique substitutions; the 3,040 total pairs per scope additionally include three mutant-to-mutant contrasts (S1.9).}
+\label{fig:si-koel-context}
+\par\vspace{0.35em}
+\textit{Alt text.} Two-panel plot of median predicted titer effects for substitutions at sites 145 and 155 across historical backgrounds, with interquartile error bars.
+\end{figure}
+
+\begin{figure}[!htp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_s19_glycan_context_dependence.pdf}
+\caption{\textbf{Descriptive glycosylation-motif context dependence at HA1 positions 158--160 in the filtered WIC model.} For each observed WIC assay row carrying K or T at site 160, only site 160 was mutated (K160T or T160K). Predicted effects are larger when the substitution creates or removes the N158-X159-S/T160 motif than when it leaves motif status unchanged. Zost et al.\ (2017)~\cite{Zost2017PNAS} established the contemporary K160T motif biochemically; this panel does not measure glycan occupancy and does not validate historical N158K.}
+\label{fig:si-glycan-context}
+\par\vspace{0.35em}
+\textit{Alt text.} Comparison of predicted titer effects for motif-changing versus motif-preserving K160T and T160K substitutions across virus backgrounds.
+\end{figure}
+
+\FloatBarrier
+\clearpage
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography}
+
+\end{document}

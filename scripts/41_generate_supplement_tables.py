@@ -3,9 +3,13 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
 import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from paper_sites import HARVEY2023_PIP95_SITE_ROWS, HARVEY2023_RESTRICTED15_SITE_ROWS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -139,18 +143,31 @@ def overlap_string(df: pd.DataFrame, rank_col: str, membership_col: str, denom: 
     return f"{len(top_sites & ref_sites)}/{denom}"
 
 
+def harvey_primary_n() -> int:
+    return len({int(row["site"]) for row in HARVEY2023_PIP95_SITE_ROWS})
+
+
+def harvey_restricted15_n() -> int:
+    return len({int(row["site"]) for row in HARVEY2023_RESTRICTED15_SITE_ROWS})
+
+
 def build_table_s2() -> pd.DataFrame:
     master = pd.read_csv(MASTER_TABLE, sep="\t")
+    harvey_n = harvey_primary_n()
+    restricted_n = harvey_restricted15_n()
+    restricted_sites = {int(row["site"]) for row in HARVEY2023_RESTRICTED15_SITE_ROWS}
     rows: list[dict[str, object]] = []
     for analysis in ANALYSES:
         for model_label, rank_col in [("site-state", analysis["site_rank_col"]), ("substitution", analysis["sub_rank_col"])]:
+            top_sites = set(master.loc[master[rank_col].notna() & (master[rank_col] <= 30), "site"])
             rows.append(
                 {
                     "analysis": analysis["label"],
                     "model": model_label,
                     "koel_top30_overlap": overlap_string(master, rank_col, "in_koel", 7),
                     "neher_top30_overlap": overlap_string(master, rank_col, "in_neher2016", 15),
-                    "harvey_top30_overlap": overlap_string(master, rank_col, "in_harvey2023", 15),
+                    "harvey_top30_overlap": overlap_string(master, rank_col, "in_harvey2023", harvey_n),
+                    "harvey_restricted15_top30_overlap": f"{len(top_sites & restricted_sites)}/{restricted_n}",
                     "shah_top30_overlap": overlap_string(master, rank_col, "in_shah2024", 30),
                 }
             )
@@ -181,12 +198,12 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Top-30 overlap between model-ranked sites from each data set and the Koel, Neher/Bedford, Harvey/WIC, and Shah/WIC reference site sets. The Neher/Bedford and Harvey/WIC site sets each contain 15 sites, the Shah/WIC site set contains 30 sites, and the Koel site set contains 7 sites.}",
+        r"\caption{Top-30 overlap between model-ranked sites from each data set and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally-aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The Harvey column uses all positions with posterior inclusion probability at least 0.95 in the structurally-aware model of Harvey et al.\ (2023). A restricted 15-site subset used in an earlier draft is reported as a labeled sensitivity in the accompanying TSV and is not the primary Harvey comparison.}",
         r"\label{tab:si-reference-overlap}",
         r"\small",
         r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccc}",
         r"\toprule",
-        r"Data set & Model & Koel sites & Neher/Bedford sites & Harvey/WIC sites & Shah/WIC sites \\",
+        r"Data set & Model & Koel sites & Neher/Bedford sites & Harvey PIP~$\geq$0.95 & Shah sites \\",
         r"\midrule",
     ]
     for row in df.itertuples(index=False):
@@ -194,6 +211,86 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
             f"{row.analysis} & {row.model} & {row.koel_top30_overlap} & {row.neher_top30_overlap} & {row.harvey_top30_overlap} & {row.shah_top30_overlap} \\\\"
         )
     lines.extend([r"\bottomrule", r"\end{tabular*}", r"\end{table}"])
+    out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+# Site notes are restricted to sources inspected for this revision. Membership
+# flags are concordance with published site lists, not experimental validation.
+SITE_LITERATURE_NOTES = {
+    144: "Harvey structurally-aware PIP >= 0.95 (site A); Shah aggregated seasonal set.",
+    145: "Koel 2013 cluster-transition site. Koel 2019: substitutions at 145 were context-independent in that reverse-genetics panel.",
+    155: "Koel 2013 cluster-transition site. Koel 2019: substitutions at 155 were context-dependent in that reverse-genetics panel.",
+    156: "Koel 2013 cluster-transition site.",
+    158: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B). Zost 2017 concerns the 158--160 glycosylation motif via K160T, not historical N158K.",
+    159: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
+    189: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
+    193: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
+    225: "Harvey structurally-aware PIP >= 0.95 (receptor-binding site); Shah aggregated set. Chambers 2015 lists N225D among 3C.2a/3C.3a differences relative to A/Texas/50/2012; that panel did not identify N225D as the principal HAI driver.",
+    135: "Harvey structurally-aware PIP >= 0.95 (site A); Neher/Bedford named substitution.",
+    173: "Harvey structurally-aware PIP >= 0.95 (site D).",
+    160: "Zost 2017: K160T introduces the HA1 158--160 N-linked glycosylation motif in contemporary H3N2.",
+}
+
+
+def yes_no(flag: bool) -> str:
+    return "yes" if flag else "no"
+
+
+def build_table_s6() -> pd.DataFrame:
+    master = pd.read_csv(MASTER_TABLE, sep="\t")
+    neher_top = set(master.loc[master["h3n2_site_state_rank"].notna() & (master["h3n2_site_state_rank"] <= 15), "site"])
+    wic_top = set(master.loc[master["wic_filtered_site_state_rank"].notna() & (master["wic_filtered_site_state_rank"] <= 15), "site"])
+    sites = sorted(neher_top | wic_top)
+    rows: list[dict[str, object]] = []
+    for site in sites:
+        rec = master.loc[master["site"] == site].iloc[0]
+        rows.append(
+            {
+                "site": int(site),
+                "neher_site_state_rank": rec["h3n2_site_state_rank"] if pd.notna(rec["h3n2_site_state_rank"]) else pd.NA,
+                "wic_filtered_site_state_rank": rec["wic_filtered_site_state_rank"] if pd.notna(rec["wic_filtered_site_state_rank"]) else pd.NA,
+                "in_koel": bool(rec["in_koel"]) if pd.notna(rec["in_koel"]) else False,
+                "in_neher2016": bool(rec["in_neher2016"]) if pd.notna(rec["in_neher2016"]) else False,
+                "in_harvey_pip95": bool(rec["in_harvey2023"]) if pd.notna(rec["in_harvey2023"]) else False,
+                "in_shah2024": bool(rec["in_shah2024"]) if pd.notna(rec["in_shah2024"]) else False,
+                "literature_note": SITE_LITERATURE_NOTES.get(int(site), ""),
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
+    lines = [
+        r"\begin{table}[!h]",
+        r"\centering",
+        r"\caption{Literature-list overlap for the union of the top 15 sites from the Neher/Bedford and passage-filtered WIC site-state models. Membership flags record concordance with published site lists. They are not experimental validation of antigenic effect. Notes cite only sources inspected for this revision.}",
+        r"\label{tab:si-literature-overlap}",
+        r"\footnotesize",
+        r"\setlength{\tabcolsep}{3pt}",
+        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}rrrccccp{6.6cm}}",
+        r"\toprule",
+        r"Site & Neher rank & WIC filt.\ rank & Koel & Neher/Bedford & Harvey PIP~$\geq$0.95 & Shah & Note \\",
+        r"\midrule",
+    ]
+    for row in df.itertuples(index=False):
+        neher = "--" if pd.isna(row.neher_site_state_rank) else str(int(row.neher_site_state_rank))
+        wic = "--" if pd.isna(row.wic_filtered_site_state_rank) else str(int(row.wic_filtered_site_state_rank))
+        note = str(row.literature_note).replace("&", r"\&")
+        lines.append(
+            f"{int(row.site)} & {neher} & {wic} & {yes_no(row.in_koel)} & {yes_no(row.in_neher2016)} & {yes_no(row.in_harvey_pip95)} & {yes_no(row.in_shah2024)} & {note} \\\\"
+        )
+    lines.extend(
+        [
+            r"\bottomrule",
+            r"\end{tabular*}",
+            r"\par\vspace{0.35em}",
+            r"\begin{minipage}{\textwidth}",
+            r"\raggedright\footnotesize",
+            r"\textit{Note:} Empty notes mean the site appears in one or both model top-15 lists but we did not attach an additional inspected experimental narrative beyond the membership flags.",
+            r"\end{minipage}",
+            r"\end{table}",
+        ]
+    )
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -221,6 +318,9 @@ def main() -> None:
     table_s2.to_csv(OUT_DIR / "table_s2_reference_overlap.tsv", sep="\t", index=False)
     write_table_s1_tex(table_s1, OUT_DIR / "table_s1_model_performance.tex")
     write_table_s2_tex(table_s2, OUT_DIR / "table_s2_reference_overlap.tex")
+    table_s6 = build_table_s6()
+    table_s6.to_csv(OUT_DIR / "table_s6_literature_overlap.tsv", sep="\t", index=False)
+    write_table_s6_tex(table_s6, OUT_DIR / "table_s6_literature_overlap.tex")
     copy_reusable_shap_tables()
 
 

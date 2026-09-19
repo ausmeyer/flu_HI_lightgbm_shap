@@ -1,7 +1,7 @@
 label	h3n2_overlap	wic_filtered_overlap	ref_size
 Koel sites	6	5	7
 Neher/Bedford sites	11	10	15
-Harvey/WIC sites	11	12	15
+Harvey PIP≥0.95	12	11	14
 Shah/WIC sites	14	17	30
 LightGBM+SHAP passage	11	16	30
 LightGBM+SHAP date	12	18	30

@@ -10,10 +10,18 @@ It supports three main use cases:
 ## Start Here
 
 If you are trying to understand or audit the paper rather than rerun every script:
-- read [MANUSCRIPT_REPORT_CONTEXT.md](MANUSCRIPT_REPORT_CONTEXT.md) for the single-file reporting context compiled from inputs, intermediates, outputs, and QC logs
+- read the [manuscript snapshot guide](manuscript/github_snapshot_2026-09-18/README.md) for the manuscript, supplement, and compilation instructions
 - use [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv) for site-level ranks, benchmark memberships, and external sequence-only comparisons
 - use [model_performance_literature_summary.tsv](model_performance_literature_summary.tsv) for consolidated model metrics
 - use [table_s1_model_performance.tsv](manuscript/generated_supplement/table_s1_model_performance.tsv), [table_s2_reference_overlap.tsv](manuscript/generated_supplement/table_s2_reference_overlap.tsv), and [fig4_panelB_overlaps.tsv](manuscript/generated_figures/fig4_panelB_overlaps.tsv) for manuscript-facing summary outputs
+
+## Manuscript workspace
+
+Overleaf is the authoritative writing workspace:
+- Main text: local clone `69b778fd3e7b181fe1c2943b/Research_report_ve.tex`
+- Supplement: local clone `69b7797c762f515edcff3ad6/research_report_supplement.tex`
+
+A dated GitHub-facing copy lives in `manuscript/github_snapshot_2026-09-18/` (text, bibliography, our figures and tables only). Copyrighted publisher PDFs in `all_citations/` and `relevant_literature/*.pdf` are gitignored and must never be staged, committed, or pushed.
 
 If you are trying to rerun the primary analyses, use the wrapper scripts below rather than the numbered stage scripts directly.
 
@@ -47,7 +55,7 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
 - `scripts/wic_name_utils.py`
 - `configs/h3n2.json`
 - `configs/h1n1_template.json`
-- `MANUSCRIPT_REPORT_CONTEXT.md`: single-file manuscript reporting context built from pipeline artifacts
+- `manuscript/github_snapshot_2026-09-18/`: dated manuscript and supplement sources, bibliography, figures, and tables
 - `site_model_literature_comparison.tsv`: master site-level comparison table
 - `model_performance_literature_summary.tsv`: master model-metrics table
 - `manuscript/generated_figures/`: manuscript-facing figures and figure-support tables
@@ -59,7 +67,7 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
 The repo contains a manuscript-reporting layer in addition to the raw pipeline outputs.
 
 For manuscript assembly or factual checking, the main artifacts are:
-- [MANUSCRIPT_REPORT_CONTEXT.md](MANUSCRIPT_REPORT_CONTEXT.md)
+- [manuscript snapshot guide](manuscript/github_snapshot_2026-09-18/README.md)
 - [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv)
 - [model_performance_literature_summary.tsv](model_performance_literature_summary.tsv)
 - [manuscript/generated_figures/](manuscript/generated_figures/)

@@ -1,0 +1,23 @@
+site	neher_site_state_rank	wic_filtered_site_state_rank	in_koel	in_neher2016	in_harvey_pip95	in_shah2024	literature_note
+45	62	9.0	False	False	False	True	
+53	67	8.0	False	False	False	False	
+62	15	7.0	False	True	False	True	
+121	5	27.0	False	True	False	False	
+133	3	267.0	False	False	False	False	
+135	4	26.0	False	True	True	True	Harvey structurally-aware PIP >= 0.95 (site A); Neher/Bedford named substitution.
+140	56	4.0	False	True	False	True	
+142	52	6.0	False	False	False	True	
+144	10	1.0	False	True	True	True	Harvey structurally-aware PIP >= 0.95 (site A); Shah aggregated seasonal set.
+145	2	5.0	True	True	True	True	Koel 2013 cluster-transition site. Koel 2019: substitutions at 145 were context-independent in that reverse-genetics panel.
+156	7	117.0	True	True	False	False	Koel 2013 cluster-transition site.
+158	6	12.0	True	True	True	True	Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B). Zost 2017 concerns the 158--160 glycosylation motif via K160T, not historical N158K.
+159	12	3.0	True	True	True	True	Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).
+173	18	14.0	False	False	True	True	Harvey structurally-aware PIP >= 0.95 (site D).
+189	1	15.0	True	True	True	True	Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).
+193	9	13.0	True	True	True	True	Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).
+197	59	11.0	False	False	False	True	
+225	11	2.0	False	False	True	True	Harvey structurally-aware PIP >= 0.95 (receptor-binding site); Shah aggregated set. Chambers 2015 lists N225D among 3C.2a/3C.3a differences relative to A/Texas/50/2012; that panel did not identify N225D as the principal HAI driver.
+226	13	146.0	False	False	False	False	
+262	8	51.0	False	False	False	False	
+278	14	22.0	False	False	False	False	
+326	128	10.0	False	False	False	False	

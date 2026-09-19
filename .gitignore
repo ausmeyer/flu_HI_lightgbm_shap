@@ -13,6 +13,9 @@ __pycache__/
 *.nwk
 *.tree
 
+# Raw GISAID downloads remain local, including submitter metadata.
+/H3N2-WIC/data/raw/gisaid/
+
 # Pipeline outputs are large and fully regenerable.
 /H3N2/output/
 /H3N2-patristic/output/
@@ -25,10 +28,24 @@ __pycache__/
 /69b778fd3e7b181fe1c2943b/
 /69b7797c762f515edcff3ad6/
 
-# Local writing and manuscript assets not for the public repo.
-/my_writing/
+# Copyrighted full-text PDFs must never be committed.
+/all_citations/
+/all_citations/**
+/papers/
+/papers/**
+/full_text/
+/full_texts/
+/fulltext/
 /relevant_literature/*.pdf
 /relevant_literature/*.PDF
+
+# Local compiled manuscript PDFs (keep generated_figures/ tracked).
+/manuscript/*.pdf
+# Compiled manuscript/SI PDFs at snapshot roots only; keep figure PDFs.
+manuscript/github_snapshot_*/*.pdf
+
+# Local writing and manuscript assets not for the public repo.
+/my_writing/
 /AGENTS.md
 /PROJECT.md
 /chatgpt_review_v1.txt
@@ -36,6 +53,7 @@ __pycache__/
 /kimi_review_v1.txt
 /kimi_review_v2.txt
 /plm_extension_proposal.txt
+/h3n2_top30_shap_literature_evidence.xlsx
 
 # Audit backups and local reruns contain source sequences.
 /audit/

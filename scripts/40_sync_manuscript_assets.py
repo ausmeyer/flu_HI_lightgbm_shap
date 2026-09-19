@@ -32,12 +32,12 @@ def main() -> None:
 
     mapping = {
         ROOT / "H3N2" / "output" / "figures" / "H3N2_site_component_top30.pdf":
-            figures_dir / "fig2_h3n2_site_component_top30.pdf",
+            figures_dir / "fig1_h3n2_site_component_top30.pdf",
         ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown" / "output" / "modeling" / "figures"
         / "H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_site_component_top30.pdf":
-            figures_dir / "fig3_wic_filtered_site_component_top30.pdf",
+            figures_dir / "fig2_wic_filtered_site_component_top30.pdf",
         ROOT / "manuscript" / "generated_figures" / "fig4_cross_study_concordance.pdf":
-            figures_dir / "fig4_cross_study_concordance.pdf",
+            figures_dir / "fig3_cross_study_concordance.pdf",
     }
 
     for src, dst in mapping.items():

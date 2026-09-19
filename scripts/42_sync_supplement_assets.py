@@ -69,6 +69,16 @@ def main() -> None:
         ROOT / "H3N2-WIC-patristic-no-egg-no-mixed-no-unknown" / "output" / "modeling" / "figures"
         / "H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_PATRISTIC_heldout_model_comparison.pdf":
             figures_dir / "fig_s15_wic_filtered_patristic_heldout_model_comparison.pdf",
+        ROOT / "H3N2" / "output" / "figures" / "H3N2_signed_feature_shap_top20.pdf":
+            figures_dir / "fig_s16_h3n2_signed_feature_shap.pdf",
+        ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown" / "output" / "modeling" / "figures"
+        / "H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_signed_feature_shap_top20.pdf":
+            figures_dir / "fig_s17_wic_signed_feature_shap.pdf",
+        ROOT / "H3N2" / "output" / "figures" / "H3N2_koel_context_dependence_145_155.pdf":
+            figures_dir / "fig_s18_koel_context_dependence.pdf",
+        ROOT / "H3N2-WIC-no-egg-no-mixed-no-unknown" / "output" / "modeling" / "figures"
+        / "H3N2_WIC_HA1_NO_EGG_MIXED_UNKNOWN_glycan_context_dependence_158_160.pdf":
+            figures_dir / "fig_s19_glycan_context_dependence.pdf",
     }
 
     table_mapping = {
@@ -84,6 +94,10 @@ def main() -> None:
             tables_dir / "table_s4_neher_bedford_shap_values.tsv",
         ROOT / "manuscript" / "generated_supplement" / "table_s5_wic_filtered_shap_values.tsv":
             tables_dir / "table_s5_wic_filtered_shap_values.tsv",
+        ROOT / "manuscript" / "generated_supplement" / "table_s6_literature_overlap.tex":
+            tables_dir / "table_s6_literature_overlap.tex",
+        ROOT / "manuscript" / "generated_supplement" / "table_s6_literature_overlap.tsv":
+            tables_dir / "table_s6_literature_overlap.tsv",
     }
 
     for src, dst in {**figure_mapping, **table_mapping}.items():

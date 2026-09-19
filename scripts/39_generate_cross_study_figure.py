@@ -22,7 +22,7 @@ OUT_DIR = ROOT / "manuscript" / "generated_figures"
 PANEL_A_MEMBERSHIP_COLS = [
     ("in_koel", "Koel\nsites"),
     ("in_neher2016", "Neher/Bedford\nsites"),
-    ("in_harvey2023", "Harvey/WIC\nsites"),
+    ("in_harvey2023", "Harvey\nPIP≥0.95"),
     ("in_shah2024", "Shah/WIC\nsites"),
 ]
 
@@ -39,7 +39,7 @@ PANEL_A_RANK_COLS = [
 PANEL_B_ROWS = [
     ("Koel sites", "in_koel", "set"),
     ("Neher/Bedford sites", "in_neher2016", "set"),
-    ("Harvey/WIC sites", "in_harvey2023", "set"),
+    ("Harvey PIP≥0.95", "in_harvey2023", "set"),
     ("Shah/WIC sites", "in_shah2024", "set"),
     ("LightGBM+SHAP passage", "lightgbm_review_mean_shap_passage_rank", "rank"),
     ("LightGBM+SHAP date", "lightgbm_review_mean_shap_date_rank", "rank"),
@@ -204,7 +204,7 @@ def plot_panel_b(ax: plt.Axes, panel_b: pd.DataFrame) -> None:
 
     labels = []
     for _, row in plot_df.iterrows():
-        if row["label"] in {"Koel sites", "Neher/Bedford sites", "Harvey/WIC sites", "Shah/WIC sites"}:
+        if row["label"] in {"Koel sites", "Neher/Bedford sites", "Harvey PIP≥0.95", "Shah/WIC sites"}:
             labels.append(f"{row['label']} (n={int(row['ref_size'])})")
         else:
             labels.append(f"{row['label']} (top 30)")

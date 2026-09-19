@@ -23,23 +23,52 @@ NEHER2016_H3_SITE_ROWS = [
 ]
 
 
-WIC2023_H3_SITE_ROWS = [
-    {"site": 53, "paper_category": "top25_site_C", "paper_note": "Top-25 posterior inclusion position; antigenic site C in Fig 2 discussion."},
-    {"site": 121, "paper_category": "top25_site_D", "paper_note": "Top-25 posterior inclusion position; antigenic site D in Fig 2 discussion."},
-    {"site": 126, "paper_category": "top25_site_A", "paper_note": "Top-25 posterior inclusion position; antigenic site A in Fig 2 discussion."},
-    {"site": 131, "paper_category": "high_confidence_site_A", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site A."},
-    {"site": 135, "paper_category": "high_confidence_site_A", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site A."},
-    {"site": 137, "paper_category": "top25_site_A", "paper_note": "Top-25 posterior inclusion position; antigenic site A in Fig 2 discussion."},
-    {"site": 144, "paper_category": "top25_site_A", "paper_note": "Top-25 posterior inclusion position; antigenic site A in Fig 2 discussion."},
-    {"site": 145, "paper_category": "high_confidence_site_A", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site A."},
-    {"site": 157, "paper_category": "high_confidence_site_B", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site B."},
-    {"site": 158, "paper_category": "top25_site_B", "paper_note": "Top-25 posterior inclusion position; antigenic site B in Fig 2 discussion."},
-    {"site": 159, "paper_category": "top25_site_B", "paper_note": "Top-25 posterior inclusion position; antigenic site B in Fig 2 discussion."},
-    {"site": 160, "paper_category": "top25_site_B", "paper_note": "Top-25 posterior inclusion position; antigenic site B in Fig 2 discussion."},
-    {"site": 173, "paper_category": "top25_site_D", "paper_note": "Top-25 posterior inclusion position; antigenic site D in Fig 2 discussion."},
-    {"site": 189, "paper_category": "high_confidence_site_B", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site B."},
-    {"site": 193, "paper_category": "high_confidence_site_B", "paper_note": "Posterior inclusion probability at least 0.95; antigenic site B."},
+# Primary Harvey comparison: all HA1 positions with posterior inclusion probability
+# (PIP) >= 0.95 in the structurally-aware model (Harvey et al. 2023, Results;
+# PLoS Comput Biol 19:e1010885, p. 15). The paper reports n = 14:
+# site A 131, 135, 144, 145; site B 157, 158, 159, 189, 193; site D 173;
+# receptor-binding site 194, 225; near the receptor-binding site 138, 223.
+HARVEY2023_PIP95_SITE_ROWS = [
+    {"site": 131, "paper_category": "structurally_aware_pip_ge_0.95_site_A", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site A."},
+    {"site": 135, "paper_category": "structurally_aware_pip_ge_0.95_site_A", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site A."},
+    {"site": 138, "paper_category": "structurally_aware_pip_ge_0.95_near_rbs", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; located close to the receptor-binding site."},
+    {"site": 144, "paper_category": "structurally_aware_pip_ge_0.95_site_A", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site A."},
+    {"site": 145, "paper_category": "structurally_aware_pip_ge_0.95_site_A", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site A."},
+    {"site": 157, "paper_category": "structurally_aware_pip_ge_0.95_site_B", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site B."},
+    {"site": 158, "paper_category": "structurally_aware_pip_ge_0.95_site_B", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site B."},
+    {"site": 159, "paper_category": "structurally_aware_pip_ge_0.95_site_B", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site B."},
+    {"site": 173, "paper_category": "structurally_aware_pip_ge_0.95_site_D", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site D."},
+    {"site": 189, "paper_category": "structurally_aware_pip_ge_0.95_site_B", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site B."},
+    {"site": 193, "paper_category": "structurally_aware_pip_ge_0.95_site_B", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; antigenic site B."},
+    {"site": 194, "paper_category": "structurally_aware_pip_ge_0.95_rbs", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; defined as belonging to the receptor-binding site."},
+    {"site": 223, "paper_category": "structurally_aware_pip_ge_0.95_near_rbs", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; located close to the receptor-binding site."},
+    {"site": 225, "paper_category": "structurally_aware_pip_ge_0.95_rbs", "paper_note": "Harvey et al. 2023 structurally-aware model; PIP at least 0.95; defined as belonging to the receptor-binding site."},
 ]
+
+# Restricted 15-site subset used in an earlier draft for figure/table comparability.
+# Mixes naive-model PIP>=0.95 sites with top-25 posterior-inclusion sites in canonical
+# antigenic regions. It is NOT Harvey's complete identification and omits 225.
+# Keep only for labeled sensitivity/footnote comparisons.
+HARVEY2023_RESTRICTED15_SITE_ROWS = [
+    {"site": 53, "paper_category": "restricted15_top25_site_C", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site C."},
+    {"site": 121, "paper_category": "restricted15_top25_site_D", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site D."},
+    {"site": 126, "paper_category": "restricted15_top25_site_A", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site A."},
+    {"site": 131, "paper_category": "restricted15_pip_ge_0.95_site_A", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site A."},
+    {"site": 135, "paper_category": "restricted15_pip_ge_0.95_site_A", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site A."},
+    {"site": 137, "paper_category": "restricted15_top25_site_A", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site A."},
+    {"site": 144, "paper_category": "restricted15_top25_site_A", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site A."},
+    {"site": 145, "paper_category": "restricted15_pip_ge_0.95_site_A", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site A."},
+    {"site": 157, "paper_category": "restricted15_pip_ge_0.95_site_B", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site B."},
+    {"site": 158, "paper_category": "restricted15_top25_site_B", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site B."},
+    {"site": 159, "paper_category": "restricted15_top25_site_B", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site B."},
+    {"site": 160, "paper_category": "restricted15_top25_site_B", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site B."},
+    {"site": 173, "paper_category": "restricted15_top25_site_D", "paper_note": "Restricted 15-site subset (not the primary Harvey rule): top-25 posterior inclusion; antigenic site D."},
+    {"site": 189, "paper_category": "restricted15_pip_ge_0.95_site_B", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site B."},
+    {"site": 193, "paper_category": "restricted15_pip_ge_0.95_site_B", "paper_note": "Restricted 15-site subset: PIP at least 0.95; antigenic site B."},
+]
+
+# Backward-compatible alias: primary Harvey set used by comparison scripts.
+WIC2023_H3_SITE_ROWS = HARVEY2023_PIP95_SITE_ROWS
 
 
 SHAH2024_H3_SITE_ROWS = [
