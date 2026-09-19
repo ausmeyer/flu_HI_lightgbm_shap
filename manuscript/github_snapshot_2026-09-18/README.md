@@ -23,6 +23,8 @@ Tables S4/S5 are included as accompanying TSV files in `tables/`. The five addit
 
 The 19 September update applies the Cursor audit corrections to captions, citation scope, manual GISAID retrieval wording, Table S2 layout, and package documentation. S18's source-PDF page bounds were expanded without changing its drawing content. S19 was synchronized from the existing recorded final-run figure whose input summary matches the current result table; no analysis was rerun.
 
+A subsequent editorial revision on 19 September rewrote the manuscript and supplement in a more direct author voice, shortened repeated qualifications, and revised captions and table notes. Scientific results, table data, figures, and citations were preserved. No analysis was rerun.
+
 ## Compile
 
 From this folder, after placing `figures/` and `tables/` next to the `.tex` files as in the Overleaf layouts:

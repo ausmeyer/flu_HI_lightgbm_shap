@@ -7,11 +7,11 @@ There are two distinct WIC workflows in this repo:
 - HA1 modeling from finalized WIC inputs
 
 For publication-facing use, the main entry points are:
-- [23_build_wic_final_model_inputs.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/23_build_wic_final_model_inputs.py) for finalized modeling inputs
-- [28_run_wic_ha1_model_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/28_run_wic_ha1_model_pipeline.py) for HA1 model training, comparison, figures, and cleanup
-- [35_run_wic_ha1_patristic_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/35_run_wic_ha1_patristic_pipeline.py) for the parallel HA1 analysis that adds patristic distance
-- [36_run_wic_ha1_filtered_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/36_run_wic_ha1_filtered_pipeline.py) for the parallel HA1 analysis excluding egg, mixed, and unknown passage classes
-- [37_run_wic_ha1_filtered_patristic_pipeline.py](/Users/austinmeyer/My%20Drive/Research/Faculty/flu_HI_lightgbm_shap/scripts/37_run_wic_ha1_filtered_patristic_pipeline.py) for the parallel HA1 analysis excluding egg, mixed, and unknown passage classes while adding patristic distance
+- [23_build_wic_final_model_inputs.py](../scripts/23_build_wic_final_model_inputs.py) for finalized modeling inputs
+- [28_run_wic_ha1_model_pipeline.py](../scripts/28_run_wic_ha1_model_pipeline.py) for HA1 model training, comparison, figures, and cleanup
+- [35_run_wic_ha1_patristic_pipeline.py](../scripts/35_run_wic_ha1_patristic_pipeline.py) for the parallel HA1 analysis that adds patristic distance
+- [36_run_wic_ha1_filtered_pipeline.py](../scripts/36_run_wic_ha1_filtered_pipeline.py) for the parallel HA1 analysis excluding egg, mixed, and unknown passage classes
+- [37_run_wic_ha1_filtered_patristic_pipeline.py](../scripts/37_run_wic_ha1_filtered_patristic_pipeline.py) for the parallel HA1 analysis excluding egg, mixed, and unknown passage classes while adding patristic distance
 
 ## Layout
 
@@ -33,8 +33,6 @@ For publication-facing use, the main entry points are:
 - `metadata/`
   - retained lookup products, isolate-ID mappings, query files, and match summaries
   - `intermediate/` is used for non-final lookup artifacts during prep
-- `references/`
-  - paper PDFs and other reference material
 - `output/`
   - audit tables, summaries, and other diagnostic outputs
 

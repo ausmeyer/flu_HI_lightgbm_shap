@@ -198,7 +198,7 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Top-30 overlap between model-ranked sites from each data set and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally-aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The Harvey column uses all positions with posterior inclusion probability at least 0.95 in the structurally-aware model of Harvey et al.\ (2023). A restricted 15-site subset used in an earlier draft is reported as a labeled sensitivity in the accompanying TSV and is not the primary Harvey comparison.}",
+        r"\caption{Overlap of each model's top 30 sites with the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The primary Harvey comparison includes all positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023). The accompanying data file also reports a separately labeled sensitivity comparison with a restricted 15-site list.}",
         r"\label{tab:si-reference-overlap}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{4pt}",
@@ -265,7 +265,7 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Literature-list overlap for the union of the top 15 sites from the Neher/Bedford and passage-filtered WIC site-state models. Membership flags record concordance with published site lists. They are not experimental validation of antigenic effect. Notes cite only sources inspected for this revision.}",
+        r"\caption{Literature-list overlap for the union of the top 15 sites from the Neher/Bedford and passage-filtered WIC site-state models. Membership flags describe concordance between model rankings and published site lists. Notes summarize the scope of the cited findings.}",
         r"\label{tab:si-literature-overlap}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{3pt}",
@@ -288,7 +288,7 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
             r"\par\vspace{0.35em}",
             r"\begin{minipage}{\textwidth}",
             r"\raggedright\footnotesize",
-            r"\textit{Note:} Empty notes mean the site appears in one or both model top-15 lists but we did not attach an additional inspected experimental narrative beyond the membership flags.",
+            r"\textit{Note.} Sites with empty notes belong to one or both model top-15 lists and are described here by their literature-list membership alone.",
             r"\end{minipage}",
             r"\end{table}",
         ]
