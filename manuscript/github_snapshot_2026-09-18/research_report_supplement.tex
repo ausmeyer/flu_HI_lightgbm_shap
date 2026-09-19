@@ -3,6 +3,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{authblk}
 \usepackage{booktabs}
+\usepackage{array}
 \usepackage{graphicx}
 \usepackage{placeins}
 \usepackage{setspace}
@@ -65,7 +66,7 @@ Correspondence should be addressed to Austin G. Meyer. E-mail: austin.g.meyer@gm
 
 \textit{(1) Harvey et al.\ curated HA1 alignment.} The curated HA1 alignment distributed with Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol} (public code repository \url{https://github.com/will-harvey/Flu_g2p_mapping}) yielded sequences for 1,738 strains.
 
-\textit{(2) GISAID.} Strains not resolved from the curated alignment were queried in GISAID using the GISAIDR R package in batches of 250 strain names per API call. Canonical-isolate selection preferred HA1-complete sequences ($\geq$328 residues), then lower-passage material, then lower sequence ambiguity. This step resolved sequences for an additional 2,501 strains. Four of these records retain IRD in the accession-database annotation, but their selected sequence payloads came from GISAID; they are included in the 2,501 GISAID sequence-source records.
+\textit{(2) GISAID.} Records for strains not resolved from the curated alignment were identified by manual searches of GISAID EpiFlu. Canonical-isolate selection preferred HA1-complete sequences ($\geq$328 residues), then lower-passage material, then lower sequence ambiguity. This step resolved sequences for an additional 2,501 strains. Four of these records retain IRD in the accession-database annotation, but their selected sequence payloads came from GISAID; they are included in the 2,501 GISAID sequence-source records.
 
 \textit{(3) Public databases.} Remaining unresolved strains were queried against NCBI GenBank and BV-BRC. This step generated 20 accession-linked manifest rows after matching, but the final local FASTA used for modeling contained only sequences from the Harvey repository and GISAID.
 
@@ -115,11 +116,11 @@ The cross-study comparison in the main manuscript (Fig.~3) integrates site ranki
 
 \textbf{Shah reference set.} Thirty positions identified by aggregating the top 20 feature-importance sites across 14 influenza seasons in Shah et al.\ (2024)~\cite{shah2024seasonal}. Because the Shah model uses WIC data from a similar period, overlap with our filtered WIC models is concordance across related WIC-derived analyses.
 
-\textbf{LightGBM passage-SHAP and date-SHAP rankings.} Top-30 site rankings from sequence-only LightGBM analyses that trained passage-history classifiers and collection-date regressors without HI measurements~\cite{Meyer2026Interface_sequenceML}.
+\textbf{LightGBM passage-SHAP and date-SHAP rankings.} Top-30 site rankings from LightGBM analyses that trained passage-history classifiers and collection-date regressors without HI measurements~\cite{Meyer2026Interface_sequenceML}.
 
 \textbf{Unpassaged entropy and dN/dS.} Site-wise Shannon entropy and dN/dS from unpassaged H3N2 HA sequences, including the McWhite et al.\ (2016) unpassaged-tip ranking~\cite{McWhite2016VE_passage}.
 
-For all comparisons, we used the top 30 ranked sites from each primary model as a fixed comparison window. Expected overlap under a hypergeometric null is 2.7 sites for two sets of 30 from 328 WIC HA1 sites (0.6 for a 7-site list; 1.4 for a 15-site list; 1.3 for a 14-site list), and 1.6, 0.4, and 0.8 for the corresponding Neher/Bedford comparisons over 550 mature-HA sites. Sequence-only overlaps are shown in main-text Fig.~3B and are not duplicated in Table~S2. Table~S6 lists literature-list membership for the union of each primary model's top 15 sites. Its notes refer to the experimental reports of Koel et al., Zost et al., and Chambers et al.~\cite{Koel2019JGenVirol, Zost2017PNAS, Chambers2015CellReports}. Membership is concordance, not experimental validation.
+For all comparisons, we used the top 30 ranked sites from each primary model as a fixed comparison window. Expected overlap under a hypergeometric null is 2.7 sites for two sets of 30 from 328 WIC HA1 sites (0.6 for a 7-site list; 1.4 for a 15-site list; 1.3 for a 14-site list), and 1.6, 0.4, and 0.8 for the corresponding Neher/Bedford comparisons over 550 mature-HA sites. Overlaps with rankings obtained without HI measurements are shown in main-text Fig.~3B and are not duplicated in Table~S2. Table~S6 lists literature-list membership for the union of each primary model's top 15 sites. Its notes refer to the experimental reports of Koel et al., Zost et al., and Chambers et al.~\cite{Koel2019JGenVirol, Zost2017PNAS, Chambers2015CellReports}. Membership is concordance, not experimental validation.
 
 \subsection*{S1.8\quad Sensitivity analyses, patristic distance,\\ and passage-filter variants}
 
@@ -149,10 +150,7 @@ Zost et al.\ (2017)~\cite{Zost2017PNAS} showed that K160T introduces an N-linked
 
 \input{tables/table_s1_model_performance.tex}
 
-\begin{fitsupplementtable}
-\setlength{\tabcolsep}{1pt}
 \input{tables/table_s2_reference_overlap.tex}
-\end{fitsupplementtable}
 
 \input{tables/table_s3_wic_filter_summary.tex}
 
@@ -195,7 +193,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s1_h3n2_heldout_model_comparison.pdf}
-\caption{\textbf{Held-out model-family comparison for the primary analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. The model families comprise the additive baseline and the site-change, site-state, and substitution sequence encodings. No error bars are shown. Five-fold grouped-cross-validation RMSE and Spearman correlations are reported separately in Table~S1.}
+\caption{\textbf{Held-out model-family comparison for the primary analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. The model families comprise the additive baseline and the site-change, site-state, and substitution sequence encodings. The legend label ``potency + avidity only'' denotes additive serum-identity and virus-strain effects. No error bars are shown. Five-fold grouped-cross-validation RMSE and Spearman correlations are reported separately in Table~S1.}
 \label{fig:si-h3n2-heldout}
 \par\vspace{0.35em}
 \textit{Alt text.} Grouped bars show Neher/Bedford model-family RMSE for random-measurement and grouped-virus 10-percent holdouts, without error bars.
@@ -204,7 +202,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s2_h3n2_predicted_vs_actual.pdf}
-\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the Neher/Bedford dataset.} Each point represents one held-out HI observation; the diagonal line indicates perfect agreement. Point color encodes the temporal distance covariate.}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the Neher/Bedford dataset.} Each point represents one out-of-fold HI observation pooled across five-fold cross-validation grouped by virus name; the diagonal line indicates perfect agreement. Point color encodes the temporal distance covariate.}
 \label{fig:si-h3n2-predicted}
 \par\vspace{0.35em}
 \textit{Alt text.} Scatter plot of observed versus predicted standardized HI titers for the Neher/Bedford site-state model, concentrated around the identity line.
@@ -213,7 +211,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s3_h3n2_site_stability_top30.pdf}
-\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the Neher/Bedford dataset.} Points show the mean rank of each site across cross-validation folds; horizontal segments indicate one standard deviation.}
+\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the Neher/Bedford dataset.} Points show the mean rank of each site across cross-validation folds; horizontal segments indicate one standard deviation. Point color shows the proportion of folds in which the site ranks among the top 30.}
 \label{fig:si-h3n2-stability}
 \par\vspace{0.35em}
 \textit{Alt text.} Rank-stability plot for the top 30 Neher/Bedford sites, with leading antigenic sites showing narrow fold-to-fold rank ranges.
@@ -245,7 +243,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s6_wic_filtered_predicted_vs_actual.pdf}
-\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the passage-filtered WIC dataset.} Each point represents one held-out HI observation. Relative to the unfiltered analysis (Fig.~S10), the distribution is tighter and lacks the two-cluster structure associated with mixed passage types.}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the passage-filtered WIC dataset.} Each point represents one out-of-fold HI observation pooled across five-fold cross-validation grouped by virus name. Relative to the unfiltered analysis (Fig.~S10), the distribution is tighter and lacks the two-cluster structure associated with mixed passage types.}
 \label{fig:si-wic-filtered-predicted}
 \par\vspace{0.35em}
 \textit{Alt text.} Scatter plot of observed versus predicted standardized titers for the filtered WIC site-state model, tightly concentrated around the identity line.
@@ -254,7 +252,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s7_wic_filtered_site_stability_top30.pdf}
-\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the passage-filtered WIC dataset.} The leading sites include 144, 225, 159, 140, and 145. Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol} included 225 among structurally aware PIP~$\geq$0.95 positions.}
+\caption{\textbf{Fold-wise rank stability of the top 30 sites from the site-state model trained on the passage-filtered WIC dataset.} Points show mean fold rank, horizontal segments indicate one standard deviation, and point color shows the proportion of folds in which the site ranks among the top 30. The leading sites include 144, 225, 159, 140, and 145. Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol} included 225 among structurally aware PIP~$\geq$0.95 positions.}
 \label{fig:si-wic-filtered-stability}
 \par\vspace{0.35em}
 \textit{Alt text.} Rank-stability plot for the top 30 filtered WIC sites, led by 144 and 225 with narrow fold-to-fold ranges.
@@ -286,7 +284,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s10_wic_full_predicted_vs_actual.pdf}
-\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the unfiltered WIC dataset.} The distribution shows a two-cluster structure reflecting mixed passage contexts.}
+\caption{\textbf{Observed-versus-predicted standardized titers for the site-state model trained on the unfiltered WIC dataset.} Each point represents one out-of-fold HI observation pooled across five-fold cross-validation grouped by virus name. The distribution shows a two-cluster structure reflecting mixed passage contexts.}
 \label{fig:si-wic-full-predicted}
 \par\vspace{0.35em}
 \textit{Alt text.} Scatter plot of unfiltered WIC observed versus predicted titers with a visible two-cluster structure.
@@ -295,7 +293,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s11_wic_full_site_component_top30.pdf}
-\caption{\textbf{Top-30 site decomposition for the site-state model trained on the unfiltered WIC dataset.} Bracket annotations follow the main-text figures, including the 14-site Harvey PIP~$\geq$0.95 set. Passage-associated positions appear alongside canonical antigenic sites relative to the filtered analysis (main text Fig.~2).}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the unfiltered WIC dataset.} Bracket annotations beside each site label follow the main-text figures, including the 14-site Harvey PIP~$\geq$0.95 set. Segment width shows mean absolute SHAP contribution; segment color shows mean signed SHAP contribution on the scale at right. Passage-associated positions appear alongside canonical antigenic sites relative to the filtered analysis (main text Fig.~2).}
 \label{fig:si-wic-full-site-component}
 \par\vspace{0.35em}
 \textit{Alt text.} Horizontal stacked bars of the top 30 unfiltered WIC sites by mean absolute SHAP value, with literature-set brackets.
@@ -304,7 +302,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s12_h3n2_patristic_site_component_top30.pdf}
-\caption{\textbf{Top-30 site decomposition for the site-state model trained on the Neher/Bedford dataset with added patristic distance.} The principal ranked sites remain similar to the primary Neher/Bedford model (main text Fig.~1).}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the Neher/Bedford dataset with added patristic distance.} Segment width shows mean absolute SHAP contribution; segment color shows mean signed SHAP contribution on the scale at right. Literature-set brackets appear beside each site label. The principal ranked sites remain similar to the primary Neher/Bedford model (main text Fig.~1).}
 \label{fig:si-h3n2-patristic-site-component}
 \par\vspace{0.35em}
 \textit{Alt text.} Horizontal stacked bars of Neher/Bedford sites after adding patristic distance, resembling the primary Fig.~1 ranking.
@@ -313,7 +311,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s13_h3n2_patristic_heldout_model_comparison.pdf}
-\caption{\textbf{Held-out model-family comparison for the patristic-distance sensitivity analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE across model families for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. No error bars are shown. Five-fold grouped-cross-validation results with and without patristic distance are reported separately in Table~S1.}
+\caption{\textbf{Held-out model-family comparison for the patristic-distance sensitivity analysis on the Neher/Bedford H3N2 dataset.} Bars show RMSE across model families for two single-split evaluations: a random 10\% of HI observations and a grouped 10\% of virus names. The legend label ``potency + avidity only'' denotes additive serum-identity and virus-strain effects. No error bars are shown. Five-fold grouped-cross-validation results with and without patristic distance are reported separately in Table~S1.}
 \label{fig:si-h3n2-patristic-heldout}
 \par\vspace{0.35em}
 \textit{Alt text.} Grouped bars show Neher/Bedford model-family RMSE with patristic distance for random-measurement and grouped-virus 10-percent holdouts, without error bars.
@@ -322,7 +320,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s14_wic_filtered_patristic_site_component_top30.pdf}
-\caption{\textbf{Top-30 site decomposition for the site-state model trained on the passage-filtered WIC dataset with added patristic distance.} The same five sites lead the primary filtered model (main text Fig.~2) and this sensitivity analysis, but their order changes.}
+\caption{\textbf{Top-30 site decomposition for the site-state model trained on the passage-filtered WIC dataset with added patristic distance.} Segment width shows mean absolute SHAP contribution; segment color shows mean signed SHAP contribution on the scale at right. Literature-set brackets appear beside each site label. The same five sites lead the primary filtered model (main text Fig.~2) and this sensitivity analysis, but their order changes.}
 \label{fig:si-wic-filtered-patristic-site-component}
 \par\vspace{0.35em}
 \textit{Alt text.} Horizontal stacked bars of filtered WIC sites after adding patristic distance, led by 159 and 225.
@@ -340,7 +338,7 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s16_h3n2_signed_feature_shap.pdf}
-\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the Neher/Bedford models.} \textbf{(A)} Site-state encoding. \textbf{(B)} Substitution encoding, including N158K ($n=188$) and S189R ($n=254$). Complete tables are Tables~S4 and S5.}
+\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the Neher/Bedford models.} \textbf{(A)} Site-state encoding. \textbf{(B)} Substitution encoding, including N158K ($n=188$) and S189R ($n=254$). The complete Neher/Bedford value-level table is Table~S4.}
 \label{fig:si-h3n2-signed-features}
 \par\vspace{0.35em}
 \textit{Alt text.} Two horizontal bar panels of signed SHAP features for Neher/Bedford site-state and substitution models, with blue toward greater predicted titer loss and orange toward preserved cross-reactivity.
@@ -349,10 +347,10 @@ Figures~S18 and S19 report computational introductions of Koel 145/155 substitut
 \begin{figure}[!htp]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_s17_wic_signed_feature_shap.pdf}
-\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the passage-filtered WIC models.} Substitution-level leaders include K189N ($n=67$ in the SHAP subsample), H197Q ($n=187$), and N225D ($n=1{,}099$).}
+\caption{\textbf{Top 20 value-level features by absolute mean signed SHAP contribution for the passage-filtered WIC models.} Selected substitution-level examples include K189N ($n=67$ in the SHAP subsample), H197Q ($n=187$), and N225D ($n=1{,}099$). The complete filtered WIC value-level table is Table~S5.}
 \label{fig:si-wic-signed-features}
 \par\vspace{0.35em}
-\textit{Alt text.} Two horizontal bar panels of signed SHAP features for filtered WIC site-state and substitution models, led in the substitution panel by K189N, H197Q, and N225D.
+\textit{Alt text.} Two horizontal bar panels of signed SHAP features for filtered WIC site-state and substitution models, including K189N, H197Q, and N225D in the substitution panel.
 \end{figure}
 
 \clearpage

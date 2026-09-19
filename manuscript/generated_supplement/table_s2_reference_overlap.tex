@@ -2,10 +2,12 @@
 \centering
 \caption{Top-30 overlap between model-ranked sites from each data set and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally-aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The Harvey column uses all positions with posterior inclusion probability at least 0.95 in the structurally-aware model of Harvey et al.\ (2023). A restricted 15-site subset used in an earlier draft is reported as a labeled sensitivity in the accompanying TSV and is not the primary Harvey comparison.}
 \label{tab:si-reference-overlap}
-\small
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccc}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}>{\centering\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.16\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}@{}}
 \toprule
-Data set & Model & Koel sites & Neher/Bedford sites & Harvey PIP~$\geq$0.95 & Shah sites \\
+Data set & Model & Koel\newline sites & Neher/Bedford\newline sites & Harvey\newline PIP~$\geq$0.95 & Shah\newline sites \\
 \midrule
 Neher/Bedford data & site-state & 6/7 & 11/15 & 12/14 & 14/30 \\
 Neher/Bedford data & substitution & 7/7 & 14/15 & 12/14 & 15/30 \\
@@ -20,5 +22,5 @@ WIC data + patristic & substitution & 6/7 & 12/15 & 11/14 & 20/30 \\
 WIC filtered data + patristic & site-state & 5/7 & 8/15 & 10/14 & 17/30 \\
 WIC filtered data + patristic & substitution & 5/7 & 10/15 & 11/14 & 17/30 \\
 \bottomrule
-\end{tabular*}
+\end{tabular}
 \end{table}

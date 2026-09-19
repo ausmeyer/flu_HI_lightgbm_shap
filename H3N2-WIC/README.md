@@ -132,9 +132,22 @@ Removed by default:
 - extra diagnostic figures not needed for the paper story
 - fitted model text files and non-primary comparison tables
 
+## Inherited alignment provenance
+
+The filtered wrappers (36 and 37) inherit four alignment artifacts from `H3N2-WIC/output/modeling/`: the aligned FASTA, `H3N2_WIC_HA1_ha1_alignment_metadata.json`, extraction summary, and position map. They copy those files under variant-prefixed filenames into:
+
+- `H3N2-WIC-no-egg-no-mixed-no-unknown/output/modeling/`
+- `H3N2-WIC-patristic-no-egg-no-mixed-no-unknown/output/modeling/`
+
+The copied JSON still identifies subtype `H3N2_WIC_HA1` and the original `H3N2-WIC/output/modeling/` paths. Those are honest source-alignment provenance, not evidence that a separate filtered alignment was generated. Filtering is applied to the observation records; the metadata's input/retained sequence counts describe the inherited base alignment. Some recorded intermediates, such as the unaligned FASTA, may no longer exist after default cleanup.
+
+## Retrieval and external tools
+
+The author confirmed that the study's GISAID search was manual. The repository's optional GISAIDR helper (20) does not establish that GISAIDR was used for those reported records. The exported-metadata helper (21) requires R and `readxl`; MAFFT is used for the base alignment, and FastTree for the patristic variants. See the root README for dependencies and the destructive output-replacement behavior of the full rebuild wrapper. No scientific rerun is needed for documentation or LaTeX compilation.
+
 ## Final Data
 
-The directory `data/final/` contains only the final modeling data products:
+The local directory `data/final/` contains the final modeling data products. Its sequence-source table is retained locally and ignored because it includes rich GISAID metadata; it is not distributed as a public pipeline input. A separate identifier-only list and package scope are in [publication/](publication/).
 
 - `H3N2_WIC_HI_data_final.tsv`
 - `H3N2_WIC_seq_data_final.tsv`

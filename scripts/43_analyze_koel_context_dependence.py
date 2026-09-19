@@ -788,7 +788,7 @@ def plot_effects(sub_summary: pd.DataFrame, out_path: Path) -> None:
         ax.legend(title="Contrast", fontsize=7, title_fontsize=8, frameon=False)
     fig.suptitle("Exact Koel 2019 counterfactual effects across HA backgrounds", y=1.02)
     fig.tight_layout()
-    fig.savefig(out_path)
+    fig.savefig(out_path, bbox_inches="tight")
     plt.close(fig)
 
 

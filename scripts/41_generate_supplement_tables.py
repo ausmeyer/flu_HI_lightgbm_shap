@@ -200,17 +200,19 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
         r"\centering",
         r"\caption{Top-30 overlap between model-ranked sites from each data set and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally-aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The Harvey column uses all positions with posterior inclusion probability at least 0.95 in the structurally-aware model of Harvey et al.\ (2023). A restricted 15-site subset used in an earlier draft is reported as a labeled sensitivity in the accompanying TSV and is not the primary Harvey comparison.}",
         r"\label{tab:si-reference-overlap}",
-        r"\small",
-        r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llcccc}",
+        r"\footnotesize",
+        r"\setlength{\tabcolsep}{4pt}",
+        r"\renewcommand{\arraystretch}{1.2}",
+        r"\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}>{\centering\arraybackslash}p{0.14\textwidth}>{\centering\arraybackslash}p{0.16\textwidth}>{\centering\arraybackslash}p{0.09\textwidth}@{}}",
         r"\toprule",
-        r"Data set & Model & Koel sites & Neher/Bedford sites & Harvey PIP~$\geq$0.95 & Shah sites \\",
+        r"Data set & Model & Koel\newline sites & Neher/Bedford\newline sites & Harvey\newline PIP~$\geq$0.95 & Shah\newline sites \\",
         r"\midrule",
     ]
     for row in df.itertuples(index=False):
         lines.append(
             f"{row.analysis} & {row.model} & {row.koel_top30_overlap} & {row.neher_top30_overlap} & {row.harvey_top30_overlap} & {row.shah_top30_overlap} \\\\"
         )
-    lines.extend([r"\bottomrule", r"\end{tabular*}", r"\end{table}"])
+    lines.extend([r"\bottomrule", r"\end{tabular}", r"\end{table}"])
     out_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 

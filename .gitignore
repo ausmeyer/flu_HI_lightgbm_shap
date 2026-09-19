@@ -16,6 +16,19 @@ __pycache__/
 # Raw GISAID downloads remain local, including submitter metadata.
 /H3N2-WIC/data/raw/gisaid/
 
+# Internal GISAID metadata exports remain local; publication identifiers are separate.
+/H3N2-WIC/metadata/H3N2_WIC_gisaid_isolate_id_mapping.tsv
+/H3N2-WIC/metadata/H3N2_WIC_gisaid_canonical_isolates.tsv
+/H3N2-WIC/metadata/H3N2_WIC_gisaid_isolate_ids.csv
+/H3N2-WIC/manifests/H3N2_WIC_seq_manifest_gisaidfill.tsv
+/H3N2-WIC/manifests/H3N2_WIC_seq_manifest_publicfill.tsv
+/H3N2-WIC/data/final/H3N2_WIC_seq_data_final.tsv
+
+# Local credentials for optional authenticated retrieval helpers.
+.env
+.env.local
+.Renviron
+
 # Pipeline outputs are large and fully regenerable.
 /H3N2/output/
 /H3N2-patristic/output/

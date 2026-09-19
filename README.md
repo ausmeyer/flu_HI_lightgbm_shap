@@ -11,7 +11,7 @@ It supports three main use cases:
 
 If you are trying to understand or audit the paper rather than rerun every script:
 - read the [manuscript snapshot guide](manuscript/github_snapshot_2026-09-18/README.md) for the manuscript, supplement, and compilation instructions
-- use [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv) for site-level ranks, benchmark memberships, and external sequence-only comparisons
+- use [site_model_literature_comparison.tsv](site_model_literature_comparison.tsv) for site-level ranks, benchmark memberships, and external comparisons without HI measurements
 - use [model_performance_literature_summary.tsv](model_performance_literature_summary.tsv) for consolidated model metrics
 - use [table_s1_model_performance.tsv](manuscript/generated_supplement/table_s1_model_performance.tsv), [table_s2_reference_overlap.tsv](manuscript/generated_supplement/table_s2_reference_overlap.tsv), and [fig4_panelB_overlaps.tsv](manuscript/generated_figures/fig4_panelB_overlaps.tsv) for manuscript-facing summary outputs
 
@@ -22,6 +22,12 @@ Overleaf is the authoritative writing workspace:
 - Supplement: local clone `69b7797c762f515edcff3ad6/research_report_supplement.tex`
 
 A dated GitHub-facing copy lives in `manuscript/github_snapshot_2026-09-18/` (text, bibliography, our figures and tables only). Copyrighted publisher PDFs in `all_citations/` and `relevant_literature/*.pdf` are gitignored and must never be staged, committed, or pushed.
+
+## Public data package
+
+The public repository contains code, configurations, public input tables, and manuscript results, but excludes raw sequences and rich internal GISAID metadata exports. The [publication identifier list](H3N2-WIC/publication/gisaid_isolate_identifiers.tsv) contains only the 2,501 GISAID isolate identifiers in the finalized WIC source inventory. See its [scope and provenance](H3N2-WIC/publication/README.md) for the reviewed fields and outstanding study-specific acknowledgment artifact.
+
+The complete local mapping/canonical tables, filled manifests, final sequence-source table, and download-helper CSV are preserved locally and ignored by Git. Public identifiers are separate files; they do not replace the full-schema pipeline inputs. Obtaining restricted records requires authorized access through GISAID. Current-tree exclusions do not remove copies in prior Git history; no history rewrite has been performed.
 
 If you are trying to rerun the primary analyses, use the wrapper scripts below rather than the numbered stage scripts directly.
 
@@ -48,6 +54,9 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
   - `01-11`: original `H3N2` pipeline stages
   - `12-23`: WIC source-assembly stages
   - `24-32`: WIC HA1 modeling stages
+  - `33-37`: patristic-distance and passage-filtered variants
+  - `38-42`: reporting tables, presentation assets, and Overleaf asset copying
+  - `43-44`: existing supplemental-analysis sources for Figs. S18 and S19
   - `run_full_pipeline.py`: primary `H3N2` wrapper
   - `28_run_wic_ha1_model_pipeline.py`: primary WIC HA1 wrapper
 - `scripts/common.py`
@@ -64,7 +73,17 @@ The numbered scripts remain the implementation stages, but the wrappers above sh
 
 ## Reporting Artifacts
 
-The repo contains a manuscript-reporting layer in addition to the raw pipeline outputs.
+The repo contains a manuscript-reporting layer in addition to the raw pipeline outputs. These stages have distinct responsibilities:
+
+| Stage | Existing responsibility | Destination |
+| --- | --- | --- |
+| 38 | Consolidate existing analysis summaries | Root comparison TSVs |
+| 39 | Produce the cross-study presentation figure | `manuscript/generated_figures/` |
+| 40 | Copy the three main figure PDFs, replacing destination files | Main Overleaf clone `69b778fd3e7b181fe1c2943b/figures/` |
+| 41 | Produce Tables S1, S2, and S6 and collect Tables S4/S5 | `manuscript/generated_supplement/` |
+| 42 | Copy SI figures and generated tables, replacing destination files | SI Overleaf clone `69b7797c762f515edcff3ad6/` |
+
+Stages 40 and 42 copy existing assets; they do not fit models, compile documents, commit, push, or refresh the dated GitHub snapshot. Treat copying into the authoritative writing projects as a release step: review source assets and destination changes together. Both scripts currently overwrite mapped files without a dry-run mode. Table S3 is hand-maintained in the SI project and is outside stages 41/42; its source records are documented in the SI README.
 
 For manuscript assembly or factual checking, the main artifacts are:
 - [manuscript snapshot guide](manuscript/github_snapshot_2026-09-18/README.md)
@@ -77,8 +96,14 @@ These files are the quickest route to:
 - primary performance metrics
 - benchmark overlap counts
 - top-ranked sites in each model family
-- external sequence-only comparison results
+- external comparisons without HI measurements
 - provenance for values reported in the manuscript
+
+## Rebuild and overwrite behavior
+
+`scripts/rebuild_all_local_outputs.sh` is a destructive local rebuild wrapper. It deletes the output directories for H3N2, H3N2-patristic, base WIC, filtered WIC, patristic WIC, and filtered patristic WIC before rebuilding them. Only the three existing H3N2 alignment/position-map files are temporarily saved and restored; the temporary directory is removed on exit. It does not back up the remaining outputs.
+
+After analysis, the wrapper runs reporting stages 38–42, including the overwrite operations into both live Overleaf clones described above. It has no dry-run or separate sync opt-in. Preserve any outputs and writing-project assets that must survive before using it; a documentation or caption edit does not require this rebuild. The individual analysis wrappers' default cleanup is also distinct from document compilation.
 
 ## Setup
 
@@ -86,6 +111,20 @@ These files are the quickest route to:
 conda env create -f environment.yml
 conda activate flu_hi_lgbm
 ```
+
+### External tools
+
+`environment.yml` includes the Python packages and MAFFT, but does not provision every tool used by the repository.
+
+| Tool | Repository use |
+| --- | --- |
+| MAFFT on `PATH` | Alignment stages 02 and 24 |
+| FastTree on `PATH` | Patristic-tree stages 33 and 34; the resolver accepts `FastTree`, `fasttree`, or `FastTreeMP` |
+| R with `readxl` | Local exported-metadata helper, stage 21 |
+| R with GISAIDR | Optional helper, stage 20; not required for the author-confirmed manual GISAID search used in this study |
+| PDFLaTeX, BibTeX, and `latexmk` | Main/SI document builds; a TeX distribution must supply the packages declared in their preambles |
+
+The presence of a helper script does not establish that it was executed for the reported study. External-tool availability and historical software versions are separate provenance questions.
 
 ## Pipeline execution (H3N2)
 
@@ -95,8 +134,7 @@ Full run:
 python scripts/run_full_pipeline.py --config configs/h3n2.json --email your_email@example.com
 ```
 
-This wrapper executes the same numbered steps below.
-By default it removes intermediates at the end and keeps only the publication-oriented outputs.
+The default wrapper invokes 12 script stages, including stage 43 (the existing Fig. S18 analysis) and stage 11 (paper-site comparison), in addition to the stages outlined below. The manual download is a separate input-preparation step. Optional skip/retention flags reduce the invoked stages; the wrapper removes intermediates by default and keeps publication-oriented outputs.
 
 1) Prepare accession lists and fetch GenBank (IRD) sequences:
 
@@ -194,9 +232,9 @@ This creates:
 python scripts/10_cleanup_outputs.py --config configs/h3n2.json
 ```
 
-## Final retained outputs
+## Selected retained outputs
 
-The default cleanup now keeps only the files needed for:
+The default cleanup retains publication and provenance artifacts, including the examples below. This is not an exhaustive inventory; the allowlists in `scripts/10_cleanup_outputs.py` and `scripts/32_cleanup_wic_model_outputs.py` define the retained files for their respective pipelines. The examples support:
 - the comparison story
 - methods reporting
 - the minimum set of publication figures

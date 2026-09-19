@@ -1,4 +1,4 @@
-# Manuscript snapshot (18 September 2026)
+# Manuscript snapshot (created 18 September; updated 19 September 2026)
 
 This folder is a **dated copy** of the H3N2 LightGBM+SHAP HI manuscript and supplement for the public analysis repository.
 
@@ -17,7 +17,11 @@ Copyrighted publisher PDFs and other full texts in `all_citations/` (and `releva
 
 Compiled manuscript and supplement PDFs are omitted from this snapshot (gitignored at the snapshot root) so they are not committed. Figure PDFs in `figures/` remain. Overleaf is the compile workspace.
 
-GISAID FASTA files and raw GISAID metadata downloads are excluded from this snapshot. The raw metadata directory is ignored by the analysis repository; earlier Git history may still contain previously tracked metadata.
+GISAID FASTA files, raw downloads, and rich internal metadata exports are excluded from the current public package. A separate identifier-only WIC inventory is in `H3N2-WIC/publication/` at the repository root. Complete internal inputs remain local; earlier Git history still contains previously tracked metadata. A study-specific GISAID acknowledgment artifact remains a submission item.
+
+Tables S4/S5 are included as accompanying TSV files in `tables/`. The five additional exploratory TSVs retained in the SI Overleaf project's `supplementary_data/` directory are not part of this public snapshot and are not needed for compilation.
+
+The 19 September update applies the Cursor audit corrections to captions, citation scope, manual GISAID retrieval wording, Table S2 layout, and package documentation. S18's source-PDF page bounds were expanded without changing its drawing content. S19 was synchronized from the existing recorded final-run figure whose input summary matches the current result table; no analysis was rerun.
 
 ## Compile
 
