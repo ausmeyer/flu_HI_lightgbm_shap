@@ -54,9 +54,9 @@ Correspondence should be addressed to Austin G. Meyer. E-mail: austin.g.meyer@gm
 
 \textbf{Neher/Bedford H3N2 dataset.} We used the curated Neher/Bedford H3N2 hemagglutination inhibition dataset, which spans viruses and antisera from 1968 through 2011~\cite{Neher2016PNAS}. After matching virus strains to HA protein sequences and applying alignment quality control, we retained 8,599 HI observations and 402 named-virus HA sequence records. Multiple records can share the same amino-acid sequence.
 
-\textbf{WIC H3N2 dataset.} We assembled the WIC H3N2 dataset from WHO Collaborating Centre surveillance HI measurements~\cite{Harvey2023PLoSComputBiol}. Of the 202,605 raw HI observations, 104,972 had matched HA1 sequences for both the virus and serum components. Alignment quality control reduced this number to 104,605 observations for modeling (S1.2).
+\textbf{WIC H3N2 dataset.} We assembled the WIC H3N2 dataset from WHO Collaborating Centre surveillance HI measurements~\cite{Harvey2023PLoSComputBiol}. Of the 202,605 raw HI observations, 104,972 had matched HA1 sequences for both the virus and serum components. After alignment quality control, we retained 104,605 observations for modeling (S1.2).
 
-\textbf{WIC filtered subset.} We excluded observations in which either the virus or reference serum had a normalized passage class exactly equal to \texttt{EGG}, \texttt{MIXED}, or \texttt{UNKNOWN}. Composite labels such as \texttt{CELL|EGG} and \texttt{CELL|UNKNOWN} remained in the filtered subset because they differ from the exact excluded classes. This filter retained 28,521 sequence-matched observations, of which 28,448 had aligned HA1 sequences available for feature construction. Table~S3 summarizes the retained and excluded observations. We describe the stricter composite-egg filter in S1.8.
+\textbf{WIC filtered subset.} We excluded observations in which either the virus or reference serum had a normalized passage class exactly equal to \texttt{EGG}, \texttt{MIXED}, or \texttt{UNKNOWN}. Composite labels such as \texttt{CELL|EGG} and \texttt{CELL|UNKNOWN} remained in the filtered subset because they differ from the exact excluded classes. We retained 28,521 sequence-matched observations under this filter. Of these, 28,448 had aligned HA1 sequences available for feature construction. Table~S3 summarizes the retained and excluded observations. We describe the stricter composite-egg filter in S1.8.
 
 \subsection*{S1.2\quad Sequence acquisition, alignment, and numbering}
 
@@ -90,11 +90,11 @@ In total, we resolved HA1 sequences for 4,239 of the 16,223 unique strains (26\%
 
 \textbf{Distance covariates.} We included temporal distance in the Neher/Bedford models. WIC models included temporal distance and 9 assay-context covariates. These were virus passage class, reference passage class, virus passage known/unknown, reference passage known/unknown, antiserum class, red blood cell type, red blood cell species, oseltamivir presence, and oseltamivir concentration inferred from the red blood cell annotation.
 
-\textbf{Model fitting.} We trained gradient-boosted tree models with LightGBM~\cite{Ke2017LightGBM}, allowing up to 1,000 boosting iterations. We used a learning rate of 0.1, 31 leaves, an unconstrained maximum tree depth, a minimum of 20 child samples, and no L1 or L2 regularization. Within each training fold, we reserved 20\% of training virus names in an inner grouped split for early stopping, with a patience of 50 rounds. Early stopping used this inner split exclusively, leaving the outer held-out fold for evaluation.
+\textbf{Model fitting.} We trained gradient-boosted tree models with LightGBM~\cite{Ke2017LightGBM}, allowing up to 1,000 boosting iterations. We used a learning rate of 0.1, 31 leaves, an unconstrained maximum tree depth, a minimum of 20 child samples, and no L1 or L2 regularization. Within each training fold, we reserved 20\% of training virus names in an inner grouped split for early stopping, with a patience of 50 rounds. We used only the inner split for early stopping and reserved the outer held-out fold for evaluation.
 
 \subsection*{S1.5\quad Validation and held-out evaluation}
 
-\textbf{Grouped cross-validation.} We assigned all HI observations for a given virus name to the same cross-validation fold, regardless of the serum used in the assay. Thus, named viruses were separated between training and test data, while sera and closely related viruses could occur in both. This design evaluates retrospective prediction for held-out virus names; generalization to new clades or future seasons remains untested. We used five-fold grouped cross-validation for all primary analyses and summarized performance as the mean Spearman correlation and RMSE between predicted and observed standardized titers across held-out folds.
+\textbf{Grouped cross-validation.} We assigned all HI observations for a given virus name to the same cross-validation fold, regardless of the serum used in the assay. Thus, named viruses were separated between training and test data, while sera and closely related viruses could occur in both. We evaluated retrospective predictions for held-out virus names. We did not evaluate generalization to new clades or future seasons. We used five-fold grouped cross-validation for all primary analyses and summarized performance as the mean Spearman correlation and RMSE between predicted and observed standardized titers across held-out folds.
 
 \textbf{Secondary holdout diagnostics.} We also evaluated single splits that withheld either a random 10\% of HI observations or all observations involving a grouped 10\% of virus names. Related viruses could occur on both sides of the grouped-virus split, as in the primary cross-validation. Figures~S1, S5, S13, and S15 compare model families under these two schemes. Figures~S4 and S9 show the corresponding site-state predictions, and Table~S1 reports the grouped-cross-validation metrics.
 
@@ -110,7 +110,7 @@ We compared the primary model rankings with the following reference sets and ran
 
 \textbf{Neher/Bedford reference set.} We compiled fifteen positions from the substitutions associated with cluster transitions in Neher et al.\ (2016)~\cite{Neher2016PNAS}. The 15-position list is our compilation of those published substitutions.
 
-\textbf{Harvey reference set (primary).} We included all 14 HA1 positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol}. These positions are 131, 135, 138, 144, 145, 157, 158, 159, 173, 189, 193, 194, 223, and 225. All main-text Harvey overlaps use this published selection rule.
+\textbf{Harvey reference set (primary).} We included all 14 HA1 positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023)~\cite{Harvey2023PLoSComputBiol}. These positions are 131, 135, 138, 144, 145, 157, 158, 159, 173, 189, 193, 194, 223, and 225. We used this published selection rule for all main-text Harvey comparisons.
 
 \textbf{Harvey restricted 15-site subset (sensitivity only).} This alternative subset combines naive-model PIP~$\geq$0.95 sites with top-25 posterior-inclusion sites in canonical antigenic regions. It omits 225 and covers only part of Harvey's identification. We report its overlaps separately in the Table~S2 TSV column \texttt{harvey\_restricted15\_top30\_overlap}; the primary comparison uses the complete structurally aware PIP~$\geq$0.95 set above.
 
@@ -182,7 +182,7 @@ The filtered WIC models also predicted standardized HI titers under both holdout
 
 \subsection*{Section C: Sensitivity analyses}
 
-The unfiltered WIC analysis retained a two-cluster titer distribution and more prominent passage-associated positions among the ranked sites (Figs.~S10 and S11). Adding patristic distance produced at most a marginal improvement in RMSE (Table~S1; Figs.~S12--S15), with changes in rank order and benchmark overlap (Table~S2).
+We observed a two-cluster titer distribution in the unfiltered WIC analysis. Positions associated with passage were also more prominent among the ranked sites (Figs.~S10 and S11). Adding patristic distance produced at most a marginal improvement in RMSE (Table~S1; Figs.~S12--S15), with changes in rank order and benchmark overlap (Table~S2).
 
 \subsection*{Section D: Exploratory predicted titer changes}
 
