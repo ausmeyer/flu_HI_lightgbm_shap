@@ -178,7 +178,7 @@ def write_table_s1_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Cross-validation performance of the primary and sensitivity-analysis models included in the manuscript and SI. Values are mean grouped-cross-validation performance across folds.}",
+        r"\caption{Cross-validation performance of the primary models and the models used in sensitivity analyses. We calculated RMSE and Spearman correlation in each held-out fold of cross-validation grouped by virus name and report the mean across folds.}",
         r"\label{tab:si-model-performance}",
         r"\small",
         r"\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}llrr}",
@@ -198,7 +198,7 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Overlap of each model's top 30 sites with the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. The primary Harvey comparison includes all positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023). The accompanying data file also reports a separately labeled sensitivity comparison with a restricted 15-site list.}",
+        r"\caption{Overlap between each model's top 30 sites and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. For the primary Harvey comparison, we used all positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023). We report the overlap with a restricted 15-site list separately in the accompanying data file as a sensitivity analysis.}",
         r"\label{tab:si-reference-overlap}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{4pt}",
@@ -265,7 +265,7 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Literature-list overlap for the union of the top 15 sites from the Neher/Bedford and passage-filtered WIC site-state models. Membership flags describe concordance between model rankings and published site lists. Notes summarize the scope of the cited findings.}",
+        r"\caption{Comparison of published site lists with the top 15 sites from the Neher/Bedford and passage-filtered WIC site-state models. We included every site that appeared in either model's list. The membership columns show whether a site appears in each published list, and the notes describe the findings from those studies.}",
         r"\label{tab:si-literature-overlap}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{3pt}",
@@ -288,7 +288,7 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
             r"\par\vspace{0.35em}",
             r"\begin{minipage}{\textwidth}",
             r"\raggedright\footnotesize",
-            r"\textit{Note.} Sites with empty notes belong to one or both model top-15 lists and are described here by their literature-list membership alone.",
+            r"\textit{Note.} Sites without notes are included because they ranked among the top 15 in one or both models. We report their membership in the published site lists.",
             r"\end{minipage}",
             r"\end{table}",
         ]
