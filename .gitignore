@@ -40,6 +40,8 @@ __pycache__/
 # Local Overleaf clones
 /69b778fd3e7b181fe1c2943b/
 /69b7797c762f515edcff3ad6/
+/overleaf_manuscript/
+/overleaf_supplement/
 
 # Copyrighted full-text PDFs must never be committed.
 /all_citations/

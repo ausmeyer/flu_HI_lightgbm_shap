@@ -51,9 +51,9 @@ This directory separates analysis stages, reporting/presentation stages, and cop
 
 - `38_build_master_site_model_comparison.py`: consolidates existing summary outputs into the root comparison TSVs.
 - `39_generate_cross_study_figure.py`: creates the cross-study presentation figure in `manuscript/generated_figures/`; its internal `fig4` filename is copied as manuscript Fig. 3.
-- `40_sync_manuscript_assets.py`: copies three existing figure PDFs into the main Overleaf clone, default `69b778fd3e7b181fe1c2943b`.
+- `40_sync_manuscript_assets.py`: copies three existing figure PDFs into the main Overleaf clone, default `overleaf_manuscript`.
 - `41_generate_supplement_tables.py`: creates Tables S1/S2/S6 and collects the reusable Tables S4/S5 TSVs in `manuscript/generated_supplement/`.
-- `42_sync_supplement_assets.py`: copies the mapped figures and generated tables into the SI Overleaf clone, default `69b7797c762f515edcff3ad6`. Table S3 and `supplementary_data/` are outside this mapping.
+- `42_sync_supplement_assets.py`: copies the mapped figures and generated tables into the SI Overleaf clone, default `overleaf_supplement`. Table S3 and `supplementary_data/` are outside this mapping.
 
 Scripts 40/42 overwrite mapped destination files without a dry-run mode. Copying into the authoritative Overleaf projects is a release step, separate from analysis and presentation generation; it does not compile, commit, push, or update the dated snapshot. The SI README records the hand-maintained Table S3 sources and distinguishes accompanying data from compile dependencies.
 

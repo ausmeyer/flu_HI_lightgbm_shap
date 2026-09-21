@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_SUPPLEMENT_DIR = ROOT / "69b7797c762f515edcff3ad6"
+DEFAULT_SUPPLEMENT_DIR = ROOT / "overleaf_supplement"
 
 
 def parse_args() -> argparse.Namespace:

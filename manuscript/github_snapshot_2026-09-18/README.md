@@ -1,4 +1,4 @@
-# Manuscript snapshot (created 18 September; updated 19 September 2026)
+# Manuscript snapshot (created 18 September; updated 21 September 2026)
 
 This folder is a **dated copy** of the H3N2 LightGBM+SHAP HI manuscript and supplement for the public analysis repository.
 
@@ -6,8 +6,8 @@ This folder is a **dated copy** of the H3N2 LightGBM+SHAP HI manuscript and supp
 
 **Overleaf is the writing workspace.** Edit there:
 
-- Main text: `69b778fd3e7b181fe1c2943b/Research_report_ve.tex`
-- Supplement: `69b7797c762f515edcff3ad6/research_report_supplement.tex`
+- Main text: `overleaf_manuscript/Research_report_ve.tex`
+- Supplement: `overleaf_supplement/research_report_supplement.tex`
 
 This snapshot is a GitHub-facing copy of those files plus our generated figures and tables. If the Overleaf sources and this folder disagree, trust Overleaf.
 

@@ -18,8 +18,8 @@ If you are trying to understand or audit the paper rather than rerun every scrip
 ## Manuscript workspace
 
 Overleaf is the authoritative writing workspace:
-- Main text: local clone `69b778fd3e7b181fe1c2943b/Research_report_ve.tex`
-- Supplement: local clone `69b7797c762f515edcff3ad6/research_report_supplement.tex`
+- Main text: local clone `overleaf_manuscript/Research_report_ve.tex`
+- Supplement: local clone `overleaf_supplement/research_report_supplement.tex`
 
 A dated GitHub-facing copy lives in `manuscript/github_snapshot_2026-09-18/` (text, bibliography, our figures and tables only). Copyrighted publisher PDFs in `all_citations/` and `relevant_literature/*.pdf` are gitignored and must never be staged, committed, or pushed.
 
@@ -78,9 +78,9 @@ The repo contains a manuscript-reporting layer in addition to the raw pipeline o
 | --- | --- | --- |
 | 38 | Consolidate existing analysis summaries | Root comparison TSVs |
 | 39 | Produce the cross-study presentation figure | `manuscript/generated_figures/` |
-| 40 | Copy the three main figure PDFs, replacing destination files | Main Overleaf clone `69b778fd3e7b181fe1c2943b/figures/` |
+| 40 | Copy the three main figure PDFs, replacing destination files | Main Overleaf clone `overleaf_manuscript/figures/` |
 | 41 | Produce Tables S1, S2, and S6 and collect Tables S4/S5 | `manuscript/generated_supplement/` |
-| 42 | Copy SI figures and generated tables, replacing destination files | SI Overleaf clone `69b7797c762f515edcff3ad6/` |
+| 42 | Copy SI figures and generated tables, replacing destination files | SI Overleaf clone `overleaf_supplement/` |
 
 Stages 40 and 42 copy existing assets; they do not fit models, compile documents, commit, push, or refresh the dated GitHub snapshot. Treat copying into the authoritative writing projects as a release step: review source assets and destination changes together. Both scripts currently overwrite mapped files without a dry-run mode. Table S3 is hand-maintained in the SI project and is outside stages 41/42; its source records are documented in the SI README.
 
