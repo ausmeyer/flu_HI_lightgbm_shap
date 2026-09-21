@@ -198,7 +198,7 @@ def write_table_s2_tex(df: pd.DataFrame, out_path: Path) -> None:
     lines = [
         r"\begin{table}[!h]",
         r"\centering",
-        r"\caption{Overlap between each model's top 30 sites and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets. For the primary Harvey comparison, we used all positions with posterior inclusion probability at least 0.95 in the structurally aware model of Harvey et al.\ (2023). We report the overlap with a restricted 15-site list separately in the accompanying data file as a sensitivity analysis.}",
+        r"\caption{Overlap between each model's top 30 sites and the Koel (7 sites), Neher/Bedford (15 sites), Harvey structurally aware PIP~$\geq$0.95 (14 sites), and Shah (30 sites) reference sets.}",
         r"\label{tab:si-reference-overlap}",
         r"\footnotesize",
         r"\setlength{\tabcolsep}{4pt}",
@@ -223,11 +223,11 @@ SITE_LITERATURE_NOTES = {
     145: "Koel 2013 cluster-transition site. Koel 2019: substitutions at 145 were context-independent in that reverse-genetics panel.",
     155: "Koel 2013 cluster-transition site. Koel 2019: substitutions at 155 were context-dependent in that reverse-genetics panel.",
     156: "Koel 2013 cluster-transition site.",
-    158: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B). Zost 2017 concerns the 158--160 glycosylation motif via K160T, not historical N158K.",
+    158: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B). Zost 2017 examined the 158--160 glycosylation motif via K160T.",
     159: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
     189: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
     193: "Koel 2013 cluster-transition site; Harvey PIP >= 0.95 (site B).",
-    225: "Harvey structurally-aware PIP >= 0.95 (receptor-binding site); Shah aggregated set. Chambers 2015 lists N225D among 3C.2a/3C.3a differences relative to A/Texas/50/2012; that panel did not identify N225D as the principal HAI driver.",
+    225: "Harvey structurally-aware PIP >= 0.95 (receptor-binding site); Shah aggregated set. Chambers 2015 lists N225D among 3C.2a/3C.3a differences relative to A/Texas/50/2012.",
     135: "Harvey structurally-aware PIP >= 0.95 (site A); Neher/Bedford named substitution.",
     173: "Harvey structurally-aware PIP >= 0.95 (site D).",
     160: "Zost 2017: K160T introduces the HA1 158--160 N-linked glycosylation motif in contemporary H3N2.",
@@ -285,11 +285,6 @@ def write_table_s6_tex(df: pd.DataFrame, out_path: Path) -> None:
         [
             r"\bottomrule",
             r"\end{tabular*}",
-            r"\par\vspace{0.35em}",
-            r"\begin{minipage}{\textwidth}",
-            r"\raggedright\footnotesize",
-            r"\textit{Note.} Sites without notes are included because they ranked among the top 15 in one or both models. We report their membership in the published site lists.",
-            r"\end{minipage}",
             r"\end{table}",
         ]
     )
